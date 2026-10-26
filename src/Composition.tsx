@@ -60,11 +60,16 @@ const Logo: React.FC<Props> = ({ titulo }) => {
         flexDirection: "column",
         alignItems: "center",
         gap: 70,
-        translate: interpolate(frame, [0, 1.2 * fps], ["0px 1400px", "0px 0px"], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-          easing: Easing.spring({ damping: 14 }),
-        }),
+        translate: interpolate(
+          frame,
+          [0, 1.2 * fps],
+          ["0px 1400px", "0px 0px"],
+          {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.spring({ damping: 14 }),
+          },
+        ),
       }}
     >
       <div
