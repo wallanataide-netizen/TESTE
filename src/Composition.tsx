@@ -1,6 +1,14 @@
-import { CalculateMetadataFunction, Composition } from "remotion";
+import {
+  AbsoluteFill,
+  CalculateMetadataFunction,
+  Composition,
+  interpolate,
+  useCurrentFrame,
+} from "remotion";
 
-type Props = {};
+type Props = {
+  titulo: string;
+};
 
 const calculateMetadata: CalculateMetadataFunction<Props> = () => {
   return {};
@@ -9,17 +17,44 @@ const calculateMetadata: CalculateMetadataFunction<Props> = () => {
 export const MyComposition = () => {
   return (
     <Composition
-      id="MyComp"
+      id="Vertical"
       component={MyComponent}
-      durationInFrames={60}
+      durationInFrames={150}
       fps={30}
-      width={1280}
-      height={720}
+      width={1080}
+      height={1920}
+      defaultProps={{ titulo: "Meu vídeo vertical" }}
       calculateMetadata={calculateMetadata}
     />
   );
 };
 
-export const MyComponent: React.FC<Props> = () => {
-  return null;
+export const MyComponent: React.FC<Props> = ({ titulo }) => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame, [0, 30], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#111827",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 80,
+      }}
+    >
+      <h1
+        style={{
+          color: "white",
+          fontFamily: "sans-serif",
+          fontSize: 110,
+          textAlign: "center",
+          opacity,
+        }}
+      >
+        {titulo}
+      </h1>
+    </AbsoluteFill>
+  );
 };
