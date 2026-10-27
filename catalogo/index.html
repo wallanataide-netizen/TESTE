@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Catálogo Massas Bom Gosto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Catálogo 2026 de pastéis, biscoitos e rosquinhas Massas Bom Gosto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: forno escuro no topo (logo + manifesto), faixa de linhas fixa, vitrine em grade de molduras douradas, ficha do produto em painel. */
+:root {
+  --forno: #1d120d;        /* casca torrada: fundo de cabeçalho e rodapé */
+  --forno-2: #2b1b13;
+  --farinha: #faf5ec;      /* fundo da vitrine */
+  --papel: #ffffff;
+  --tinta: #24170f;        /* texto */
+  --tinta-2: #6b5545;
+  --linha: #e7dccb;
+  --vermelho: #c8102e;     /* vermelho da marca */
+  --ouro: #f2b300;         /* amarelo da marca */
+  --trigo: #d9a441;        /* moldura dourada */
+  --sobre-forno: #fbefd9;
+  --sombra: 0 1px 2px rgb(60 30 10 / .08), 0 10px 28px -12px rgb(60 30 10 / .28);
+  --f-display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --f-texto: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-cod: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --farinha: #17100c; --papel: #221712; --tinta: #f6ead8; --tinta-2: #bba48f; --linha: #3a2a20;
+    --vermelho: #ff4d5e; --forno: #0f0906; --forno-2: #1c120d;
+    --sombra: 0 1px 2px rgb(0 0 0 / .4), 0 12px 30px -12px rgb(0 0 0 / .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --farinha: #17100c; --papel: #221712; --tinta: #f6ead8; --tinta-2: #bba48f; --linha: #3a2a20;
+  --vermelho: #ff4d5e; --forno: #0f0906; --forno-2: #1c120d;
+  --sombra: 0 1px 2px rgb(0 0 0 / .4), 0 12px 30px -12px rgb(0 0 0 / .7);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 130px; }
+body { background: var(--farinha); color: var(--tinta); font: 400 16px/1.55 var(--f-texto); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--forno); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+svg { width: 18px; height: 18px; flex: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--ouro); outline-offset: 2px; border-radius: 6px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1240px; margin: 0 auto; }
+.eyebrow { font: 600 12px/1 var(--f-texto); letter-spacing: .16em; text-transform: uppercase; }
+
+/* ---------- Topo ---------- */
+.hero { background: radial-gradient(120% 90% at 85% 0%, #5a1a12 0%, transparent 55%), radial-gradient(90% 80% at 0% 100%, #3a2410 0%, transparent 60%), var(--forno); color: var(--sobre-forno); overflow: hidden; position: relative; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-block: 44px 56px; }
+.hero-logo { width: min(320px, 70%); height: auto; filter: drop-shadow(0 14px 24px rgb(0 0 0 / .45)); }
+.hero .eyebrow { color: var(--ouro); margin-top: 26px; display: block; }
+.hero h1 { font-size: clamp(2.3rem, 5.4vw, 4.1rem); line-height: .98; font-weight: 800; margin-top: 12px; }
+.hero h1 em { font-style: normal; color: var(--ouro); }
+.hero-lead { margin-top: 18px; max-width: 46ch; color: #e8d6bd; font-size: 1.06rem; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; gap: 9px; border-radius: 999px; padding: 12px 20px; font-weight: 700; font-size: .95rem; text-decoration: none; border: 0; transition: transform .15s ease, background .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-ouro { background: var(--ouro); color: #2a1606; }
+.btn-linha { background: transparent; color: var(--sobre-forno); box-shadow: inset 0 0 0 1.5px rgb(251 239 217 / .4); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgb(251 239 217 / .14); }
+.hero-stats b { display: block; font: 800 1.9rem/1 var(--f-display); color: #fff; font-variant-numeric: tabular-nums; }
+.hero-stats span { font-size: .82rem; color: #cdb79c; }
+.hero-shelf { position: relative; height: 430px; }
+.hero-shelf img { position: absolute; bottom: 0; height: 84%; width: auto; max-width: 48%; object-fit: contain; border-radius: 14px; box-shadow: 0 24px 40px -16px rgb(0 0 0 / .7); border: 3px solid var(--trigo); background: #120c09; }
+.hero-shelf img:nth-child(1) { left: 0; height: 74%; transform: rotate(-6deg); }
+.hero-shelf img:nth-child(2) { left: 50%; translate: -50% 0; z-index: 2; height: 92%; }
+.hero-shelf img:nth-child(3) { right: 0; height: 74%; transform: rotate(6deg); }
+.trigo-bg { position: absolute; right: -40px; top: -30px; width: 320px; height: 320px; opacity: .08; pointer-events: none; }
+
+/* ---------- Barra de linhas ---------- */
+.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--farinha) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
+.barra .wrap { display: flex; gap: 14px; align-items: center; padding-block: 12px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; padding-block: 2px; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; border: 1.5px solid var(--linha); background: var(--papel); border-radius: 999px; padding: 8px 14px; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.chip small { color: var(--tinta-2); font-weight: 500; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--tinta); color: var(--farinha); border-color: var(--tinta); }
+.chip[aria-pressed="true"] small { color: inherit; opacity: .7; }
+.busca { position: relative; flex: 0 1 260px; min-width: 150px; }
+.busca input { width: 100%; border: 1.5px solid var(--linha); background: var(--papel); color: var(--tinta); border-radius: 999px; padding: 9px 14px 9px 38px; font: 500 .92rem var(--f-texto); }
+.busca svg { position: absolute; left: 13px; top: 50%; translate: 0 -50%; width: 17px; height: 17px; color: var(--tinta-2); }
+
+/* ---------- Vitrine ---------- */
+main { padding-block: 40px 80px; }
+.linha-sec + .linha-sec { margin-top: 64px; }
+.linha-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--tinta); }
+.linha-head .eyebrow { color: var(--vermelho); }
+.linha-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 800; margin-top: 6px; }
+.linha-head p { color: var(--tinta-2); max-width: 52ch; }
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 26px 22px; }
+.card { display: flex; flex-direction: column; background: var(--papel); border-radius: 22px; box-shadow: var(--sombra); overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
+.card:hover { transform: translateY(-3px); }
+
+/* Moldura personalizada: fundo na cor do produto, filete dourado duplo e selo de peso. A foto entra inteira, sem recorte. */
+.moldura { --cor: #c8102e; position: relative; display: block; width: 100%; padding: 14px; border: 0; background:
+  radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--cor) 55%, #fff 0%) 0%, color-mix(in srgb, var(--cor) 85%, #000) 100%); }
+.moldura::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgb(255 226 160 / .55); border-radius: 16px; pointer-events: none; }
+.foto { display: block; position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 12px; overflow: hidden; background: #140d09; box-shadow: 0 0 0 2px var(--trigo), 0 0 0 5px rgb(0 0 0 / .18), 0 0 0 6px rgb(255 226 160 / .5); }
+.foto .fundo { position: absolute; inset: -10%; width: 120%; height: 120%; object-fit: cover; filter: blur(18px) saturate(1.2) brightness(.6); }
+.foto .emb { position: relative; width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.selo { position: absolute; right: 6px; bottom: 6px; z-index: 2; width: 62px; height: 62px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: var(--ouro); color: #2a1606; box-shadow: 0 0 0 3px #fff, 0 6px 14px rgb(0 0 0 / .35); font: 800 1rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.selo small { display: block; font: 600 .58rem/1 var(--f-texto); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px; }
+.novo { position: absolute; left: 6px; top: 6px; z-index: 2; background: var(--vermelho); color: #fff; font: 700 .68rem/1 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; }
+.card-corpo { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px; flex: 1; }
+.card-corpo .sub { font: 600 .74rem/1.2 var(--f-texto); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-2); }
+.card-corpo h3 { font-size: 1.28rem; font-weight: 700; line-height: 1.15; }
+.card-corpo .tag { color: var(--tinta-2); font-size: .9rem; line-height: 1.4; }
+.card-pe { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--linha); }
+.cod { font: 600 .8rem var(--f-cod); color: var(--tinta); font-variant-numeric: tabular-nums; letter-spacing: .02em; display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 4px 0; }
+.cod svg { width: 14px; height: 14px; color: var(--tinta-2); }
+.add { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--vermelho); color: #fff; display: grid; place-items: center; transition: transform .15s ease; }
+.add svg { width: 18px; height: 18px; }
+.add[data-tem="1"] { background: var(--tinta); color: var(--farinha); }
+.add:active { transform: scale(.92); }
+.vazio { padding: 48px 0; text-align: center; color: var(--tinta-2); }
+
+/* ---------- Ficha (dialog) ---------- */
+dialog { border: 0; padding: 0; background: var(--papel); color: var(--tinta); border-radius: 24px; width: min(1000px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); box-shadow: 0 30px 80px rgb(0 0 0 / .45); overflow: hidden; }
+dialog::backdrop { background: rgb(20 10 5 / .7); backdrop-filter: blur(4px); }
+.ficha { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); max-height: calc(100dvh - 24px); }
+.ficha .moldura { height: 100%; display: flex; align-items: center; padding: 22px; }
+.ficha .moldura::before { inset: 10px; }
+.ficha .foto { width: 100%; aspect-ratio: auto; height: min(70dvh, 620px); }
+.ficha-info { overflow-y: auto; padding: 30px 32px 28px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.ficha-info .sub { font: 600 .76rem/1 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--vermelho); }
+.ficha-info h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.02; margin-top: 8px; }
+.ficha-info .slogan { font: 700 1.02rem/1.35 var(--f-display); }
+.ficha-info .desc { color: var(--tinta-2); }
+.dados { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.dado { border: 1.5px solid var(--linha); border-radius: 14px; padding: 10px 14px; min-width: 0; }
+.dado span { display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-2); font-weight: 600; }
+.dado b { font: 700 1.1rem var(--f-display); font-variant-numeric: tabular-nums; }
+.dado .cod { font-size: .98rem; padding: 0; }
+.destaques { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; }
+.destaques li { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; font-size: .92rem; line-height: 1.3; }
+.destaques svg { width: 18px; height: 18px; flex: none; color: var(--trigo); margin-top: 1px; }
+.bloco h3 { font: 700 .78rem/1 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-2); margin-bottom: 8px; }
+.bloco p { font-size: .94rem; }
+.alerg { display: flex; flex-wrap: wrap; gap: 6px; }
+.alerg span { font-size: .8rem; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: color-mix(in srgb, var(--ouro) 22%, var(--papel)); }
+.alerg span.zero { background: color-mix(in srgb, #2f8f4e 20%, var(--papel)); }
+.ficha-acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+.btn-escuro { background: var(--tinta); color: var(--farinha); }
+.btn-borda { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1.5px var(--linha); }
+.fechar { position: absolute; top: 12px; right: 12px; z-index: 5; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgb(20 10 5 / .65); color: #fff; display: grid; place-items: center; }
+.fechar svg { width: 20px; height: 20px; }
+.original { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--linha); }
+
+/* ---------- Pedido ---------- */
+.fab { position: fixed; right: max(18px, calc(env(safe-area-inset-right, 0px) + 18px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 25; display: inline-flex; align-items: center; gap: 10px; background: var(--vermelho); color: #fff; border: 0; border-radius: 999px; padding: 14px 20px; font-weight: 700; box-shadow: 0 14px 30px -10px rgb(150 10 30 / .6); }
+.fab svg { width: 20px; height: 20px; }
+.fab b { background: #fff; color: var(--vermelho); border-radius: 999px; min-width: 24px; padding: 2px 7px; font-variant-numeric: tabular-nums; }
+#pedido { width: min(520px, calc(100vw - 24px)); }
+.ped { display: flex; flex-direction: column; max-height: calc(100dvh - 24px); }
+.ped-topo { padding: 24px 24px 14px; border-bottom: 1px solid var(--linha); }
+.ped-topo h2 { font-size: 1.6rem; font-weight: 800; }
+.ped-topo p { color: var(--tinta-2); font-size: .92rem; margin-top: 4px; }
+.ped-lista { overflow-y: auto; padding: 8px 24px; flex: 1; }
+.ped-item { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 10px; border-bottom: 1px solid var(--linha); }
+.ped-item img { width: 48px; height: 60px; object-fit: contain; background: #140d09; border-radius: 8px; }
+.ped-item b { display: block; font-size: .95rem; line-height: 1.2; }
+.ped-item small { color: var(--tinta-2); font: 500 .76rem var(--f-cod); }
+.qtd { display: flex; align-items: center; border: 1.5px solid var(--linha); border-radius: 999px; }
+.qtd button { width: 32px; height: 32px; border: 0; background: none; font-weight: 700; font-size: 1.1rem; }
+.qtd output { min-width: 28px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ped-pe { padding: 16px 24px 22px; border-top: 1px solid var(--linha); display: grid; gap: 12px; }
+.ped-pe label { font-weight: 600; font-size: .85rem; }
+.ped-pe input { width: 100%; margin-top: 4px; border: 1.5px solid var(--linha); background: var(--farinha); color: var(--tinta); border-radius: 12px; padding: 10px 12px; font: 500 .95rem var(--f-texto); }
+.ped-pe .acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.ped-pe .acoes .btn { flex: 1 1 180px; justify-content: center; }
+.aviso { font-size: .85rem; color: var(--tinta-2); min-height: 1.2em; }
+.ped-vazio { padding: 30px 0; color: var(--tinta-2); text-align: center; }
+
+.toast { position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; z-index: 60; background: var(--tinta); color: var(--farinha); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .9rem; opacity: 0; transition: opacity .2s ease; pointer-events: none; max-width: calc(100vw - 32px); text-align: center; }
+.toast.on { opacity: 1; }
+
+/* ---------- Rodapé ---------- */
+footer { background: var(--forno); color: #d9c6ab; padding-block: 48px calc(100px + env(safe-area-inset-bottom, 0px)); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); gap: 32px; }
+footer img { width: 180px; height: auto; }
+footer h3 { font: 700 .78rem/1 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--ouro); margin-bottom: 12px; }
+footer p { font-size: .92rem; line-height: 1.6; }
+footer a { color: #fff; font-weight: 600; }
+.selos-pe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.selos-pe span { border: 1px solid rgb(251 239 217 / .2); border-radius: 999px; padding: 5px 11px; font-size: .78rem; }
+
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 32px 40px; gap: 18px; }
+  .hero-shelf { height: 300px; max-width: 460px; width: 100%; margin: 0 auto; }
+  .ficha { grid-template-columns: minmax(0, 1fr); overflow-y: auto; }
+  .ficha .foto { height: 52dvh; }
+  .ficha-info { overflow: visible; padding: 24px 20px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .busca { flex-basis: 170px; }
+}
+@media (max-width: 560px) {
+  .barra .wrap { flex-wrap: wrap; }
+  .busca { flex: 1 1 100%; order: -1; }
+  .grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px; }
+  .moldura { padding: 9px; }
+  .moldura::before { inset: 4px; border-radius: 14px; }
+  .selo { width: 50px; height: 50px; font-size: .86rem; }
+  .card-corpo { padding: 12px 12px 14px; }
+  .card-corpo h3 { font-size: 1.04rem; }
+  .card-corpo .tag { display: none; }
+  .cod { font-size: .68rem; }
+  .add { width: 34px; height: 34px; }
+  .destaques, .dados { grid-template-columns: minmax(0, 1fr); }
+  .fab span { display: none; }
+  .hero-stats { gap: 20px; }
+  .hero-stats b { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-trigo" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22V9m0 3c-2.5 0-4-1.6-4-4 2.5 0 4 1.6 4 4Zm0 0c2.5 0 4-1.6 4-4-2.5 0-4 1.6-4 4Zm0 4c-2.5 0-4-1.6-4-4 2.5 0 4 1.6 4 4Zm0 0c2.5 0 4-1.6 4-4-2.5 0-4 1.6-4 4Zm0-8c-2.2 0-3.5-1.5-3.5-3.6 2.2 0 3.5 1.5 3.5 3.6Zm0 0c2.2 0 3.5-1.5 3.5-3.6-2.2 0-3.5 1.5-3.5 3.6ZM12 4.5c-.9 0-1.6-.9-1.6-2.1.9 0 1.6.9 1.6 2.1Zm0 0c.9 0 1.6-.9 1.6-2.1-.9 0-1.6.9-1.6 2.1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mais" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copiar" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-sacola" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2A2 2 0 0 1 15.8 21H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-pagina" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="hero gutter">
+  <svg class="trigo-bg" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trigo"/></svg>
+  <div class="wrap">
+    <div>
+      <img class="hero-logo" src="img/logo.webp" alt="Massas Bom Gosto" width="900" height="493">
+      <span class="eyebrow">Catálogo de produtos · 2026</span>
+      <h1>Crocância de verdade, <em>do forno para a sua prateleira.</em></h1>
+      <p class="hero-lead">Pastéis crocantes, biscoitos amanteigados e rosquinhas feitos com ingredientes selecionados e receita de família. Escolha os produtos, monte sua lista e envie o pedido.</p>
+      <div class="hero-cta">
+        <a class="btn btn-ouro" href="#vitrine"><svg><use href="#i-trigo"/></svg>Ver produtos</a>
+        <a class="btn btn-linha" href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener"><svg><use href="#i-insta"/></svg>@massasbomgostocdd</a>
+      </div>
+      <div class="hero-stats" id="stats"></div>
+    </div>
+    <div class="hero-shelf" aria-hidden="true">
+      <img src="img/prod/p04.jpg" alt="">
+      <img src="img/prod/p30.jpg" alt="">
+      <img src="img/prod/p22.jpg" alt="">
+    </div>
+  </div>
+</header>
+
+<nav class="barra gutter" aria-label="Linhas de produtos">
+  <div class="wrap">
+    <div class="chips" id="chips" role="toolbar"></div>
+    <label class="busca"><span hidden>Buscar produto</span>
+      <svg><use href="#i-busca"/></svg>
+      <input id="q" type="search" placeholder="Buscar produto ou código" autocomplete="off">
+    </label>
+  </div>
+</nav>
+
+<main class="gutter" id="vitrine">
+  <div class="wrap" id="lista"></div>
+</main>
+
+<footer class="gutter">
+  <div class="wrap">
+    <div>
+      <img src="img/logo.webp" alt="Massas Bom Gosto" width="900" height="493">
+      <p style="margin-top:14px;max-width:40ch">Massas Bom Gosto. Sabor caseiro, crocância e qualidade em cada pacote.</p>
+      <div class="selos-pe"><span>Fabricação própria</span><span>Validade de 120 dias</span><span>Indústria brasileira</span></div>
+    </div>
+    <div>
+      <h3>Fale com a gente</h3>
+      <p>Instagram oficial<br><a href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener">@massasbomgostocdd</a></p>
+      <p style="margin-top:12px">Monte sua lista no catálogo, copie o pedido e envie pelo Direct.</p>
+    </div>
+    <div>
+      <h3>Fabricante</h3>
+      <p>M J de Macedo Dantas Pereira<br>CNPJ 27.829.524/0001-46<br>Sítio Carnaúba de Baixo, 40, Zona Rural<br>CEP 59374-000 · Carnaúba dos Dantas/RN</p>
+    </div>
+  </div>
+</footer>
+
+<button class="fab" id="fab" type="button"><svg><use href="#i-sacola"/></svg><span>Minha lista</span><b id="fabN">0</b></button>
+
+<dialog id="ficha" aria-labelledby="fichaNome"></dialog>
+
+<dialog id="pedido" aria-labelledby="pedTit">
+  <div class="ped">
+    <button class="fechar" type="button" data-fechar aria-label="Fechar"><svg><use href="#i-x"/></svg></button>
+    <div class="ped-topo">
+      <h2 id="pedTit">Minha lista de pedido</h2>
+      <p>Ajuste as quantidades em fardos ou caixas, copie o texto e envie pelo Instagram.</p>
+    </div>
+    <div class="ped-lista" id="pedLista"></div>
+    <div class="ped-pe">
+      <label for="pedCliente">Nome do cliente ou estabelecimento
+        <input id="pedCliente" type="text" placeholder="Ex.: Mercadinho São José">
+      </label>
+      <div class="acoes">
+        <button class="btn btn-escuro" id="pedCopiar" type="button"><svg><use href="#i-copiar"/></svg>Copiar pedido</button>
+        <a class="btn btn-ouro" href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener"><svg><use href="#i-insta"/></svg>Abrir Instagram</a>
+      </div>
+      <p class="aviso" id="pedAviso"></p>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const FT = "Farinha de trigo enriquecida com ferro e ácido fólico";
+const PADRAO = ["Sabor marcante e irresistível", "Crocante e sequinho", "Perfeito para acompanhar café, chá ou lanche", "Feito com ingredientes de qualidade"];
+const DELICIOSO = ["Sabor delicioso e irresistível", "Crocante e sequinho", "Perfeito para acompanhar café, chá ou lanche", "Feito com ingredientes de qualidade"];
+const SUAVE = ["Sabor suave e delicioso", "Crocante e irresistível", "Perfeito para acompanhar café, chá ou leites", "Feito com ingredientes de qualidade"];
+const ACOLHE = ["Feita com leite", "Sabor suave e caseiro", "Ideal para toda a família", "Perfeita para acompanhar seu café ou chá"];
+const TRAD = ["Sabor tradicional e caseiro", "Ideal para café ou lanche", "Perfeito para toda a família", "Acompanha bem qualquer momento"];
+const DERRETE = "Sabor que derrete na boca e conquista seus melhores momentos!";
+const ADOCA = "Sabor que derrete na boca e adoça seus melhores momentos!";
+const ACOLHE_T = "Sabor que acolhe, qualidade que faz parte do seu dia!";
+const ALEGRIA = "Alegria que une, tradição que fica!";
+const pad = (art, nome, g = "o") => `${art} ${nome} Bom Gosto é feit${g} com ingredientes selecionados e muito carinho. Leve, crocante e irresistível. Perfeit${g} para acompanhar o café, o chá ou para saborear a qualquer hora.`;
+const PASTEL_I = `${FT}, água filtrada, cebola, óleo de soja, açúcar, sal refinado.`;
+const PASTEL_A = ["Contém soja, trigo", "Zero lactose", "Contém glúten"];
+const TRAD_I = `${FT}, açúcar, gordura vegetal, amido de milho, sal, leite em pó integral, ovos, fermentos químicos (bicarbonato de sódio e fosfato monocálcico) e aromatizante.`;
+const TRAD_A = ["Contém trigo, leite, ovos, soja e derivados", "Pode conter traços de amendoim e castanhas", "Contém glúten"];
+
+const LINHAS = [
+  { id: "pasteis", nome: "Pastéis Crocantes", desc: "Massa de pastel frita, sequinha e temperada. O petisco que vende sozinho no balcão." },
+  { id: "especiais", nome: "Linha Especial", desc: "Embalagem nova, mesmo sabor. Biscoitos assados e amanteigados em pacotes de 200 g a 500 g." },
+  { id: "biscoitos", nome: "Biscoitos da Casa", desc: "Doces, salgados e folhados. Variedade para o café da manhã e o lanche da tarde." },
+  { id: "rosquinhas", nome: "Rosquinhas", desc: "Receitas caseiras de leite, nata, goiabada e amanteigado, em pacotes de 300 g." },
+  { id: "tradicionais", nome: "Biscoitos Tradicionais", desc: "O biscoito de sempre, em formatos de 250 g e 400 g para toda a família." },
+];
+
+const P = [
+  { n: 1, l: "pasteis", nome: "Pastel Crocante", sub: "Pastel", peso: "230g", cod: "7896637680240", cor: "#c8102e", slogan: DERRETE,
+    desc: "O Pastel Crocante Bom Gosto é feito com ingredientes selecionados e muito carinho. Leve, crocante e irresistível. Perfeito para acompanhar o café, o chá ou para saborear a qualquer hora.", dest: PADRAO, ingr: PASTEL_I, al: PASTEL_A },
+  { n: 2, l: "pasteis", nome: "Pastel Queijo Nacho", sub: "Pastel", peso: "230g", cod: "7897185969825", cor: "#e2741d", slogan: DERRETE,
+    desc: pad("O Pastel", "Queijo Nacho"), dest: ["Sabor suave e marcante", ...PADRAO.slice(1)], ingr: PASTEL_I, al: PASTEL_A },
+  { n: 3, l: "pasteis", nome: "Pastel Calabresa", sub: "Pastel", peso: "250g", cod: "7897185969832", cor: "#8e2016", slogan: DERRETE,
+    desc: pad("O Pastel", "Calabresa"), dest: PADRAO, ingr: PASTEL_I, al: PASTEL_A },
+  { n: 4, l: "pasteis", nome: "Pastel Picanha", sub: "Pastel", peso: "200g", cod: "7897185969801", cor: "#6b1414", slogan: DERRETE,
+    desc: pad("O Pastel", "Picanha"), dest: PADRAO, ingr: PASTEL_I, al: PASTEL_A },
+  { n: 5, l: "pasteis", nome: "Pastel Presunto", sub: "Pastel", peso: "230g", cod: "7897185969818", cor: "#a8434f", slogan: DERRETE,
+    desc: pad("O Pastel", "Presunto"), dest: ["Sabor marcante e irresistível", "Recheio cremoso e saboroso", "Perfeito para acompanhar café, chá ou lanche", "Feito com ingredientes de qualidade"], ingr: PASTEL_I, al: PASTEL_A },
+
+  { n: 6, l: "especiais", nome: "Favorita 400", sub: "Biscoito", peso: "400g", cod: "7896637678919", cor: "#1b2a5c", novo: true, slogan: "Sabor que agrada, qualidade que vende!",
+    desc: "Crocante, leve e irresistível! A Favorita 400 é perfeita para qualquer momento do dia. Feita com ingredientes selecionados e aquele sabor caseiro que todo mundo ama.",
+    dest: ["Feita com ingredientes de qualidade", "Assada e crocante", "Ideal para todas as idades", "Perfeita para o dia a dia"],
+    ingr: `${FT}, gordura vegetal, amido de milho, sal, açúcar, fermentos químicos e melhorador de farinha.`, al: ["Contém trigo", "Pode conter leite", "Contém glúten"] },
+  { n: 7, l: "especiais", nome: "Família Especial", sub: "Biscoito", peso: "400g", cod: "7896637678902", cor: "#d0202a", novo: true, slogan: "Sabor que reúne, qualidade que encanta!",
+    desc: "A Família Especial é feita com ingredientes selecionados e uma receita tradicional que conquista gerações. Crocante, saborosa e perfeita para compartilhar em qualquer ocasião especial.",
+    dest: ["Receita tradicional e sabor caseiro", "Crocante e deliciosa", "Perfeita para compartilhar", "Qualidade que você confia"],
+    ingr: `${FT}, gordura vegetal, amido de milho, sal, açúcar, fermentos químicos e melhorador de farinha.`, al: ["Contém trigo", "Pode conter leite", "Contém glúten"] },
+  { n: 8, l: "especiais", nome: "Sertaneja Especial", sub: "Biscoito", peso: "400g", cod: "7896637680141", cor: "#d0202a", novo: true, slogan: "O sabor que acompanha sua rotina com perfeição: crocante, leve e feita para todos os momentos!",
+    desc: "O Biscoito Sertaneja Especial é crocante, leve e irresistível. Feito com ingredientes selecionados, é perfeito para acompanhar o café, o chá ou para saborear a qualquer hora do dia.",
+    dest: DELICIOSO, ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, fibra de trigo, enzimas e aromatizante.`, al: ["Contém trigo, leite", "Contém lactose", "Contém glúten"] },
+  { n: 30, l: "especiais", nome: "Bom Gosto Amanteigada", sub: "Biscoito amanteigado", peso: "200g", cod: "7898935742040", cor: "#d0202a", novo: true, slogan: DERRETE,
+    desc: pad("O Biscoito", "Amanteigada").replace("Amanteigada Bom Gosto", "Bom Gosto Amanteigada"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal 80% lipídios, sal refinado, fermento biológico seco, corante alimentício amarelo ovo.`, al: ["Contém trigo", "Zero lactose", "Contém glúten"] },
+  { n: 31, l: "especiais", nome: "Delícia Amanteigada", sub: "Biscoito amanteigado", peso: "200g", cod: "7898935742170", cor: "#1f3a8f", novo: true, slogan: DERRETE,
+    desc: pad("A", "Delícia Amanteigada", "a"), dest: DELICIOSO,
+    ingr: `${FT}, margarina com sal 80% lipídios, açúcar, sal refinado, queijo ralado, essência de queijo, fermento biológico seco e corante alimentício amarelo ovo.`, al: ["Contém derivados de leite, trigo", "Contém lactose", "Contém glúten"] },
+  { n: 32, l: "especiais", nome: "Bolachão Família Amanteigada", sub: "Bolachão", peso: "500g", cod: "7898935742231", cor: "#d0202a", novo: true, slogan: "O sabor que une, a qualidade que fica!",
+    desc: "O Bolachão Família Amanteigada Bom Gosto é crocante, dourado e feito com receita tradicional para garantir aquele sabor caseiro que lembra momentos especiais ao lado da família. Perfeito para qualquer hora do dia!",
+    dest: ["Receita tradicional e amanteigada", "Crocante e saboroso", "Ideal para toda a família", "Perfeito para acompanhar seu dia a dia"],
+    ingr: `${FT}, gordura vegetal, açúcar, amido de milho, sal, ovo pasteurizado, fermentos químicos e melhorador de farinha.`, al: ["Contém trigo", "Contém ovo", "Pode conter leite", "Contém glúten"] },
+
+  { n: 9, l: "biscoitos", nome: "Suissa Cristal", sub: "Biscoito", peso: "400g", cod: "7898935742019", cor: "#5a2a86", slogan: DERRETE,
+    desc: "O Biscoito Suíssa Cristal é crocante, leve e irresistível. Feito com ingredientes selecionados e muito carinho. Perfeito para acompanhar o café, o chá ou para saborear a qualquer hora.", dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, amido de milho, leite integral em pó, sal refinado, fermentos químicos, aromatizante e melhorador de farinha (protease).`, al: ["Contém trigo, leite", "Pode conter aveia, cevada e amendoim", "Contém glúten"] },
+  { n: 10, l: "biscoitos", nome: "Premium", sub: "Biscoito", peso: "300g", cod: "7896637678940", cor: "#1f3f99", slogan: DERRETE,
+    desc: pad("O Biscoito", "Premium"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, amido de milho, leite integral em pó, sal refinado, fermentos químicos, aromatizante e melhorador de farinha (protease).`, al: ["Contém trigo, leite", "Pode conter aveia, cevada e amendoim", "Contém glúten"] },
+  { n: 11, l: "biscoitos", nome: "Suprema", sub: "Biscoito especial", peso: "300g", cod: "78966376797760", cor: "#1f3f99", slogan: DERRETE,
+    desc: pad("O Biscoito", "Suprema"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermento biológico seco, aromatizante e emulsificante.`, al: ["Contém trigo", "Zero lactose", "Contém glúten"] },
+  { n: 12, l: "biscoitos", nome: "Tentação", sub: "Biscoito", peso: "300g", cod: "7896637679787", cor: "#5a1f5e", slogan: DERRETE,
+    desc: pad("O Biscoito", "Tentação"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, emulsificante e aromatizante.`, al: ["Contém trigo", "Zero lactose", "Contém glúten"] },
+  { n: 13, l: "biscoitos", nome: "Manteiga do Sertão", sub: "Biscoito", peso: "200g", cod: "7898935742200", cor: "#d7261e", slogan: DERRETE,
+    desc: pad("O Biscoito", "Manteiga do Sertão"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, fibra de trigo, enzimas e aromatizante.`, al: ["Contém trigo, leite", "Pode conter centeio", "Contém glúten"] },
+  { n: 14, l: "biscoitos", nome: "Gostinho do Sertão", sub: "Biscoito", peso: "200g", cod: "78978861938693", cor: "#e3a40a", slogan: DERRETE,
+    desc: pad("O Biscoito", "Gostinho do Sertão"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, emulsificantes e aromatizante.`, al: ["Contém trigo", "Pode conter centeio", "Contém glúten"] },
+  { n: 15, l: "biscoitos", nome: "Delicata", sub: "Biscoito", peso: "250g", cod: "7896637680165", cor: "#e3a40a", slogan: DERRETE,
+    desc: pad("O Biscoito", "Delicata"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, emulsificante e aromatizante.`, al: ["Contém ovos", "Contém derivados de leite", "Contém lactose"] },
+  { n: 16, l: "biscoitos", nome: "Rainha Especial Agridoce", sub: "Nova · Biscoito", peso: "250g", cod: "7896637678964", cor: "#e08c12", novo: true, slogan: "O sabor que adoça seus momentos com qualidade e tradição!",
+    desc: "A Rainha Especial Agridoce Bom Gosto combina o sabor levemente adocicado com uma textura crocante e irresistível. Feita com ingredientes selecionados, é perfeita para acompanhar o café, chá ou para saborear a qualquer hora do dia.",
+    dest: ["Sabor agridoce e equilibrado", "Crocante e deliciosa", "Perfeita para café, chá ou lanche", "Feita com ingredientes de qualidade"],
+    ingr: `${FT}, amido de milho, margarina com sal (80% lipídeos), açúcar, sal refinado, fermentos químicos (bicarbonato de sódio e fosfato monocálcico), corante alimentício amarelo ovo e aroma artificial.`, al: ["Contém trigo", "Pode conter leite", "Contém glúten"] },
+  { n: 17, l: "biscoitos", nome: "Integral", sub: "Biscoito", peso: "250g", cod: "7896637680264", cor: "#1f5a30", slogan: DERRETE,
+    desc: pad("O Biscoito", "Integral"), dest: DELICIOSO,
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, fibra de trigo, emulsificantes e aromatizante.`, al: ["Contém trigo", "Pode conter centeio", "Contém glúten"] },
+  { n: 18, l: "biscoitos", nome: "Sabor Alho", sub: "Biscoito", peso: "200g", cod: "7896637678872", cor: "#1f5a30", slogan: DERRETE,
+    desc: pad("O Biscoito", "Sabor Alho"), dest: DELICIOSO,
+    ingr: `${FT}, margarina com sal 80% lipídios, açúcar, sal refinado, queijo ralado, essência de alho, fermento biológico seco e corante alimentício amarelo ovo.`, al: ["Contém trigo", "Zero lactose", "Contém glúten"] },
+  { n: 19, l: "biscoitos", nome: "Sabor Queijo", sub: "Biscoito", peso: "200g", cod: "7896637678889", cor: "#1f5a30", slogan: DERRETE,
+    desc: "O Biscoito Bom Gosto Sabor Queijo é feito com ingredientes selecionados e muito carinho. Leve, crocante e irresistível. Perfeito para acompanhar o café, o chá ou para saborear a qualquer hora.", dest: DELICIOSO,
+    ingr: `${FT}, margarina com sal 80% lipídios, açúcar, sal refinado, queijo ralado, essência de queijo, fermento biológico seco e corante alimentício amarelo ovo.`, al: ["Contém derivados de leite, trigo", "Contém lactose", "Contém glúten"] },
+  { n: 20, l: "biscoitos", nome: "Tareco", sub: "Biscoito", peso: "200g", cod: "7892090538982", cor: "#e2741d", slogan: "O clássico sabor que faz parte da família!",
+    desc: "O Biscoito Tareco Bom Gosto é crocante, levemente doce e feito com ingredientes selecionados para oferecer aquele sabor caseiro que traz lembranças gostosas da nossa infância. Perfeito para o café, lanche da tarde ou para compartilhar com quem você ama.",
+    dest: ["Sabor caseiro e tradicional", "Crocante e levemente doce", "Ideal para café, chá ou lanches", "Feito para reunir e compartilhar"],
+    ingr: `${FT}, açúcar, gordura vegetal, leite em pó integral, ovos, fermentos químicos (bicarbonato de sódio e fosfato monocálcico) e aromatizante.`, al: ["Contém leite, ovos, trigo", "Contém lactose", "Contém glúten"] },
+  { n: 21, l: "biscoitos", nome: "Maragogi", sub: "Biscoito tradicional", peso: "250g", cod: "7898935742088", cor: "#d0202a", slogan: "Prove e aprove!",
+    desc: "O Biscoito Maragogi da Massas Bom Gosto é tradicional, crocante e feito com ingredientes selecionados que garantem sabor e qualidade em cada mordida. Perfeito para acompanhar seu café, chá ou qualquer momento do dia.",
+    dest: ["Tradicional e crocante", "Sabor que acompanha seu dia", "Perfeito para café, chá ou lanches", "Feito com ingredientes selecionados"],
+    ingr: `${FT}, açúcar, gordura vegetal, margarina com sal (80% lipídios), sal refinado, fermentos químicos, leite em pó, fibra de trigo, enzimas e aromatizante.`, al: ["Contém trigo, leite", "Contém lactose", "Contém glúten"] },
+  { n: 22, l: "biscoitos", nome: "Maragogi Goiabada", sub: "Biscoito recheado", peso: "250g", cod: "7896637680172", cor: "#c81d25", slogan: "Sabor que desperta lembranças doces e momentos especiais!",
+    desc: "O Biscoito Maragogi Goiabada Bom Gosto combina a leveza e crocância da massa com o recheio tradicional de goiabada, criando uma explosão de sabor que conquista gerações. Perfeito para o lanche da tarde, para dividir com a família ou para matar aquela vontade de doce.",
+    dest: ["Recheio tradicional de goiabada", "Massa crocante e folhada", "Perfeito para toda a família", "Ideal para acompanhar seu café ou chá"],
+    ingr: `${FT}, açúcar, goiabada, gordura vegetal, amido de milho, sal, fermentos químicos (bicarbonato de sódio e fosfato monocálcico) e aromatizante.`, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+  { n: 23, l: "biscoitos", nome: "Sete Capas", sub: "Biscoito folhado", peso: "275g", cod: "7898935742071", cor: "#b06b16", slogan: "Camadas de sabor que encantam a cada mordida!",
+    desc: "O Biscoito Sete Capas Bom Gosto é leve, crocante e irresistível. Feito com camadas finas e delicadas, proporciona uma textura única que derrete na boca. Perfeito para acompanhar seu café, ou para adoçar os melhores momentos do seu dia.",
+    dest: ["Massa folhada e crocante", "Derrete na boca", "Ideal para café, chá e lanches", "Perfeito para compartilhar e presentear"],
+    ingr: `${FT}, açúcar, gordura vegetal, amido de milho, margarina com sal 80% lipídios, açúcar mascavo, sal refinado, ovos, conservante 282 e antioxidante INS 300 e emulsificante INS 433.`, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+  { n: 24, l: "biscoitos", nome: "Bolinho de Goma", sub: "Biscoito", peso: "200g", cod: "78966337679794", cor: "#d9661a", slogan: ADOCA,
+    desc: pad("O", "Bolinho de Goma"), dest: SUAVE,
+    ingr: `Amido de milho, açúcar, farinha de trigo enriquecida com ferro e ácido fólico, margarina com sal 80% lipídios, leite de coco, ovos.`, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+  { n: 25, l: "biscoitos", nome: "Raivinha", sub: "Biscoito", peso: "80g", cod: "7896637678957", cor: "#d9661a", slogan: ADOCA,
+    desc: pad("O Biscoito", "Raivinha"), dest: SUAVE,
+    ingr: `Amido de milho, açúcar, farinha de trigo enriquecida com ferro e ácido fólico, margarina com sal 80% lipídios, leite de coco, ovos.`, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+
+  { n: 26, l: "rosquinhas", nome: "Rosquinha Amanteigado", sub: "Rosquinha", peso: "300g", cod: "7896637679817", cor: "#1f7a3a", slogan: ACOLHE_T,
+    desc: "A Rosquinha Amanteigado Bom Gosto é feita com ingredientes selecionados e o sabor suave e caseiro do leite, proporcionando momentos de carinho e tradição para toda a família.", dest: ACOLHE,
+    ingr: TRAD_I, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+  { n: 27, l: "rosquinhas", nome: "Rosquinha Nata", sub: "Rosquinha", peso: "300g", cod: "7896637680158", cor: "#e3a40a", slogan: ADOCA,
+    desc: pad("A Rosquinha de", "Nata", "a"), dest: ["Sabor suave e delicioso", "Crocante e irresistível", "Perfeita para acompanhar café, chá ou leites", "Feita com ingredientes de qualidade"],
+    ingr: `${FT}, amido de milho, margarina com sal 80% lipídios, açúcar mascavo, sal refinado, ovos, conservante 282 e antioxidante INS 300 e emulsificante INS 433.`, al: ["Contém derivados de leite, ovos, trigo", "Contém lactose", "Contém glúten"] },
+  { n: 28, l: "rosquinhas", nome: "Rosquinha Leite", sub: "Rosquinha", peso: "300g", cod: "7896637680127", cor: "#1f3f99", slogan: ACOLHE_T,
+    desc: "A Rosquinha Leite Bom Gosto é feita com ingredientes selecionados e o sabor suave e caseiro do leite, proporcionando momentos de carinho e tradição para toda a família.", dest: ACOLHE,
+    ingr: TRAD_I, al: ["Contém leite, ovos, trigo", "Pode conter aveia e cevada", "Contém glúten"] },
+  { n: 29, l: "rosquinhas", nome: "Rosquinha Goiabada", sub: "Rosquinha", peso: "300g", cod: "7896637680219", cor: "#d0202a", slogan: ADOCA,
+    desc: pad("A Rosquinha de", "Goiabada", "a"), dest: ["Sabor suave e delicioso", "Crocante e irresistível", "Perfeita para acompanhar café, chá ou leites", "Feita com ingredientes de qualidade"],
+    ingr: `${FT}, amido de milho, margarina com sal 80% lipídios, açúcar, goiabada, ovos, conservante 282 e antioxidante INS 300 e emulsificante INS 433.`, al: ["Contém ovos, trigo", "Zero lactose", "Contém glúten"] },
+
+  { n: 33, l: "tradicionais", nome: "Biscoito 400g", sub: "Biscoitos · rótulo verde", peso: "400g", cod: "7898935742040", cor: "#24603a", slogan: ALEGRIA,
+    desc: "Os Biscoitos Massas Bom Gosto são feitos com carinho e receita tradicional para garantir aquele sabor que acompanha os melhores momentos do dia. Perfeitos para o café da manhã, lanche da tarde ou para dividir bons momentos com a família.", dest: TRAD, ingr: TRAD_I, al: TRAD_A },
+  { n: 34, l: "tradicionais", nome: "Biscoito 250g", sub: "Biscoitos · rótulo azul", peso: "250g", cod: "7898935742163", cor: "#2f6fb8", slogan: ALEGRIA,
+    desc: "Os Biscoitos Massas Bom Gosto são feitos com carinho e receita tradicional para garantir aquele sabor que acompanha os melhores momentos do dia. Perfeitos para o café da manhã, lanche da tarde ou para dividir bons momentos com a família.", dest: TRAD, ingr: TRAD_I, al: TRAD_A },
+  { n: 35, l: "tradicionais", nome: "Biscoito 400g", sub: "Biscoito · rótulo verde-limão", peso: "400g", cod: "7898663617714", cor: "#4a8f2a", slogan: ALEGRIA,
+    desc: "Os Biscoitos Massas Bom Gosto são feitos com carinho e receita tradicional para garantir aquele sabor que acompanha os melhores momentos do dia. Perfeitos para o café da manhã, lanche da tarde ou para dividir bons momentos com a família.", dest: TRAD, ingr: TRAD_I, al: TRAD_A },
+];
+P.forEach(p => { p.id = "p" + String(p.n).padStart(2, "0"); p.img = `img/prod/${p.id}.jpg`; p.pag = `img/paginas/pg${String(p.n).padStart(2, "0")}.jpg`; });
+const byId = Object.fromEntries(P.map(p => [p.id, p]));
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ico = (id, cls = "") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+/* ---------- Estado ---------- */
+let filtro = "todos", busca = "";
+let lista = {};
+try { lista = JSON.parse(localStorage.getItem("bg-lista") || "{}") || {}; } catch { lista = {}; }
+for (const k of Object.keys(lista)) if (!byId[k] || !(lista[k] > 0)) delete lista[k];
+const salvar = () => { try { localStorage.setItem("bg-lista", JSON.stringify(lista)); } catch {} };
+let cliente = "";
+try { cliente = localStorage.getItem("bg-cliente") || ""; } catch {}
+
+/* ---------- Topo ---------- */
+$("#stats").innerHTML = [
+  [P.length, "produtos"], [LINHAS.length, "linhas"], ["80g–500g", "embalagens"]
+].map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("");
+
+/* ---------- Filtros ---------- */
+function chips() {
+  const itens = [{ id: "todos", nome: "Todos", n: P.length }, ...LINHAS.map(l => ({ ...l, n: P.filter(p => p.l === l.id).length }))];
+  $("#chips").innerHTML = itens.map(c => `<button class="chip" type="button" data-f="${c.id}" aria-pressed="${filtro === c.id}">${esc(c.nome)}<small>${c.n}</small></button>`).join("");
+}
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest("[data-f]"); if (!b) return;
+  filtro = b.dataset.f; chips(); render();
+  document.getElementById("vitrine").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+$("#q").addEventListener("input", e => { busca = norm(e.target.value.trim()); render(); });
+
+/* ---------- Vitrine ---------- */
+function moldura(p, grande = false) {
+  return `<span class="foto">
+      <img class="fundo" src="${p.img}" alt="" aria-hidden="true" loading="lazy">
+      <img class="emb" src="${p.img}" alt="Embalagem ${esc(p.nome)} ${p.peso}" loading="${grande ? "eager" : "lazy"}">
+      ${p.novo ? `<span class="novo">Nova embalagem</span>` : ""}
+      <span class="selo"><small>Peso</small>${p.peso}</span>
+    </span>`;
+}
+function card(p) {
+  return `<article class="card">
+    <button class="moldura" type="button" style="--cor:${p.cor}" data-abrir="${p.id}" aria-label="Ver ficha de ${esc(p.nome)}">${moldura(p)}</button>
+    <div class="card-corpo">
+      <span class="sub">${esc(p.sub)}</span>
+      <h3>${esc(p.nome)}</h3>
+      <p class="tag">${esc(p.slogan)}</p>
+      <div class="card-pe">
+        <button class="cod" type="button" data-copiar="${p.cod}" title="Copiar código">${ico("copiar")}${p.cod}</button>
+        <button class="add" type="button" data-add="${p.id}" data-tem="${lista[p.id] ? 1 : 0}" aria-label="${lista[p.id] ? "Na lista" : "Adicionar à lista"}: ${esc(p.nome)}">${ico(lista[p.id] ? "ok" : "mais")}</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render() {
+  const ok = p => (filtro === "todos" || p.l === filtro) && (!busca || norm(`${p.nome} ${p.sub} ${p.cod} ${p.peso}`).includes(busca));
+  const html = LINHAS.map(l => {
+    const itens = P.filter(p => p.l === l.id && ok(p));
+    if (!itens.length) return "";
+    return `<section class="linha-sec" id="linha-${l.id}">
+      <div class="linha-head"><div><span class="eyebrow">${itens.length} ${itens.length === 1 ? "produto" : "produtos"}</span><h2>${esc(l.nome)}</h2></div><p>${esc(l.desc)}</p></div>
+      <div class="grade">${itens.map(card).join("")}</div>
+    </section>`;
+  }).join("");
+  $("#lista").innerHTML = html || `<p class="vazio">Nenhum produto encontrado para essa busca. Tente outro nome ou código.</p>`;
+}
+
+/* ---------- Ficha ---------- */
+const ficha = $("#ficha");
+function abrir(id, empurrar = true) {
+  const p = byId[id]; if (!p) return;
+  const linha = LINHAS.find(l => l.id === p.l);
+  ficha.innerHTML = `<button class="fechar" type="button" data-fechar aria-label="Fechar">${ico("x")}</button>
+  <div class="ficha">
+    <div class="moldura" style="--cor:${p.cor}">${moldura(p, true)}</div>
+    <div class="ficha-info">
+      <div><span class="sub">${esc(linha.nome)} · ${esc(p.sub)}</span><h2 id="fichaNome">${esc(p.nome)}</h2></div>
+      <p class="slogan">${esc(p.slogan)}</p>
+      <p class="desc">${esc(p.desc)}</p>
+      <div class="dados">
+        <div class="dado"><span>Peso líquido</span><b>${p.peso}</b></div>
+        <div class="dado"><span>Código do produto</span><button class="cod" type="button" data-copiar="${p.cod}" title="Copiar código">${p.cod}${ico("copiar")}</button></div>
+      </div>
+      <ul class="destaques">${p.dest.map(d => `<li>${ico("trigo")}${esc(d)}</li>`).join("")}</ul>
+      <div class="bloco"><h3>Ingredientes</h3><p>${esc(p.ingr)}</p></div>
+      <div class="bloco"><h3>Alérgicos</h3><div class="alerg">${p.al.map(a => `<span class="${/^zero/i.test(a) ? "zero" : ""}">${esc(a)}</span>`).join("")}</div></div>
+      <div class="bloco" id="origBloco" hidden><h3>Ficha original com tabela nutricional</h3><img class="original" src="${p.pag}" alt="Página original do catálogo: ${esc(p.nome)}" loading="lazy"></div>
+      <div class="ficha-acoes">
+        <button class="btn btn-escuro" type="button" data-add="${p.id}">${ico(lista[p.id] ? "ok" : "mais")}${lista[p.id] ? `Na lista (${lista[p.id]})` : "Adicionar à lista"}</button>
+        <button class="btn btn-borda" type="button" id="verOrig">${ico("pagina")}Tabela nutricional</button>
+      </div>
+    </div>
+  </div>`;
+  ficha.dataset.id = id;
+  $("#verOrig").addEventListener("click", () => {
+    const b = $("#origBloco"); b.hidden = !b.hidden;
+    if (!b.hidden) b.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  if (!ficha.open) ficha.showModal();
+  ficha.querySelector(".ficha-info").scrollTop = 0;
+  if (empurrar && location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+}
+function fecharFicha() { if (ficha.open) ficha.close(); }
+ficha.addEventListener("close", () => { if (location.hash) history.replaceState(null, "", location.pathname + location.search); });
+
+/* ---------- Lista de pedido ---------- */
+const pedido = $("#pedido");
+const total = () => Object.values(lista).reduce((a, b) => a + b, 0);
+function atualizaFab() { const n = Object.keys(lista).length; $("#fabN").textContent = n; $("#fab").hidden = !n; }
+function alterar(id, delta) {
+  const v = (lista[id] || 0) + delta;
+  if (v > 0) lista[id] = v; else delete lista[id];
+  salvar(); atualizaFab(); render();
+  if (ficha.open && ficha.dataset.id === id) abrir(id, false);
+  if (pedido.open) renderPedido();
+}
+function renderPedido() {
+  const ids = Object.keys(lista);
+  $("#pedLista").innerHTML = ids.length ? ids.map(id => { const p = byId[id]; return `
+    <div class="ped-item">
+      <img src="${p.img}" alt="">
+      <div><b>${esc(p.nome)} ${p.peso}</b><small>${p.cod}</small></div>
+      <div class="qtd"><button type="button" data-q="${id}" data-d="-1" aria-label="Diminuir">−</button><output>${lista[id]}</output><button type="button" data-q="${id}" data-d="1" aria-label="Aumentar">+</button></div>
+    </div>`; }).join("") : `<p class="ped-vazio">Sua lista está vazia. Toque no + de um produto para adicionar.</p>`;
+  $("#pedCopiar").disabled = !ids.length;
+}
+function textoPedido() {
+  const nome = $("#pedCliente").value.trim();
+  const linhas = Object.keys(lista).map(id => { const p = byId[id]; return `• ${lista[id]}x ${p.nome} ${p.peso} (cód. ${p.cod})`; });
+  return [`Pedido Massas Bom Gosto${nome ? " · " + nome : ""}`, "", ...linhas, "", `Total: ${total()} itens`].join("\n");
+}
+$("#pedCliente").value = cliente;
+$("#pedCliente").addEventListener("input", e => { try { localStorage.setItem("bg-cliente", e.target.value); } catch {} });
+$("#pedCopiar").addEventListener("click", () => copiar(textoPedido(), "Pedido copiado. Cole no Direct do Instagram."));
+$("#fab").addEventListener("click", () => { renderPedido(); $("#pedAviso").textContent = ""; pedido.showModal(); });
+
+/* ---------- Copiar ---------- */
+let tt;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2400); }
+function copiar(txt, msg) {
+  const falha = () => {
+    const ta = document.createElement("textarea"); ta.value = txt; ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;opacity:0"; (document.querySelector("dialog[open]") || document.body).appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch {}
+    ta.remove();
+    if (ok) toast(msg); else { toast("Não foi possível copiar. Selecione o texto e copie manualmente."); if (pedido.open) $("#pedAviso").textContent = txt; }
+  };
+  try { navigator.clipboard.writeText(txt).then(() => toast(msg), falha); } catch { falha(); }
+}
+
+/* ---------- Eventos gerais ---------- */
+document.addEventListener("click", e => {
+  const t = e.target;
+  const a = t.closest("[data-abrir]"); if (a) return abrir(a.dataset.abrir);
+  const c = t.closest("[data-copiar]"); if (c) return copiar(c.dataset.copiar, `Código ${c.dataset.copiar} copiado`);
+  const ad = t.closest("[data-add]"); if (ad) { const id = ad.dataset.add; const tinha = !!lista[id]; alterar(id, 1); return toast(tinha ? `${byId[id].nome}: ${lista[id]} na lista` : `${byId[id].nome} adicionado à lista`); }
+  const q = t.closest("[data-q]"); if (q) return alterar(q.dataset.q, +q.dataset.d);
+  const f = t.closest("[data-fechar]"); if (f) return f.closest("dialog").close();
+  if (t.tagName === "DIALOG") t.close();
+});
+function rota() { const h = location.hash.slice(1); if (byId[h]) abrir(h, false); else if (!h) fecharFicha(); }
+addEventListener("hashchange", rota);
+
+chips(); render(); atualizaFab(); rota();
+</script>
+
+</body>
+</html>

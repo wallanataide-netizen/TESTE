@@ -52,3 +52,8 @@ Found an issue with Remotion? [File an issue here](https://github.com/remotion-d
 ## License
 
 Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+
+## Catálogo Massas Bom Gosto 2026
+
+Catálogo web em `catalogo/` (abra `catalogo/index.html`). Fotos das embalagens recortadas em retângulo das páginas originais, sem alteração.
+Edite `catalogo/catalogo.html` e rode `catalogo/build.sh` para gerar o `index.html`.
