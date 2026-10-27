@@ -113,6 +113,13 @@ main { padding-block: 40px 80px; }
 .foto { display: block; position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 12px; overflow: hidden; background: #140d09; box-shadow: 0 0 0 2px var(--trigo), 0 0 0 5px rgb(0 0 0 / .18), 0 0 0 6px rgb(255 226 160 / .5); }
 .foto .fundo { position: absolute; inset: -10%; width: 120%; height: 120%; object-fit: cover; filter: blur(18px) saturate(1.2) brightness(.6); }
 .foto .emb { position: relative; width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+/* Fundo de estúdio para embalagens em PNG vazado: luz central na cor do produto, raios suaves e piso com sombra. */
+.foto.estudio { background:
+  radial-gradient(70% 55% at 50% 38%, color-mix(in srgb, var(--cor) 45%, #fff6dc) 0%, color-mix(in srgb, var(--cor) 80%, #000) 62%, color-mix(in srgb, var(--cor) 45%, #000) 100%); }
+.foto.estudio::before { content: ""; position: absolute; inset: 0; background: repeating-conic-gradient(from 0deg at 50% 38%, rgb(255 255 255 / .07) 0deg 6deg, transparent 6deg 18deg); -webkit-mask: radial-gradient(closest-side at 50% 38%, #000 30%, transparent 100%); mask: radial-gradient(closest-side at 50% 38%, #000 30%, transparent 100%); }
+.foto.estudio::after { content: ""; position: absolute; left: 50%; bottom: 5%; width: 70%; height: 9%; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .55), transparent); }
+.foto.estudio .emb { z-index: 1; padding: 9% 12% 8%; filter: drop-shadow(0 12px 14px rgb(0 0 0 / .45)); transition: transform .3s ease; }
+.card:hover .foto.estudio .emb { transform: translateY(-4px) scale(1.02); }
 .selo { position: absolute; right: 6px; bottom: 6px; z-index: 2; width: 62px; height: 62px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: var(--ouro); color: #2a1606; box-shadow: 0 0 0 3px #fff, 0 6px 14px rgb(0 0 0 / .35); font: 800 1rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
 .selo small { display: block; font: 600 .58rem/1 var(--f-texto); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px; }
 .novo { position: absolute; left: 6px; top: 6px; z-index: 2; background: var(--vermelho); color: #fff; font: 700 .68rem/1 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; }
@@ -173,6 +180,7 @@ dialog::backdrop { background: rgb(20 10 5 / .7); backdrop-filter: blur(4px); }
 .ped-lista { overflow-y: auto; padding: 8px 24px; flex: 1; }
 .ped-item { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 10px; border-bottom: 1px solid var(--linha); }
 .ped-item img { width: 48px; height: 60px; object-fit: contain; background: #140d09; border-radius: 8px; }
+.ped-item img.png { background: radial-gradient(circle at 50% 40%, #fff3d6, #e9c98f); padding: 3px; }
 .ped-item b { display: block; font-size: .95rem; line-height: 1.2; }
 .ped-item small { color: var(--tinta-2); font: 500 .76rem var(--f-cod); }
 .qtd { display: flex; align-items: center; border: 1.5px solid var(--linha); border-radius: 999px; }
@@ -456,7 +464,8 @@ const P = [
   { n: 35, l: "tradicionais", nome: "Biscoito 400g", sub: "Biscoito · rótulo verde-limão", peso: "400g", cod: "7898663617714", cor: "#4a8f2a", slogan: ALEGRIA,
     desc: "Os Biscoitos Massas Bom Gosto são feitos com carinho e receita tradicional para garantir aquele sabor que acompanha os melhores momentos do dia. Perfeitos para o café da manhã, lanche da tarde ou para dividir bons momentos com a família.", dest: TRAD, ingr: TRAD_I, al: TRAD_A },
 ];
-P.forEach(p => { p.id = "p" + String(p.n).padStart(2, "0"); p.img = `img/prod/${p.id}.jpg`; p.pag = `img/paginas/pg${String(p.n).padStart(2, "0")}.jpg`; });
+const PNG = ["p01", "p02", "p03", "p04", "p05"];
+P.forEach(p => { p.id = "p" + String(p.n).padStart(2, "0"); p.png = PNG.includes(p.id); p.img = p.png ? `img/png/${p.id}.webp` : `img/prod/${p.id}.jpg`; p.pag = `img/paginas/pg${String(p.n).padStart(2, "0")}.jpg`; });
 const byId = Object.fromEntries(P.map(p => [p.id, p]));
 
 const $ = s => document.querySelector(s);
@@ -492,8 +501,8 @@ $("#q").addEventListener("input", e => { busca = norm(e.target.value.trim()); re
 
 /* ---------- Vitrine ---------- */
 function moldura(p, grande = false) {
-  return `<span class="foto">
-      <img class="fundo" src="${p.img}" alt="" aria-hidden="true" loading="lazy">
+  return `<span class="foto${p.png ? " estudio" : ""}">
+      ${p.png ? "" : `<img class="fundo" src="${p.img}" alt="" aria-hidden="true" loading="lazy">`}
       <img class="emb" src="${p.img}" alt="Embalagem ${esc(p.nome)} ${p.peso}" loading="${grande ? "eager" : "lazy"}">
       ${p.novo ? `<span class="novo">Nova embalagem</span>` : ""}
       <span class="selo"><small>Peso</small>${p.peso}</span>
@@ -579,7 +588,7 @@ function renderPedido() {
   const ids = Object.keys(lista);
   $("#pedLista").innerHTML = ids.length ? ids.map(id => { const p = byId[id]; return `
     <div class="ped-item">
-      <img src="${p.img}" alt="">
+      <img class="${p.png ? "png" : ""}" src="${p.img}" alt="">
       <div><b>${esc(p.nome)} ${p.peso}</b><small>${p.cod}</small></div>
       <div class="qtd"><button type="button" data-q="${id}" data-d="-1" aria-label="Diminuir">−</button><output>${lista[id]}</output><button type="button" data-q="${id}" data-d="1" aria-label="Aumentar">+</button></div>
     </div>`; }).join("") : `<p class="ped-vazio">Sua lista está vazia. Toque no + de um produto para adicionar.</p>`;
