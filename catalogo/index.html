@@ -75,15 +75,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgb(251 239 217 / .14); }
 .hero-stats b { display: block; font: 800 1.9rem/1 var(--f-display); color: #fff; font-variant-numeric: tabular-nums; }
 .hero-stats span { font-size: .82rem; color: #cdb79c; }
-/* Composição em leque: embalagem principal à frente, as duas laterais juntas e recuadas atrás dela, levemente abertas em perspectiva. */
-.hero-shelf { position: relative; height: 480px; display: flex; justify-content: center; align-items: center; isolation: isolate; perspective: 1100px; }
+/* Capa: composição pronta das embalagens (PNG vazado) sobre luz dourada e sombra de chão. */
+.hero-shelf { position: relative; display: grid; place-items: center; isolation: isolate; padding-block: 10px 24px; }
 .hero-shelf::before { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; aspect-ratio: 1; translate: -50% -50%; z-index: -2; border-radius: 50%; background: radial-gradient(closest-side, rgb(242 179 0 / .2), rgb(200 16 46 / .12) 55%, transparent 76%); }
-.hero-shelf::after { content: ""; position: absolute; left: 50%; bottom: 4%; width: 70%; height: 30px; translate: -50% 0; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .55), transparent); }
-.hero-shelf img { position: relative; width: auto; max-width: 46%; object-fit: contain; transform-origin: 50% 100%; }
-.hero-shelf img:nth-child(1), .hero-shelf img:nth-child(3) { height: 84%; z-index: 1; filter: brightness(.92) drop-shadow(0 18px 20px rgb(0 0 0 / .5)); }
-.hero-shelf img:nth-child(1) { margin-right: -24%; transform: translateY(2%) rotateY(16deg) rotate(-4deg); }
-.hero-shelf img:nth-child(3) { margin-left: -24%; transform: translateY(2%) rotateY(-16deg) rotate(4deg); }
-.hero-shelf img:nth-child(2) { height: 98%; z-index: 2; filter: drop-shadow(0 26px 28px rgb(0 0 0 / .6)) drop-shadow(0 0 1px rgb(0 0 0 / .4)); }
+.hero-shelf::after { content: ""; position: absolute; left: 50%; bottom: 14px; width: 66%; height: 30px; translate: -50% 0; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .55), transparent); }
+.hero-shelf img { width: 100%; max-width: 560px; height: auto; filter: drop-shadow(0 24px 26px rgb(0 0 0 / .5)); }
 .trigo-bg { position: absolute; right: -40px; top: -30px; width: 320px; height: 320px; opacity: .08; pointer-events: none; }
 
 /* ---------- Barra de linhas ---------- */
@@ -205,7 +201,7 @@ footer a { color: #fff; font-weight: 600; }
 
 @media (max-width: 860px) {
   .hero .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 32px 40px; gap: 18px; }
-  .hero-shelf { height: 360px; max-width: 460px; width: 100%; margin: 0 auto; }
+  .hero-shelf { max-width: 420px; width: 100%; margin: 0 auto; }
   .ficha { grid-template-columns: minmax(0, 1fr); overflow-y: auto; }
   .ficha .foto { height: 52dvh; }
   .ficha-info { overflow: visible; padding: 24px 20px; }
@@ -259,9 +255,7 @@ footer a { color: #fff; font-weight: 600; }
       <div class="hero-stats" id="stats"></div>
     </div>
     <div class="hero-shelf" aria-hidden="true">
-      <img src="img/capa/capa1.webp" alt="" width="588" height="900">
-      <img src="img/capa/capa2.webp" alt="" width="608" height="900">
-      <img src="img/capa/capa3.webp" alt="" width="589" height="900">
+      <img src="img/capa/capa-pasteis.webp" alt="" width="913" height="747">
     </div>
   </div>
 </header>
