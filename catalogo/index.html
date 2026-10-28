@@ -71,6 +71,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btn:hover { transform: translateY(-1px); }
 .btn-ouro { background: var(--ouro); color: #2a1606; }
 .btn-linha { background: transparent; color: var(--sobre-forno); box-shadow: inset 0 0 0 1.5px rgb(251 239 217 / .4); }
+.btn-wa { background: #1f9d55; color: #fff; }
 .btn svg { width: 18px; height: 18px; flex: none; }
 .hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgb(251 239 217 / .14); }
 .hero-stats b { display: block; font: 800 1.9rem/1 var(--f-display); color: #fff; font-variant-numeric: tabular-nums; }
@@ -204,6 +205,15 @@ footer img { width: 180px; height: auto; }
 footer h3 { font: 700 .78rem/1 var(--f-texto); letter-spacing: .14em; text-transform: uppercase; color: var(--ouro); margin-bottom: 12px; }
 footer p { font-size: .92rem; line-height: 1.6; }
 footer a { color: #fff; font-weight: 600; }
+.fones { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 10px; }
+.fones li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.fones .num { font: 700 1.15rem var(--f-display); color: #fff; font-variant-numeric: tabular-nums; user-select: all; }
+.fones a, .fones button { display: inline-flex; align-items: center; gap: 6px; font: 600 .8rem var(--f-texto); color: #fff; text-decoration: none; border: 0; border-radius: 999px; padding: 6px 11px; background: rgb(251 239 217 / .1); }
+.fones a { background: #1f9d55; }
+.fones svg { width: 15px; height: 15px; }
+.ped-wa { display: flex; flex-wrap: wrap; gap: 8px; }
+.ped-wa .btn { flex: 1 1 200px; justify-content: center; }
+.ped-wa .btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
 .selos-pe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .selos-pe span { border: 1px solid rgb(251 239 217 / .2); border-radius: 999px; padding: 5px 11px; font-size: .78rem; }
 
@@ -242,6 +252,7 @@ footer a { color: #fff; font-weight: 600; }
   <symbol id="i-ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-copiar" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   <symbol id="i-sacola" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 11.2A2 2 0 0 1 15.8 21H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4.5 19.5l1.1-3.9A8 8 0 1 1 8.6 18.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.4c0 .3-.1.6-.5.8-.6.3-1.4.4-2.3 0-1.9-.8-3.4-2.3-4.2-4.2-.3-.8-.3-1.6 0-2.5z" fill="currentColor"/></symbol>
   <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
   <symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
@@ -258,6 +269,7 @@ footer a { color: #fff; font-weight: 600; }
       <p class="hero-lead">Pastéis crocantes, biscoitos amanteigados e rosquinhas feitos com ingredientes selecionados e receita de família. Escolha os produtos, monte sua lista e envie o pedido.</p>
       <div class="hero-cta">
         <a class="btn btn-ouro" href="#vitrine"><svg><use href="#i-trigo"/></svg>Ver produtos</a>
+        <a class="btn btn-wa" href="https://wa.me/5584988737905" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>(84) 98873-7905</a>
         <a class="btn btn-linha" href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener"><svg><use href="#i-insta"/></svg>@massasbomgostocdd</a>
       </div>
       <div class="hero-stats" id="stats"></div>
@@ -291,8 +303,12 @@ footer a { color: #fff; font-weight: 600; }
     </div>
     <div>
       <h3>Fale com a gente</h3>
+      <ul class="fones">
+        <li><span class="num">(84) 98873-7905</span><a href="https://wa.me/5584988737905" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a><button type="button" data-copiar="(84) 98873-7905"><svg><use href="#i-copiar"/></svg>Copiar</button></li>
+        <li><span class="num">(84) 98812-2260</span><a href="https://wa.me/5584988122260" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a><button type="button" data-copiar="(84) 98812-2260"><svg><use href="#i-copiar"/></svg>Copiar</button></li>
+      </ul>
       <p>Instagram oficial<br><a href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener">@massasbomgostocdd</a></p>
-      <p style="margin-top:12px">Monte sua lista no catálogo, copie o pedido e envie pelo Direct.</p>
+      <p style="margin-top:12px">Monte sua lista no catálogo e envie o pedido pelo WhatsApp ou pelo Direct.</p>
     </div>
     <div>
       <h3>Fabricante</h3>
@@ -310,13 +326,17 @@ footer a { color: #fff; font-weight: 600; }
     <button class="fechar" type="button" data-fechar aria-label="Fechar"><svg><use href="#i-x"/></svg></button>
     <div class="ped-topo">
       <h2 id="pedTit">Minha lista de pedido</h2>
-      <p>Ajuste as quantidades em fardos ou caixas, copie o texto e envie pelo Instagram.</p>
+      <p>Ajuste as quantidades em fardos ou caixas e envie o pedido pelo WhatsApp, ou copie o texto para o Instagram.</p>
     </div>
     <div class="ped-lista" id="pedLista"></div>
     <div class="ped-pe">
       <label for="pedCliente">Nome do cliente ou estabelecimento
         <input id="pedCliente" type="text" placeholder="Ex.: Mercadinho São José">
       </label>
+      <div class="ped-wa">
+        <a class="btn btn-wa" data-wa="5584988737905" href="https://wa.me/5584988737905" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Enviar para (84) 98873-7905</a>
+        <a class="btn btn-wa" data-wa="5584988122260" href="https://wa.me/5584988122260" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Enviar para (84) 98812-2260</a>
+      </div>
       <div class="acoes">
         <button class="btn btn-escuro" id="pedCopiar" type="button"><svg><use href="#i-copiar"/></svg>Copiar pedido</button>
         <a class="btn btn-ouro" href="https://www.instagram.com/massasbomgostocdd" target="_blank" rel="noopener"><svg><use href="#i-insta"/></svg>Abrir Instagram</a>
@@ -593,6 +613,7 @@ function renderPedido() {
       <div class="qtd"><button type="button" data-q="${id}" data-d="-1" aria-label="Diminuir">−</button><output>${lista[id]}</output><button type="button" data-q="${id}" data-d="1" aria-label="Aumentar">+</button></div>
     </div>`; }).join("") : `<p class="ped-vazio">Sua lista está vazia. Toque no + de um produto para adicionar.</p>`;
   $("#pedCopiar").disabled = !ids.length;
+  linksWa();
 }
 function textoPedido() {
   const nome = $("#pedCliente").value.trim();
@@ -600,7 +621,11 @@ function textoPedido() {
   return [`Pedido Massas Bom Gosto${nome ? " · " + nome : ""}`, "", ...linhas, "", `Total: ${total()} itens`].join("\n");
 }
 $("#pedCliente").value = cliente;
-$("#pedCliente").addEventListener("input", e => { try { localStorage.setItem("bg-cliente", e.target.value); } catch {} });
+function linksWa() {
+  const vazio = !Object.keys(lista).length, txt = encodeURIComponent(textoPedido());
+  document.querySelectorAll("[data-wa]").forEach(a => { a.href = `https://wa.me/${a.dataset.wa}?text=${txt}`; a.setAttribute("aria-disabled", vazio); });
+}
+$("#pedCliente").addEventListener("input", e => { try { localStorage.setItem("bg-cliente", e.target.value); } catch {} linksWa(); });
 $("#pedCopiar").addEventListener("click", () => copiar(textoPedido(), "Pedido copiado. Cole no Direct do Instagram."));
 $("#fab").addEventListener("click", () => { renderPedido(); $("#pedAviso").textContent = ""; pedido.showModal(); });
 
@@ -622,7 +647,7 @@ function copiar(txt, msg) {
 document.addEventListener("click", e => {
   const t = e.target;
   const a = t.closest("[data-abrir]"); if (a) return abrir(a.dataset.abrir);
-  const c = t.closest("[data-copiar]"); if (c) return copiar(c.dataset.copiar, `Código ${c.dataset.copiar} copiado`);
+  const c = t.closest("[data-copiar]"); if (c) return copiar(c.dataset.copiar, /^\(/.test(c.dataset.copiar) ? `Telefone ${c.dataset.copiar} copiado` : `Código ${c.dataset.copiar} copiado`);
   const ad = t.closest("[data-add]"); if (ad) { const id = ad.dataset.add; const tinha = !!lista[id]; alterar(id, 1); return toast(tinha ? `${byId[id].nome}: ${lista[id]} na lista` : `${byId[id].nome} adicionado à lista`); }
   const q = t.closest("[data-q]"); if (q) return alterar(q.dataset.q, +q.dataset.d);
   const f = t.closest("[data-fechar]"); if (f) return f.closest("dialog").close();
