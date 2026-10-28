@@ -484,7 +484,7 @@ const P = [
   { n: 35, l: "tradicionais", nome: "Biscoito 400g", sub: "Biscoito · rótulo verde-limão", peso: "400g", cod: "7898663617714", cor: "#4a8f2a", slogan: ALEGRIA,
     desc: "Os Biscoitos Massas Bom Gosto são feitos com carinho e receita tradicional para garantir aquele sabor que acompanha os melhores momentos do dia. Perfeitos para o café da manhã, lanche da tarde ou para dividir bons momentos com a família.", dest: TRAD, ingr: TRAD_I, al: TRAD_A },
 ];
-const PNG = ["p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p12", "p30", "p31", "p32"];
+const PNG = ["p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p30", "p31", "p32"];
 P.forEach(p => { p.id = "p" + String(p.n).padStart(2, "0"); p.png = PNG.includes(p.id); p.img = p.png ? `img/png/${p.id}.webp` : `img/prod/${p.id}.jpg`; p.pag = `img/paginas/pg${String(p.n).padStart(2, "0")}.jpg`; });
 const byId = Object.fromEntries(P.map(p => [p.id, p]));
 
