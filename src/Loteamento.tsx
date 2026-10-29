@@ -18,15 +18,15 @@ const DURATION = 7 * FPS;
 
 const NEON_GREEN = "#39ff6a";
 const NEON_ORANGE = "#ffa53a";
-const clamp = {
+export const clamp = {
   extrapolateLeft: "clamp",
   extrapolateRight: "clamp",
 } as const;
 
-type Camera = { x: number; y: number; zoom: number };
+export type Camera = { x: number; y: number; zoom: number };
 
 // Keeps the camera inside the photo so no edge is ever visible.
-const clampCamera = ({ x, y, zoom }: Camera): Camera => {
+export const clampCamera = ({ x, y, zoom }: Camera): Camera => {
   const halfW = W / 2 / zoom;
   const halfH = H / 2 / zoom;
   return {
@@ -37,12 +37,12 @@ const clampCamera = ({ x, y, zoom }: Camera): Camera => {
 };
 
 // Image-space point -> screen-space point for a given camera.
-const project = (cam: Camera, px: number, py: number) => ({
+export const project = (cam: Camera, px: number, py: number) => ({
   x: (px - cam.x) * cam.zoom + W / 2,
   y: (py - cam.y) * cam.zoom + H / 2,
 });
 
-const cameraStyle = (cam: Camera): React.CSSProperties => ({
+export const cameraStyle = (cam: Camera): React.CSSProperties => ({
   position: "absolute",
   width: W,
   height: H,
@@ -64,7 +64,7 @@ const CENTRO_PATH =
 
 // --- Neon stroke --------------------------------------------------------------
 
-const NeonPath: React.FC<{
+export const NeonPath: React.FC<{
   d: string;
   color: string;
   progress: number;
@@ -96,7 +96,7 @@ const NeonPath: React.FC<{
   );
 };
 
-const GlowDefs: React.FC = () => (
+export const GlowDefs: React.FC = () => (
   <defs>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="4" />
@@ -128,7 +128,7 @@ const StoreIcon: React.FC = () => (
   </svg>
 );
 
-const HomeIcon: React.FC = () => (
+export const HomeIcon: React.FC = () => (
   <svg width="54" height="54" viewBox="0 0 24 24" fill="none">
     <path
       d="M3 11 12 3l9 8M5 9.5V21h14V9.5M10 21v-6h4v6"
@@ -142,7 +142,7 @@ const HomeIcon: React.FC = () => (
 
 // --- Badge with pin --------------------------------------------------------------
 
-const Badge: React.FC<{
+export const Badge: React.FC<{
   x: number;
   y: number;
   appearAt: number;
