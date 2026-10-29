@@ -1,4 +1,5 @@
 import { MyComposition } from "./Composition";
+import { FinalComposition } from "./Final";
 import { LoteamentoComposition } from "./Loteamento";
 
 export const RemotionRoot: React.FC = () => {
@@ -6,6 +7,7 @@ export const RemotionRoot: React.FC = () => {
     <>
       <MyComposition />
       <LoteamentoComposition />
+      <FinalComposition />
     </>
   );
 };
