@@ -25,8 +25,7 @@
   .page{width:1240px;height:1754px;position:relative;overflow:hidden;margin:0 auto 40px;
     background:
       radial-gradient(ellipse 55% 22% at 85% 4%, rgba(214,20,27,.30), transparent 70%),
-      radial-gradient(ellipse 50% 20% at 10% 2%, rgba(255,194,26,.10), transparent 70%),
-      radial-gradient(ellipse 80% 20% at 50% 100%, rgba(214,20,27,.18), transparent 70%),
+            radial-gradient(ellipse 80% 20% at 50% 100%, rgba(214,20,27,.18), transparent 70%),
       var(--bg);
     display:flex;flex-direction:column;padding:62px 70px 0}
   /* moldura dupla dourada */
@@ -35,7 +34,8 @@
 
   /* cabeçalho */
   .header{display:flex;align-items:center;justify-content:space-between;height:220px}
-  .header img{height:212px;width:auto;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+  .header .lw{position:relative;margin:-26px 0 -26px -18px}
+  .header img{display:block;height:270px;width:auto;mix-blend-mode:lighten}
   .htitle{text-align:right;font-family:'Oswald';text-transform:uppercase;line-height:1}
   .htitle .k{color:var(--gold);font-weight:600;font-size:24px;letter-spacing:12px;margin-right:-12px}
   .htitle .t{color:#fff;font-weight:700;font-size:104px;letter-spacing:2px;margin-top:6px}
@@ -52,7 +52,7 @@
   .sec.sm h2{font-size:36px}
 
   /* itens */
-  .grid{display:grid;column-gap:46px;row-gap:24px}
+  .grid{display:grid;column-gap:46px;row-gap:20px}
   .g3{grid-template-columns:repeat(3,1fr)}
   .g2{grid-template-columns:repeat(2,1fr)}
   .row{display:flex;align-items:baseline;gap:8px}
@@ -64,14 +64,16 @@
   .list .row{padding:7px 0}
 
   /* destaque */
-  .feature{position:relative;margin-top:36px;border:2px solid var(--gold);border-radius:8px;padding:30px 40px 26px;
+  .feature{position:relative;margin-top:36px;border:2px solid var(--gold);border-radius:8px;padding:28px 40px 22px;
            background:linear-gradient(115deg,var(--red-dk) 0%,var(--red) 55%,#a50e14 100%);
-           box-shadow:0 14px 34px rgba(0,0,0,.5), inset 0 0 0 6px rgba(0,0,0,.12);display:flex;align-items:center;gap:34px}
+           box-shadow:inset 0 0 0 6px rgba(0,0,0,.12)}
+  .feature .ftop{display:flex;align-items:baseline;gap:16px}
+  .feature .ftop .lead{border-bottom-color:rgba(255,223,107,.55);transform:translateY(-12px)}
   .feature .badge{position:absolute;top:-15px;left:40px;background:var(--gold);color:var(--ink);font-family:'Oswald';font-weight:700;font-size:16px;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:3px}
-  .feature .fn{font-family:'Oswald';font-weight:700;font-size:56px;line-height:1;text-transform:uppercase;color:#fff;letter-spacing:1px;white-space:nowrap}
+  .feature .fn{font-family:'Oswald';font-weight:700;font-size:52px;line-height:1;text-transform:uppercase;color:#fff;letter-spacing:1px;white-space:nowrap}
   .feature .fn em{font-style:normal;color:var(--gold)}
-  .feature .fd{flex:1;font-size:17px;font-weight:600;line-height:1.4;color:#fff3e6;border-left:2px solid rgba(255,194,26,.6);padding-left:30px}
-  .feature .fp{font-family:'Oswald';font-weight:700;font-size:54px;color:var(--gold);line-height:1;white-space:nowrap;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .feature .fd{font-size:17px;font-weight:600;line-height:1.4;color:#fff3e6;margin-top:10px}
+  .feature .fp{font-family:'Oswald';font-weight:700;font-size:52px;color:var(--gold);line-height:1;white-space:nowrap}
   .feature .fp small{font-size:24px;margin-right:4px}
 
   .box{border:1px solid rgba(255,194,26,.35);border-radius:8px;background:rgba(255,255,255,.025);padding:22px 28px}
@@ -94,7 +96,7 @@
 <!-- ======================= PÁGINA 1 ======================= -->
 <section class="page" id="p1">
   <header class="header">
-    <img src="assets/logo-ronalds-recorte.png" alt="Ronald's Lanches">
+    <div class="lw"><img src="assets/logo-ronalds-fundo.png" alt="Ronald's Lanches"></div>
     <div class="htitle">
       <div class="k">Cardápio</div>
       <div class="t">Lanches</div>
@@ -124,9 +126,8 @@
 
   <div class="feature">
     <div class="badge">★ O mais pedido</div>
-    <div class="fn"><em>Mc</em> Ronald’s</div>
+    <div class="ftop"><div class="fn"><em>Ronald’s</em> Lanches</div><span class="lead"></span><div class="fp"><small>R$</small>22,00</div></div>
     <p class="fd">Pão, 2 hambúrgueres, frango desfiado, 2 ovos, 2 queijos, 2 presuntos, salsicha, calabresa, bacon, batata palha, salada e catupiry</p>
-    <div class="fp"><small>R$</small>22,00</div>
   </div>
 
   <div class="sec"><h2>Bebidas</h2></div>
@@ -169,7 +170,7 @@
 <!-- ======================= PÁGINA 2 ======================= -->
 <section class="page" id="p2">
   <header class="header">
-    <img src="assets/logo-ronalds-recorte.png" alt="Ronald's Lanches">
+    <div class="lw"><img src="assets/logo-ronalds-fundo.png" alt="Ronald's Lanches"></div>
     <div class="htitle">
       <div class="k">Cardápio</div>
       <div class="t">Especiais</div>
@@ -190,9 +191,8 @@
 
   <div class="feature" style="margin-top:44px">
     <div class="badge">★ Completo</div>
-    <div class="fn">X-<em>Tudo</em></div>
+    <div class="ftop"><div class="fn">X-<em>Tudo</em></div><span class="lead"></span><div class="fp"><small>R$</small>18,00</div></div>
     <p class="fd">Pão, hambúrguer, frango, ovo, queijo, presunto, salsicha, calabresa, bacon, batata palha, salada e catupiry</p>
-    <div class="fp"><small>R$</small>18,00</div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:46px">
