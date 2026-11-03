@@ -4,254 +4,240 @@
 <meta charset="utf-8">
 <title>Cardápio Ronald's Lanches</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0f0806;
-    --bg2:#1c0c08;
-    --red:#e0141b;
-    --red-dk:#8f0b0f;
-    --gold:#ffc414;
-    --gold-lt:#ffe36a;
-    --gold-dk:#e68a00;
-    --cream:#fff6e0;
-    --ink:#1a0a05;
+    --bg:#0c0908;
+    --panel:#17110e;
+    --red:#d6141b;
+    --red-dk:#7d0a0e;
+    --gold:#ffc21a;
+    --gold-lt:#ffdf6b;
+    --gold-dk:#d98a00;
+    --cream:#f3e9d8;
+    --muted:#c9bba5;
+    --ink:#140906;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:#333}
-  body{font-family:'Fredoka',sans-serif;color:var(--cream)}
-  .page{
-    width:1240px;height:1754px;position:relative;overflow:hidden;
+  html,body{background:#2a2a2a}
+  body{font-family:'Montserrat',sans-serif;color:var(--cream);-webkit-font-smoothing:antialiased}
+
+  .page{width:1240px;height:1754px;position:relative;overflow:hidden;margin:0 auto 40px;
     background:
-      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(224,20,27,.28), transparent 70%),
-      radial-gradient(ellipse 60% 35% at 50% 100%, rgba(224,20,27,.22), transparent 70%),
-      linear-gradient(180deg,var(--bg2),var(--bg) 30%,var(--bg) 70%,var(--bg2));
-    margin:0 auto 40px;
-  }
-  /* textura de papel/ruído */
-  .page::before{
-    content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.18;mix-blend-mode:screen;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 .8  0 0 0 0 .5  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
-  .page > *{position:relative;z-index:1}
+      radial-gradient(ellipse 55% 22% at 85% 4%, rgba(214,20,27,.30), transparent 70%),
+      radial-gradient(ellipse 50% 20% at 10% 2%, rgba(255,194,26,.10), transparent 70%),
+      radial-gradient(ellipse 80% 20% at 50% 100%, rgba(214,20,27,.18), transparent 70%),
+      var(--bg);
+    display:flex;flex-direction:column;padding:62px 70px 0}
+  /* moldura dupla dourada */
+  .page::before{content:"";position:absolute;inset:24px;border:2px solid var(--gold);border-radius:6px;pointer-events:none;opacity:.9}
+  .page::after{content:"";position:absolute;inset:32px;border:1px solid rgba(255,194,26,.35);border-radius:3px;pointer-events:none}
 
-  /* pinceladas (brush strokes) */
-  .brush{position:absolute;z-index:0;pointer-events:none;filter:url(#rough)}
-  .brush.red{background:linear-gradient(90deg,transparent,var(--red) 8%,var(--red) 92%,transparent)}
-  .brush.redd{background:linear-gradient(90deg,transparent,var(--red-dk) 10%,var(--red) 50%,var(--red-dk) 90%,transparent)}
-  .brush.gold{background:linear-gradient(90deg,transparent,var(--gold-dk) 6%,var(--gold) 40%,var(--gold-lt) 60%,var(--gold) 80%,transparent)}
+  /* cabeçalho */
+  .header{display:flex;align-items:center;justify-content:space-between;height:220px}
+  .header img{height:212px;width:auto;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+  .htitle{text-align:right;font-family:'Oswald';text-transform:uppercase;line-height:1}
+  .htitle .k{color:var(--gold);font-weight:600;font-size:24px;letter-spacing:12px;margin-right:-12px}
+  .htitle .t{color:#fff;font-weight:700;font-size:104px;letter-spacing:2px;margin-top:6px}
+  .htitle .s{display:inline-block;margin-top:12px;background:var(--red);color:#fff;font-weight:600;font-size:20px;letter-spacing:4px;padding:7px 18px 6px;border-radius:3px}
 
-  /* faixa dourada inferior/superior rasgada */
-  .edge{position:absolute;left:-20px;right:-20px;height:46px;z-index:2;filter:url(#rough2);
-    background:linear-gradient(90deg,var(--gold-dk),var(--gold) 30%,var(--gold-lt) 50%,var(--gold) 70%,var(--gold-dk))}
-  .edge.top{top:-18px}
-  .edge.bottom{bottom:-18px}
-  .edge-red{position:absolute;left:-20px;right:-20px;height:30px;z-index:1;filter:url(#rough2);background:var(--red)}
-  .edge-red.top{top:12px}
-  .edge-red.bottom{bottom:12px}
-
-  /* logo */
-  .logo{display:block;margin:0 auto;
-    -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
-            mask-image:radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);}
+  .rule{height:2px;background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold) 85%,transparent);margin:22px 0 0}
 
   /* títulos de seção */
-  .h{font-family:'Lilita One',sans-serif;text-align:center;letter-spacing:1px;line-height:1;text-transform:uppercase;
-     paint-order:stroke fill}
-  .h .g{background:linear-gradient(180deg,var(--gold-lt) 0%,var(--gold) 45%,var(--gold-dk) 100%);
-        -webkit-background-clip:text;background-clip:text;color:transparent;
-        filter:drop-shadow(0 4px 0 var(--red-dk)) drop-shadow(0 0 2px #000)}
-  .h .w{color:#fff;filter:drop-shadow(0 4px 0 var(--red-dk)) drop-shadow(0 0 2px #000)}
-
-  .dots{height:8px;margin:0 auto;width:880px;
-        background:radial-gradient(circle,var(--gold) 2.6px,transparent 3px) 0 0/22px 8px repeat-x}
+  .sec{display:flex;align-items:center;gap:22px;margin:34px 0 22px;font-family:'Oswald';text-transform:uppercase}
+  .sec::before,.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .sec::after{background:linear-gradient(90deg,var(--gold),transparent)}
+  .sec h2{font-weight:700;font-size:44px;letter-spacing:3px;color:var(--gold);line-height:1;white-space:nowrap}
+  .sec h2 span{color:#fff}
+  .sec.sm h2{font-size:36px}
 
   /* itens */
-  .grid{display:grid;column-gap:34px}
-  .item{margin-bottom:18px}
-  .item .top{display:flex;align-items:center;gap:10px}
-  .item .name{font-weight:700;color:var(--gold);font-size:25px;text-transform:uppercase;letter-spacing:.2px;
-              display:flex;align-items:center;white-space:nowrap;flex:1;text-shadow:0 2px 0 rgba(0,0,0,.6)}
-  .item .name::before,.arrow::before{content:"";display:inline-block;width:0;height:0;margin-right:9px;
-              border-left:12px solid var(--red);border-top:8px solid transparent;border-bottom:8px solid transparent;
-              filter:drop-shadow(0 0 1px #000)}
-  .item .desc{font-weight:600;font-size:17.5px;line-height:1.18;color:var(--cream);margin:3px 0 0 21px}
-
-  .tag{flex:none;font-weight:700;color:var(--ink);font-size:23px;padding:2px 12px 1px 9px;line-height:1.25;
-       background:linear-gradient(180deg,var(--gold-lt),var(--gold) 55%,var(--gold-dk));
-       clip-path:polygon(2% 6%,10% 0,22% 7%,38% 1%,55% 6%,72% 0,88% 5%,100% 2%,98% 30%,100% 60%,97% 96%,84% 100%,66% 94%,48% 100%,30% 95%,14% 100%,0 96%,3% 64%,0 32%);
-       box-shadow:0 3px 0 var(--red-dk);white-space:nowrap}
-  .tag small{font-size:.58em;margin-right:2px;vertical-align:1px}
+  .grid{display:grid;column-gap:46px;row-gap:24px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .row{display:flex;align-items:baseline;gap:8px}
+  .name{font-family:'Oswald';font-weight:600;font-size:25px;letter-spacing:.6px;text-transform:uppercase;color:#fff;white-space:nowrap}
+  .lead{flex:1;border-bottom:2px dotted rgba(255,194,26,.45);transform:translateY(-6px);min-width:14px}
+  .price{font-family:'Oswald';font-weight:700;font-size:27px;color:var(--gold);white-space:nowrap}
+  .price small{font-size:15px;font-weight:600;margin-right:3px;color:var(--gold-lt)}
+  .desc{font-size:15.5px;font-weight:500;line-height:1.38;color:var(--muted);margin-top:4px}
+  .list .row{padding:7px 0}
 
   /* destaque */
-  .feature{text-align:center}
-  .feature .fname{font-family:'Lilita One';font-size:74px;line-height:1;display:inline-flex;align-items:center;gap:18px}
-  .feature .tag{font-size:34px;padding:4px 18px 2px 14px}
-  .feature .desc{font-weight:600;font-size:21px;line-height:1.2;margin-top:8px;color:var(--cream)}
+  .feature{position:relative;margin-top:36px;border:2px solid var(--gold);border-radius:8px;padding:30px 40px 26px;
+           background:linear-gradient(115deg,var(--red-dk) 0%,var(--red) 55%,#a50e14 100%);
+           box-shadow:0 14px 34px rgba(0,0,0,.5), inset 0 0 0 6px rgba(0,0,0,.12);display:flex;align-items:center;gap:34px}
+  .feature .badge{position:absolute;top:-15px;left:40px;background:var(--gold);color:var(--ink);font-family:'Oswald';font-weight:700;font-size:16px;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:3px}
+  .feature .fn{font-family:'Oswald';font-weight:700;font-size:56px;line-height:1;text-transform:uppercase;color:#fff;letter-spacing:1px;white-space:nowrap}
+  .feature .fn em{font-style:normal;color:var(--gold)}
+  .feature .fd{flex:1;font-size:17px;font-weight:600;line-height:1.4;color:#fff3e6;border-left:2px solid rgba(255,194,26,.6);padding-left:30px}
+  .feature .fp{font-family:'Oswald';font-weight:700;font-size:54px;color:var(--gold);line-height:1;white-space:nowrap;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+  .feature .fp small{font-size:24px;margin-right:4px}
 
-  .crown{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:16px;letter-spacing:3px;
-         padding:4px 16px;border-radius:40px;text-transform:uppercase;margin-bottom:8px;box-shadow:0 0 0 2px var(--gold)}
+  .box{border:1px solid rgba(255,194,26,.35);border-radius:8px;background:rgba(255,255,255,.025);padding:22px 28px}
+  .boxlabel{font-family:'Oswald';font-weight:600;font-size:17px;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+
+  /* rodapé */
+  #p2 .sec{margin:44px 0 26px}
+  #p2 .g3{row-gap:30px}
+  #p2 .list .row{padding:9px 0}
+  .footer{position:absolute;left:33px;right:33px;bottom:33px;height:92px;background:linear-gradient(90deg,var(--red-dk),var(--red) 50%,var(--red-dk));
+          border-top:3px solid var(--gold);display:flex;align-items:center;justify-content:center;gap:70px;font-family:'Oswald';color:#fff}
+  .footer .c{display:flex;align-items:center;gap:14px}
+  .footer .c b{font-weight:700;font-size:34px;letter-spacing:1px}
+  .footer .c span{display:block;font-family:'Montserrat';font-weight:600;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:2px}
+  .footer .sep{width:1px;height:46px;background:rgba(255,223,107,.5)}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute">
-  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".035 .5" numOctaves="3" seed="4"/><feDisplacementMap in="SourceGraphic" scale="34"/></filter>
-  <filter id="rough2"><feTurbulence type="fractalNoise" baseFrequency=".06 .9" numOctaves="3" seed="9"/><feDisplacementMap in="SourceGraphic" scale="26"/></filter>
-</svg>
 
 <!-- ======================= PÁGINA 1 ======================= -->
 <section class="page" id="p1">
-  <div class="edge-red top"></div><div class="edge top"></div>
-
-  <!-- pinceladas atrás da logo -->
-  <div class="brush redd" style="top:150px;left:-60px;width:760px;height:120px;transform:rotate(-6deg);opacity:.85"></div>
-  <div class="brush gold" style="top:345px;left:560px;width:760px;height:46px;transform:rotate(-4deg);opacity:.9"></div>
-  <div class="brush red"  style="top:80px;left:820px;width:520px;height:60px;transform:rotate(-8deg);opacity:.7"></div>
-
-  <img class="logo" src="assets/logo-ronalds.jpg" alt="Ronald's Lanches" style="width:860px;margin-top:30px">
-
-  <h1 class="h" style="font-size:86px;margin-top:-14px"><span class="g">Cardápio</span> <span class="w">Lanches</span></h1>
-
-  <div class="grid" style="grid-template-columns:repeat(3,1fr);padding:30px 50px 0 56px">
-    <div>
-      <div class="item"><div class="top"><span class="name">Misto Quente</span><span class="tag"><small>R$</small>8,00</span></div><p class="desc">Pão, queijo, presunto, catupiry e batata palha</p></div>
-      <div class="item"><div class="top"><span class="name">Bauru Simples</span><span class="tag"><small>R$</small>10,00</span></div><p class="desc">Pão, ovo, queijo, presunto, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Bauru Especial</span><span class="tag"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, ovo, queijo, presunto, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Hambúrguer</span><span class="tag"><small>R$</small>7,00</span></div><p class="desc">Pão, hambúrguer, catupiry, batata palha e salada</p></div>
+  <header class="header">
+    <img src="assets/logo-ronalds-recorte.png" alt="Ronald's Lanches">
+    <div class="htitle">
+      <div class="k">Cardápio</div>
+      <div class="t">Lanches</div>
+      <div class="s">Tradicionais &amp; Bebidas</div>
     </div>
-    <div>
-      <div class="item"><div class="top"><span class="name">X-Burguer</span><span class="tag"><small>R$</small>10,00</span></div><p class="desc">Pão, hambúrguer, queijo, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Eggs Burguer</span><span class="tag"><small>R$</small>10,00</span></div><p class="desc">Pão, hambúrguer, ovo, tomate, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Eggs Dog</span><span class="tag"><small>R$</small>11,00</span></div><p class="desc">Pão, hambúrguer, ovo, salsicha, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Carioca</span><span class="tag"><small>R$</small>11,00</span></div><p class="desc">Pão, hambúrguer, queijo, presunto, batata palha, salada e catupiry</p></div>
-    </div>
-    <div>
-      <div class="item"><div class="top"><span class="name">Paulista</span><span class="tag"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">Lanche Bem</span><span class="tag"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, bacon, ovo, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">X-Bacon</span><span class="tag"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, bacon, batata palha, salada e catupiry</p></div>
-      <div class="item"><div class="top"><span class="name">X-Calabresa</span><span class="tag"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, calabresa, batata palha, salada e catupiry</p></div>
-    </div>
+  </header>
+  <div class="rule"></div>
+
+  <div class="sec"><h2>Lanches <span>Tradicionais</span></h2></div>
+  <div class="grid g3">
+    <div class="item"><div class="row"><span class="name">Misto Quente</span><span class="lead"></span><span class="price"><small>R$</small>8,00</span></div><p class="desc">Pão, queijo, presunto, catupiry e batata palha</p></div>
+    <div class="item"><div class="row"><span class="name">X-Burguer</span><span class="lead"></span><span class="price"><small>R$</small>10,00</span></div><p class="desc">Pão, hambúrguer, queijo, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Paulista</span><span class="lead"></span><span class="price"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
+
+    <div class="item"><div class="row"><span class="name">Bauru Simples</span><span class="lead"></span><span class="price"><small>R$</small>10,00</span></div><p class="desc">Pão, ovo, queijo, presunto, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Eggs Burguer</span><span class="lead"></span><span class="price"><small>R$</small>10,00</span></div><p class="desc">Pão, hambúrguer, ovo, tomate, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Lanche Bem</span><span class="lead"></span><span class="price"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, bacon, ovo, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
+
+    <div class="item"><div class="row"><span class="name">Bauru Especial</span><span class="lead"></span><span class="price"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, ovo, queijo, presunto, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Eggs Dog</span><span class="lead"></span><span class="price"><small>R$</small>11,00</span></div><p class="desc">Pão, hambúrguer, ovo, salsicha, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">X-Bacon</span><span class="lead"></span><span class="price"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, bacon, batata palha, salada e catupiry</p></div>
+
+    <div class="item"><div class="row"><span class="name">Hambúrguer</span><span class="lead"></span><span class="price"><small>R$</small>7,00</span></div><p class="desc">Pão, hambúrguer, catupiry, batata palha e salada</p></div>
+    <div class="item"><div class="row"><span class="name">Carioca</span><span class="lead"></span><span class="price"><small>R$</small>11,00</span></div><p class="desc">Pão, hambúrguer, queijo, presunto, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">X-Calabresa</span><span class="lead"></span><span class="price"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, queijo, calabresa, batata palha, salada e catupiry</p></div>
   </div>
 
-  <div class="dots" style="margin-top:4px"></div>
-
-  <div class="feature" style="margin:20px 70px 0">
-    <span class="crown">★ O mais pedido ★</span><br>
-    <span class="fname h"><span><span class="g">Mc</span> <span class="w">Ronald’s</span></span><span class="tag"><small>R$</small>22,00</span></span>
-    <p class="desc">Pão, 2 hambúrgueres, frango desfiado, 2 ovos, 2 queijos, 2 presuntos, salsicha,<br>calabresa, bacon, batata palha, salada e catupiry</p>
+  <div class="feature">
+    <div class="badge">★ O mais pedido</div>
+    <div class="fn"><em>Mc</em> Ronald’s</div>
+    <p class="fd">Pão, 2 hambúrgueres, frango desfiado, 2 ovos, 2 queijos, 2 presuntos, salsicha, calabresa, bacon, batata palha, salada e catupiry</p>
+    <div class="fp"><small>R$</small>22,00</div>
   </div>
 
-  <div class="dots" style="margin-top:22px"></div>
-
-  <!-- bebidas -->
-  <div style="display:flex;gap:40px;padding:30px 56px 0 60px">
-    <div style="display:flex;gap:18px">
-      <div style="writing-mode:vertical-rl;transform:rotate(180deg);background:linear-gradient(90deg,var(--gold-dk),var(--gold),var(--gold-lt));color:var(--red-dk);font-family:'Lilita One';font-size:34px;letter-spacing:2px;padding:10px 6px;text-align:center;text-transform:uppercase;box-shadow:0 0 0 3px var(--red)">Refrigerantes</div>
-      <div style="width:470px">
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Caçulinha variado</span><span class="tag"><small>R$</small>3,00</span></div></div>
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Caçulinha Coca Cola</span><span class="tag"><small>R$</small>4,00</span></div></div>
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Refri. lata variados</span><span class="tag"><small>R$</small>5,00</span></div></div>
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Refri. lata Coca Cola</span><span class="tag"><small>R$</small>6,00</span></div></div>
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Coca Cola 600ml</span><span class="tag"><small>R$</small>8,00</span></div></div>
-        <div class="item" style="margin-bottom:8px"><div class="top"><span class="name">Coca Cola 1L</span><span class="tag"><small>R$</small>10,00</span></div></div>
-        <div class="item" style="margin-bottom:0"><div class="top"><span class="name">Refri. variados 1L</span><span class="tag"><small>R$</small>9,00</span></div></div>
+  <div class="sec"><h2>Bebidas</h2></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px">
+    <div class="box list">
+      <div class="boxlabel">Refrigerantes</div>
+      <div class="row"><span class="name">Caçulinha variado</span><span class="lead"></span><span class="price"><small>R$</small>3,00</span></div>
+      <div class="row"><span class="name">Caçulinha Coca-Cola</span><span class="lead"></span><span class="price"><small>R$</small>4,00</span></div>
+      <div class="row"><span class="name">Refri. lata variados</span><span class="lead"></span><span class="price"><small>R$</small>5,00</span></div>
+      <div class="row"><span class="name">Refri. lata Coca-Cola</span><span class="lead"></span><span class="price"><small>R$</small>6,00</span></div>
+      <div class="row"><span class="name">Coca-Cola 600ml</span><span class="lead"></span><span class="price"><small>R$</small>8,00</span></div>
+      <div class="row"><span class="name">Coca-Cola 1L</span><span class="lead"></span><span class="price"><small>R$</small>10,00</span></div>
+      <div class="row"><span class="name">Refri. variados 1L</span><span class="lead"></span><span class="price"><small>R$</small>9,00</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="box">
+        <div class="boxlabel">Sucos &amp; Vitaminas</div>
+        <div class="row"><span class="name">Sucos / Vitaminas</span><span class="lead"></span><span class="price"><small>R$</small>6,00</span></div>
+        <p class="desc">Laranja, graviola, cajá, uva, manga, morango, goiaba e maracujá</p>
       </div>
-    </div>
-    <div style="flex:1">
-      <div class="item" style="margin-bottom:6px"><div class="top"><span class="name" style="font-size:31px">Sucos/Vitaminas</span><span class="tag" style="font-size:28px"><small>R$</small>6,00</span></div>
-        <p class="desc" style="font-size:19px">Laranja, graviola, cajá, uva, manga, morango, goiaba, maracujá</p></div>
-      <div style="display:flex;gap:22px;align-items:flex-end;margin-top:22px">
-        <div style="width:230px;height:212px;border-radius:18px;overflow:hidden;box-shadow:0 0 0 4px var(--gold),0 8px 24px rgba(0,0,0,.6)">
+      <div style="display:flex;gap:24px;flex:1">
+        <div style="flex:1;border-radius:8px;overflow:hidden;border:2px solid var(--gold)">
           <img src="assets/bebidas.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="">
         </div>
-        <div style="background:#fff;border-radius:18px;padding:14px;box-shadow:0 0 0 5px var(--gold),0 0 0 9px var(--red),0 8px 24px rgba(0,0,0,.6);text-align:center">
-          <img src="assets/qr-instagram.svg" style="width:168px;height:168px;display:block" alt="QR Code Instagram">
-          <div style="color:var(--ink);font-weight:700;font-size:15px;margin-top:6px">Siga a gente!</div>
+        <div style="width:196px;background:#fff;border-radius:8px;border:2px solid var(--gold);padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <img src="assets/qr-instagram.svg" style="width:166px;height:166px;display:block" alt="QR Code Instagram">
+          <div style="font-family:'Oswald';color:var(--ink);font-weight:600;font-size:15px;letter-spacing:2px;text-transform:uppercase;margin-top:8px">Siga no Instagram</div>
         </div>
       </div>
     </div>
   </div>
 
-  <div style="position:absolute;bottom:62px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;font-weight:700;font-size:30px;color:#fff">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffc414" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffc414" stroke="none"/></svg>
-    @mcronalds10
-  </div>
-  <div class="edge-red bottom"></div><div class="edge bottom"></div>
+  <footer class="footer">
+    <div class="c"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffdf6b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffdf6b" stroke="none"/></svg><div><span>Instagram</span><b>@mcronalds10</b></div></div>
+    <div class="sep"></div>
+    <div class="c"><svg width="40" height="40" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ffdf6b"/><path fill="#7d0a0e" d="M17.2 14.3c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z"/></svg><div><span>Peça pelo WhatsApp</span><b>(84) 9 8869-8674</b></div></div>
+  </footer>
 </section>
 
 <!-- ======================= PÁGINA 2 ======================= -->
 <section class="page" id="p2">
-  <div class="edge-red top"></div><div class="edge top"></div>
-  <div class="brush redd" style="top:110px;left:-80px;width:520px;height:90px;transform:rotate(-7deg);opacity:.8"></div>
-  <div class="brush red"  style="top:250px;left:820px;width:520px;height:70px;transform:rotate(-6deg);opacity:.8"></div>
+  <header class="header">
+    <img src="assets/logo-ronalds-recorte.png" alt="Ronald's Lanches">
+    <div class="htitle">
+      <div class="k">Cardápio</div>
+      <div class="t">Especiais</div>
+      <div class="s">Frango · Picanha · Artesanais</div>
+    </div>
+  </header>
+  <div class="rule"></div>
 
-  <img class="logo" src="assets/logo-ronalds.jpg" alt="Ronald's Lanches" style="width:520px;margin-top:30px">
-
-  <h2 class="h" style="font-size:80px;margin-top:-4px"><span class="g">Lanches</span> <span class="w">com Frango</span></h2>
-
-  <div class="grid" style="grid-template-columns:repeat(3,1fr);padding:30px 44px 0 46px">
-    <div class="item"><div class="top"><span class="name">Burguer Frango</span><span class="tag"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, frango, ovo, catupiry, batata palha e salada</p></div>
-    <div class="item"><div class="top"><span class="name">X-Frango</span><span class="tag"><small>R$</small>13,00</span></div><p class="desc">Pão, frango, queijo, bacon, batata palha, salada e catupiry</p></div>
-    <div class="item"><div class="top"><span class="name" style="font-size:23px">Carioca c/ Frango</span><span class="tag"><small>R$</small>13,00</span></div><p class="desc">Pão, hambúrguer, frango, queijo, presunto, batata palha, salada e catupiry</p></div>
-    <div class="item"><div class="top"><span class="name" style="font-size:23px">Bauru Esp. Frango</span><span class="tag"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, ovo, presunto, queijo, frango, batata palha, salada e catupiry</p></div>
-    <div class="item"><div class="top"><span class="name">Big Frango</span><span class="tag"><small>R$</small>16,00</span></div><p class="desc">Pão, frango, queijo, presunto, calabresa, bacon, batata palha, salada e catupiry</p></div>
-    <div class="item"><div class="top"><span class="name" style="font-size:23px">Paulista c/ Frango</span><span class="tag"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, frango, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
+  <div class="sec"><h2>Lanches <span>com Frango</span></h2></div>
+  <div class="grid g3">
+    <div class="item"><div class="row"><span class="name">Burguer Frango</span><span class="lead"></span><span class="price"><small>R$</small>12,00</span></div><p class="desc">Pão, hambúrguer, frango, ovo, catupiry, batata palha e salada</p></div>
+    <div class="item"><div class="row"><span class="name">X-Frango</span><span class="lead"></span><span class="price"><small>R$</small>13,00</span></div><p class="desc">Pão, frango, queijo, bacon, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Carioca c/ Frango</span><span class="lead"></span><span class="price"><small>R$</small>13,00</span></div><p class="desc">Pão, hambúrguer, frango, queijo, presunto, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Bauru Esp. Frango</span><span class="lead"></span><span class="price"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, ovo, presunto, queijo, frango, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Big Frango</span><span class="lead"></span><span class="price"><small>R$</small>16,00</span></div><p class="desc">Pão, frango, queijo, presunto, calabresa, bacon, batata palha, salada e catupiry</p></div>
+    <div class="item"><div class="row"><span class="name">Paulista c/ Frango</span><span class="lead"></span><span class="price"><small>R$</small>14,00</span></div><p class="desc">Pão, hambúrguer, frango, queijo, presunto, salsicha, batata palha, salada e catupiry</p></div>
   </div>
 
-  <div class="dots" style="margin-top:4px"></div>
-  <div class="feature" style="margin:18px 60px 0">
-    <span class="fname h" style="font-size:58px"><span class="g">X-Tudo</span><span class="tag" style="font-size:30px"><small>R$</small>18,00</span></span>
-    <p class="desc" style="font-size:20px">Pão, hambúrguer, frango, ovo, queijo, presunto, salsicha, calabresa, bacon, batata palha, salada e catupiry</p>
-  </div>
-  <div class="dots" style="margin-top:20px"></div>
-
-  <h2 class="h" style="font-size:70px;margin-top:16px"><span class="w">Lanches</span> <span class="g">com Picanha</span></h2>
-  <div class="grid" style="grid-template-columns:400px 440px;justify-content:center;padding-top:22px;column-gap:50px">
-    <div class="item"><div class="top"><span class="name">X-Picanha</span><span class="tag"><small>R$</small>16,00</span></div><p class="desc">Pão, picanha acebolada, queijo coalho, catupiry, batata palha e salada</p></div>
-    <div class="item"><div class="top"><span class="name">Picanha Especial</span><span class="tag"><small>R$</small>20,00</span></div><p class="desc">Pão, picanha acebolada, queijo coalho, bacon, ovo, calabresa, catupiry, batata palha e salada</p></div>
+  <div class="feature" style="margin-top:44px">
+    <div class="badge">★ Completo</div>
+    <div class="fn">X-<em>Tudo</em></div>
+    <p class="fd">Pão, hambúrguer, frango, ovo, queijo, presunto, salsicha, calabresa, bacon, batata palha, salada e catupiry</p>
+    <div class="fp"><small>R$</small>18,00</div>
   </div>
 
-  <div class="dots" style="margin-top:2px"></div>
-  <h2 class="h" style="font-size:70px;margin-top:16px"><span class="g">Artesanais</span></h2>
-  <div class="grid" style="grid-template-columns:440px 460px;justify-content:center;padding-top:22px;column-gap:50px">
-    <div class="item"><div class="top"><span class="name">X-Bacon Artesanal</span><span class="tag"><small>R$</small>18,00</span></div><p class="desc">Hambúrguer artesanal, queijo, bacon, barbecue, batata palha e salada</p></div>
-    <div class="item"><div class="top"><span class="name">Artesanal Especial</span><span class="tag"><small>R$</small>20,00</span></div><p class="desc">Hambúrguer artesanal, queijo coalho, calabresa acebolada, bacon, barbecue, batata palha e salada</p></div>
-  </div>
-
-  <div class="dots" style="margin-top:2px"></div>
-  <div style="display:flex;justify-content:center;align-items:center;gap:26px;margin-top:20px">
-    <span class="h" style="font-size:72px"><span class="w">Kids</span></span>
-    <div class="item" style="margin:0;width:470px"><div class="top"><span class="name">X-Nutella</span><span class="tag"><small>R$</small>10,00</span></div><p class="desc">Pão, Nutella, Disquete, Ovomaltine e leite condensado</p></div>
-  </div>
-
-  <div class="dots" style="margin-top:14px"></div>
-  <h2 class="h" style="font-size:70px;margin-top:16px"><span class="g">Acréscimos</span></h2>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr);padding:24px 60px 0;column-gap:50px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:46px">
     <div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Hambúrguer</span><span class="tag"><small>R$</small>3,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Frango</span><span class="tag"><small>R$</small>4,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Bacon</span><span class="tag"><small>R$</small>4,00</span></div></div>
+      <div class="sec sm"><h2>Com <span>Picanha</span></h2></div>
+      <div class="grid" style="row-gap:22px">
+        <div class="item"><div class="row"><span class="name">X-Picanha</span><span class="lead"></span><span class="price"><small>R$</small>16,00</span></div><p class="desc">Pão, picanha acebolada, queijo coalho, catupiry, batata palha e salada</p></div>
+        <div class="item"><div class="row"><span class="name">Picanha Especial</span><span class="lead"></span><span class="price"><small>R$</small>20,00</span></div><p class="desc">Pão, picanha acebolada, queijo coalho, bacon, ovo, calabresa, catupiry, batata palha e salada</p></div>
+      </div>
     </div>
     <div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Calabresa</span><span class="tag"><small>R$</small>3,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Queijo coalho</span><span class="tag"><small>R$</small>4,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Maionese caseira</span><span class="tag"><small>R$</small>1,00</span></div></div>
-    </div>
-    <div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Ovo</span><span class="tag"><small>R$</small>2,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name">Picanha</span><span class="tag"><small>R$</small>7,00</span></div></div>
-      <div class="item" style="margin-bottom:14px"><div class="top"><span class="name" style="font-size:22px">Hambúrguer artesanal</span><span class="tag"><small>R$</small>6,00</span></div></div>
+      <div class="sec sm"><h2>Artesanais</h2></div>
+      <div class="grid" style="row-gap:22px">
+        <div class="item"><div class="row"><span class="name">X-Bacon Artesanal</span><span class="lead"></span><span class="price"><small>R$</small>18,00</span></div><p class="desc">Hambúrguer artesanal, queijo, bacon, barbecue, batata palha e salada</p></div>
+        <div class="item"><div class="row"><span class="name">Artesanal Especial</span><span class="lead"></span><span class="price"><small>R$</small>20,00</span></div><p class="desc">Hambúrguer artesanal, queijo coalho, calabresa acebolada, bacon, barbecue, batata palha e salada</p></div>
+      </div>
     </div>
   </div>
 
-  <div style="position:absolute;bottom:56px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px">
-    <svg width="64" height="64" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#25d366"/><path fill="#fff" d="M17.2 14.3c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z"/></svg>
-    <div style="line-height:1">
-      <div style="color:var(--gold);font-weight:700;font-size:22px">Faça seu pedido pelo WhatsApp</div>
-      <div style="color:#fff;font-weight:700;font-size:44px;letter-spacing:1px">(84) 9 8869-8674</div>
+  <div class="sec sm"><h2>Kids</h2></div>
+  <div class="box" style="display:flex;align-items:center;gap:30px;padding:18px 28px">
+    <div style="flex:1">
+      <div class="row"><span class="name">X-Nutella</span><span class="lead"></span><span class="price"><small>R$</small>10,00</span></div>
+      <p class="desc">Pão, Nutella, Disquete, Ovomaltine e leite condensado</p>
     </div>
   </div>
-  <div class="edge-red bottom"></div><div class="edge bottom"></div>
+
+  <div class="sec"><h2>Acréscimos</h2></div>
+  <div class="grid g3 list" style="row-gap:0">
+    <div class="row"><span class="name">Hambúrguer</span><span class="lead"></span><span class="price"><small>R$</small>3,00</span></div>
+    <div class="row"><span class="name">Calabresa</span><span class="lead"></span><span class="price"><small>R$</small>3,00</span></div>
+    <div class="row"><span class="name">Ovo</span><span class="lead"></span><span class="price"><small>R$</small>2,00</span></div>
+    <div class="row"><span class="name">Frango</span><span class="lead"></span><span class="price"><small>R$</small>4,00</span></div>
+    <div class="row"><span class="name">Queijo coalho</span><span class="lead"></span><span class="price"><small>R$</small>4,00</span></div>
+    <div class="row"><span class="name">Picanha</span><span class="lead"></span><span class="price"><small>R$</small>7,00</span></div>
+    <div class="row"><span class="name">Bacon</span><span class="lead"></span><span class="price"><small>R$</small>4,00</span></div>
+    <div class="row"><span class="name">Maionese caseira</span><span class="lead"></span><span class="price"><small>R$</small>1,00</span></div>
+    <div class="row"><span class="name">Hambúrguer artesanal</span><span class="lead"></span><span class="price"><small>R$</small>6,00</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="c"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffdf6b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffdf6b" stroke="none"/></svg><div><span>Instagram</span><b>@mcronalds10</b></div></div>
+    <div class="sep"></div>
+    <div class="c"><svg width="40" height="40" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ffdf6b"/><path fill="#7d0a0e" d="M17.2 14.3c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z"/></svg><div><span>Peça pelo WhatsApp</span><b>(84) 9 8869-8674</b></div></div>
+  </footer>
 </section>
 </body>
 </html>
