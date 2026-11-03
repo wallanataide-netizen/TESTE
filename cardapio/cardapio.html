@@ -83,6 +83,17 @@
   #p2 .sec{margin:44px 0 26px}
   #p2 .g3{row-gap:30px}
   #p2 .list .row{padding:9px 0}
+  .drinkrow{display:flex;gap:22px;flex:1;align-items:stretch}
+  .drinks{flex:1;position:relative;display:flex;align-items:flex-end;justify-content:center}
+  .drinks::before{content:"";position:absolute;inset:6% 0 0;background:radial-gradient(ellipse 50% 46% at 50% 58%, rgba(255,150,20,.22), rgba(214,20,27,.12) 50%, transparent 75%)}
+  .drinks img{position:relative;height:272px;width:auto;display:block}
+  .qrcard{width:214px;border-radius:20px;padding:16px 16px 14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    border:1.5px solid transparent;
+    background:linear-gradient(165deg,#221813,#100b09) padding-box, linear-gradient(160deg,var(--gold-lt),var(--gold-dk) 45%,var(--red) 100%) border-box}
+  .qrk{font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
+  .qrbox{background:#fff;border-radius:14px;padding:11px}
+  .qrbox img{width:146px;height:146px;display:block}
+  .qrh{display:flex;align-items:center;gap:7px;font-family:'Oswald';font-weight:600;font-size:19px;letter-spacing:.5px;color:#fff}
   .footer{position:absolute;left:33px;right:33px;bottom:33px;height:92px;background:linear-gradient(90deg,var(--red-dk),var(--red) 50%,var(--red-dk));
           border-top:3px solid var(--gold);display:flex;align-items:center;justify-content:center;gap:70px;font-family:'Oswald';color:#fff}
   .footer .c{display:flex;align-items:center;gap:14px}
@@ -148,13 +159,12 @@
         <div class="row"><span class="name">Sucos / Vitaminas</span><span class="lead"></span><span class="price"><small>R$</small>6,00</span></div>
         <p class="desc">Laranja, graviola, cajá, uva, manga, morango, goiaba e maracujá</p>
       </div>
-      <div style="display:flex;gap:24px;flex:1">
-        <div style="flex:1;border-radius:8px;overflow:hidden;border:2px solid var(--gold)">
-          <img src="assets/bebidas.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="">
-        </div>
-        <div style="width:196px;background:#fff;border-radius:8px;border:2px solid var(--gold);padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <img src="assets/qr-instagram.svg" style="width:166px;height:166px;display:block" alt="QR Code Instagram">
-          <div style="font-family:'Oswald';color:var(--ink);font-weight:600;font-size:15px;letter-spacing:2px;text-transform:uppercase;margin-top:8px">Siga no Instagram</div>
+      <div class="drinkrow">
+        <div class="drinks"><img src="assets/bebidas-recorte.png" alt="Coca-Cola e suco"></div>
+        <div class="qrcard">
+          <div class="qrk">Siga a gente</div>
+          <div class="qrbox"><img src="assets/qr-instagram.svg" alt="QR Code Instagram"></div>
+          <div class="qrh"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffc21a" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffc21a" stroke="none"/></svg>@mcronalds10</div>
         </div>
       </div>
     </div>
