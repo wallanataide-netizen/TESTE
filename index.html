@@ -27,7 +27,7 @@
   body{font-family:"Helvetica Neue",Arial,sans-serif;color:#f2e8e2}
   .stage{position:fixed;left:50%;top:50%;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;
     transform:translate(-50%,-50%);transform-origin:center center}
-  .frame{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#000}
+  .frame{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#000;overflow:hidden}
   @media (max-aspect-ratio:9/16){.frame{width:100%;height:auto}}
   .cover,.video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .video{object-fit:contain;background:#000;opacity:0;pointer-events:none;transition:opacity .6s ease}
@@ -44,8 +44,12 @@
   @keyframes pulse{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.18,1.5)}}
   .playing .tap{display:none}
   body.phone .frame{width:100%;height:100%;max-width:none;aspect-ratio:auto}
-  body.phone .video{object-fit:cover}
-  body.phone .cover{object-fit:cover}
+  body.phone .video{object-fit:contain}
+  body.phone .cover{object-fit:contain}
+  .bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;
+    filter:blur(28px) brightness(.45);opacity:0;transition:opacity .8s ease}
+  body.phone .bg{opacity:1}
+  .playing .bg{opacity:0}
   .again{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);
     padding:14px 26px;border-radius:999px;border:1px solid var(--rose);background:rgba(242,182,192,.08);
     color:#f2e8e2;font-size:13px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;
@@ -60,6 +64,7 @@
 <body>
 <div class="stage">
   <div class="frame intro" id="frame">
+    <img class="bg" src="capa.jpg" alt="" aria-hidden="true">
     <img class="cover" id="cover" src="capa.jpg" alt="Save the Date de Isabelle Dantas, XV, 26 de dezembro de 2026. Toque para assistir ao convite.">
     <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback"></video>
     <button class="tap" id="tap" aria-label="Assistir ao convite"></button>
@@ -91,10 +96,10 @@
     // keep the pulse ring on the drawn button when the cover is cropped to fill the screen
     if(phone){
       const fw=parseFloat(stage.style.width), fh=parseFloat(stage.style.height);
-      const iw=Math.max(fw, fh*9/16), bw=iw*0.46;
+      const iw=Math.min(fw, fh*9/16), bw=iw*0.46;
       const t=document.getElementById('tap');
       t.style.left=((fw-bw)/2)+'px'; t.style.right='auto'; t.style.width=bw+'px';
-      const ih=Math.max(fh, fw*16/9), oy=(fh-ih)/2;
+      const ih=iw*16/9, oy=(fh-ih)/2;
       t.style.top=(oy+ih*0.892)+'px'; t.style.height=(ih*0.046)+'px';
     }
   }
