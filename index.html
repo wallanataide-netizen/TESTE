@@ -43,6 +43,9 @@
     opacity:0;animation:pulse 2.6s ease-out 1.8s infinite}
   @keyframes pulse{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.18,1.5)}}
   .playing .tap{display:none}
+  body.phone .frame{width:100%;height:100%;max-width:none;aspect-ratio:auto}
+  body.phone .video{object-fit:cover}
+  body.phone .cover{object-fit:cover}
   .again{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);
     padding:14px 26px;border-radius:999px;border:1px solid var(--rose);background:rgba(242,182,192,.08);
     color:#f2e8e2;font-size:13px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;
@@ -76,6 +79,7 @@
   function lock(){
     const w=window.innerWidth, h=window.innerHeight;
     const phone=window.matchMedia('(pointer:coarse)').matches && Math.min(screen.width,screen.height)<=900;
+    document.body.classList.toggle('phone',phone);
     if(phone && w>h){
       const a=angle(); const r=(a===270)?90:-90;
       stage.style.width=h+'px'; stage.style.height=w+'px';
@@ -83,6 +87,15 @@
     }else{
       stage.style.width=w+'px'; stage.style.height=h+'px';
       stage.style.transform='translate(-50%,-50%)';
+    }
+    // keep the pulse ring on the drawn button when the cover is cropped to fill the screen
+    if(phone){
+      const fw=parseFloat(stage.style.width), fh=parseFloat(stage.style.height);
+      const iw=Math.max(fw, fh*9/16), bw=iw*0.46;
+      const t=document.getElementById('tap');
+      t.style.left=((fw-bw)/2)+'px'; t.style.right='auto'; t.style.width=bw+'px';
+      const ih=Math.max(fh, fw*16/9), oy=(fh-ih)/2;
+      t.style.top=(oy+ih*0.892)+'px'; t.style.height=(ih*0.046)+'px';
     }
   }
   lock();
