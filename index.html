@@ -66,7 +66,7 @@
   <div class="frame intro" id="frame">
     <img class="bg" src="capa.jpg" alt="" aria-hidden="true">
     <img class="cover" id="cover" src="capa.jpg" alt="Save the Date de Isabelle Dantas, XV, 26 de dezembro de 2026. Toque para assistir ao convite.">
-    <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback"></video>
+    <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nodownload noremoteplayback"></video>
     <button class="tap" id="tap" aria-label="Assistir ao convite"></button>
     <button class="sound" id="sound" aria-label="Ativar som">♪</button>
     <button class="again" id="again">Assistir novamente</button>
@@ -107,20 +107,29 @@
   window.addEventListener('resize',lock);
   window.addEventListener('orientationchange',()=>setTimeout(lock,60));
   if(screen.orientation) screen.orientation.addEventListener('change',()=>setTimeout(lock,60));
+  // Native player full screen, exactly like opening the file on the phone
   function goFull(){
     try{
-      const d=document.documentElement;
-      const p=d.requestFullscreen?d.requestFullscreen({navigationUI:'hide'}):null;
-      if(p&&p.then) p.then(()=>{ if(screen.orientation&&screen.orientation.lock) screen.orientation.lock('portrait').catch(()=>{}); setTimeout(lock,100); }).catch(()=>{});
+      if(v.requestFullscreen){
+        v.requestFullscreen({navigationUI:'hide'}).then(()=>{
+          if(screen.orientation&&screen.orientation.lock) screen.orientation.lock('portrait').catch(()=>{});
+        }).catch(()=>{ if(v.webkitEnterFullscreen) try{v.webkitEnterFullscreen();}catch(e){} });
+      }else if(v.webkitRequestFullscreen){ v.webkitRequestFullscreen(); }
+      else if(v.webkitEnterFullscreen){ v.webkitEnterFullscreen(); }
     }catch(e){}
   }
+  function leaveFull(){
+    try{ if(document.fullscreenElement) document.exitFullscreen(); else if(v.webkitDisplayingFullscreen) v.webkitExitFullscreen(); }catch(e){}
+  }
+  document.addEventListener('fullscreenchange',()=>{ if(!document.fullscreenElement && !v.ended){ v.pause(); frame.classList.remove('playing','muted'); } });
+  v.addEventListener('webkitendfullscreen',()=>{ if(!v.ended){ v.pause(); frame.classList.remove('playing','muted'); } });
   function play(){
     frame.classList.remove('ended');
     frame.classList.add('playing');
     v.currentTime=0; v.muted=false;
+    goFull();
     const p=v.play();
     if(p&&p.catch) p.catch(()=>{ v.muted=true; frame.classList.add('muted'); v.play().catch(()=>{}); });
-    goFull();
   }
   document.getElementById('cover').addEventListener('click',play);
   document.getElementById('tap').addEventListener('click',play);
@@ -128,6 +137,7 @@
   document.getElementById('sound').addEventListener('click',()=>{v.muted=false;frame.classList.remove('muted');});
   v.addEventListener('click',()=>{ if(v.paused) v.play().catch(()=>{}); else v.pause(); });
   v.addEventListener('ended',()=>{
+    leaveFull();
     frame.classList.remove('playing','muted'); frame.classList.add('ended');
   });
 </script>
