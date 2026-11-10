@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isabelle Dantas · XV · Save the Date</title>
+<meta name="description" content="Era uma vez… um botão de rosa. Toque para assistir ao convite. 26.12.2026">
+<meta property="og:title" content="Isabelle Dantas · XV">
+<meta property="og:description" content="Save the Date · 26.12.2026 · Toque para assistir">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://isabelle-dantas-xv.netlify.app/">
+<meta property="og:site_name" content="Isabelle Dantas · XV">
+<meta property="og:image" content="https://isabelle-dantas-xv.netlify.app/og.jpg">
+<meta property="og:image:secure_url" content="https://isabelle-dantas-xv.netlify.app/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="Save the Date de Isabelle Dantas, XV, 26.12.2026">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://isabelle-dantas-xv.netlify.app/og.jpg">
+<link rel="icon" href="og.jpg">
+<meta name="theme-color" content="#000000">
+<style>
+  :root{--rose:#f2b6c0;--gold:#d9b490}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:#000;overflow:hidden}
+  body{font-family:"Helvetica Neue",Arial,sans-serif;color:#f2e8e2}
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  .frame{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#000}
+  @media (max-aspect-ratio:9/16){.frame{width:100%;height:auto}}
+  .cover,.video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .video{object-fit:contain;background:#000;opacity:0;pointer-events:none;transition:opacity .6s ease}
+  .playing .video{opacity:1;pointer-events:auto}
+  .cover{transition:opacity .8s ease, transform 1.2s ease;cursor:pointer}
+  .playing .cover{opacity:0;transform:scale(1.03);pointer-events:none}
+  .intro .cover{animation:reveal 1.6s ease both}
+  @keyframes reveal{from{opacity:0;transform:scale(1.04);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+  /* invisible hit area over the drawn button + soft pulse */
+  .tap{position:absolute;left:27%;right:27%;top:89.2%;height:4.6%;border-radius:999px;cursor:pointer;
+    background:transparent;border:0}
+  .tap::after{content:"";position:absolute;inset:-4px;border-radius:999px;border:1.5px solid var(--rose);
+    opacity:0;animation:pulse 2.6s ease-out 1.8s infinite}
+  @keyframes pulse{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.18,1.5)}}
+  .playing .tap{display:none}
+  .again{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);
+    padding:14px 26px;border-radius:999px;border:1px solid var(--rose);background:rgba(242,182,192,.08);
+    color:#f2e8e2;font-size:13px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;
+    opacity:0;pointer-events:none;transition:opacity .6s ease;white-space:nowrap}
+  .ended .again{opacity:1;pointer-events:auto}
+  .sound{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;width:38px;height:38px;
+    border-radius:50%;border:1px solid rgba(242,182,192,.5);background:rgba(0,0,0,.35);color:var(--rose);
+    font-size:16px;display:none;align-items:center;justify-content:center;cursor:pointer}
+  .playing.muted .sound{display:flex}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame intro" id="frame">
+    <img class="cover" id="cover" src="capa.jpg" alt="Save the Date de Isabelle Dantas, XV, 26 de dezembro de 2026. Toque para assistir ao convite.">
+    <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline preload="auto"></video>
+    <button class="tap" id="tap" aria-label="Assistir ao convite"></button>
+    <button class="sound" id="sound" aria-label="Ativar som">♪</button>
+    <button class="again" id="again">Assistir novamente</button>
+  </div>
+</div>
+<script>
+  const frame=document.getElementById('frame'), v=document.getElementById('video');
+  function goFull(){
+    const el=v;
+    try{
+      if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+    }catch(e){}
+  }
+  function play(){
+    frame.classList.remove('ended');
+    frame.classList.add('playing');
+    v.currentTime=0; v.muted=false;
+    const p=v.play();
+    if(p&&p.catch) p.catch(()=>{ v.muted=true; frame.classList.add('muted'); v.play().catch(()=>{}); });
+    goFull();
+  }
+  document.getElementById('cover').addEventListener('click',play);
+  document.getElementById('tap').addEventListener('click',play);
+  document.getElementById('again').addEventListener('click',play);
+  document.getElementById('sound').addEventListener('click',()=>{v.muted=false;frame.classList.remove('muted');});
+  v.addEventListener('click',()=>{ if(v.paused) v.play().catch(()=>{}); else v.pause(); });
+  v.addEventListener('ended',()=>{
+    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
+    frame.classList.remove('playing','muted'); frame.classList.add('ended');
+  });
+</script>
+</body>
+</html>
