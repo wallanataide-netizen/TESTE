@@ -75,7 +75,8 @@
   // Keep the invitation locked in portrait: when the phone turns, counter-rotate so it stays fixed to the device
   function lock(){
     const w=window.innerWidth, h=window.innerHeight;
-    if(w>h){
+    const phone=window.matchMedia('(pointer:coarse)').matches && Math.min(screen.width,screen.height)<=900;
+    if(phone && w>h){
       const a=angle(); const r=(a===270)?90:-90;
       stage.style.width=h+'px'; stage.style.height=w+'px';
       stage.style.transform='translate(-50%,-50%) rotate('+r+'deg)';
