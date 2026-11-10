@@ -25,8 +25,8 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%;background:#000;overflow:hidden}
   body{font-family:"Helvetica Neue",Arial,sans-serif;color:#f2e8e2}
-  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  .stage{position:fixed;left:50%;top:50%;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%);transform-origin:center center}
   .frame{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#000}
   @media (max-aspect-ratio:9/16){.frame{width:100%;height:auto}}
   .cover,.video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -58,7 +58,7 @@
 <div class="stage">
   <div class="frame intro" id="frame">
     <img class="cover" id="cover" src="capa.jpg" alt="Save the Date de Isabelle Dantas, XV, 26 de dezembro de 2026. Toque para assistir ao convite.">
-    <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline preload="auto"></video>
+    <video class="video" id="video" src="convite.mp4" poster="capa.jpg" playsinline webkit-playsinline preload="auto" disablepictureinpicture controlslist="nofullscreen nodownload noremoteplayback"></video>
     <button class="tap" id="tap" aria-label="Assistir ao convite"></button>
     <button class="sound" id="sound" aria-label="Ativar som">♪</button>
     <button class="again" id="again">Assistir novamente</button>
@@ -66,11 +66,33 @@
 </div>
 <script>
   const frame=document.getElementById('frame'), v=document.getElementById('video');
+  const stage=document.querySelector('.stage');
+  function angle(){
+    if(screen.orientation && typeof screen.orientation.angle==='number') return screen.orientation.angle;
+    if(typeof window.orientation==='number') return (window.orientation+360)%360;
+    return 0;
+  }
+  // Keep the invitation locked in portrait: when the phone turns, counter-rotate so it stays fixed to the device
+  function lock(){
+    const w=window.innerWidth, h=window.innerHeight;
+    if(w>h){
+      const a=angle(); const r=(a===270)?90:-90;
+      stage.style.width=h+'px'; stage.style.height=w+'px';
+      stage.style.transform='translate(-50%,-50%) rotate('+r+'deg)';
+    }else{
+      stage.style.width=w+'px'; stage.style.height=h+'px';
+      stage.style.transform='translate(-50%,-50%)';
+    }
+  }
+  lock();
+  window.addEventListener('resize',lock);
+  window.addEventListener('orientationchange',()=>setTimeout(lock,60));
+  if(screen.orientation) screen.orientation.addEventListener('change',()=>setTimeout(lock,60));
   function goFull(){
-    const el=v;
     try{
-      if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
-      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+      const d=document.documentElement;
+      const p=d.requestFullscreen?d.requestFullscreen({navigationUI:'hide'}):null;
+      if(p&&p.then) p.then(()=>{ if(screen.orientation&&screen.orientation.lock) screen.orientation.lock('portrait').catch(()=>{}); setTimeout(lock,100); }).catch(()=>{});
     }catch(e){}
   }
   function play(){
@@ -87,7 +109,6 @@
   document.getElementById('sound').addEventListener('click',()=>{v.muted=false;frame.classList.remove('muted');});
   v.addEventListener('click',()=>{ if(v.paused) v.play().catch(()=>{}); else v.pause(); });
   v.addEventListener('ended',()=>{
-    try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){}
     frame.classList.remove('playing','muted'); frame.classList.add('ended');
   });
 </script>
