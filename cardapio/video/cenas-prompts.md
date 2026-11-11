@@ -140,10 +140,57 @@ surgindo letra a letra, corte final seco no último beat.
 
 ---
 
+## Trilha sonora e efeitos
+
+**Clima:** food commercial moderno, alegre e confiante, com cara de marca grande. Groove de *funk/disco pop* ou *upbeat hip-hop* com metais, palmas e baixo marcado. Nada de música com letra cantada: ela briga com a locução.
+
+- **Andamento:** 110–125 BPM (dinâmico, mas dá para ouvir a voz).
+- **Volume:** a trilha fica uns **-18 dB abaixo da voz** enquanto você fala e sobe nos respiros (abaixar automaticamente com *ducking*).
+- **Duração:** pegue uma faixa de 1–2 min e corte um trecho de 30 s que tenha **início com impacto e final com "fecho"** (não termine em *fade* arrastado).
+
+### Mapa da trilha no roteiro
+
+| Tempo | O que a música faz | Efeito sonoro (SFX) |
+|---|---|---|
+| 0–3 s | Intro baixa, só batida e baixo | Chiado de chapa (*grill sizzle*) |
+| 3–7 s | *Riser* (subida de tensão) | *Whoosh* na transição das pinceladas |
+| ~6,8 s | **Corte seco: 0,3 s de silêncio** | — |
+| 7–10 s | **Drop**: entra a música inteira | **Impacto grave** (*boom/hit*) + brilho (*shimmer*) na logo |
+| 10–17 s | Groove principal, energia máxima | *Swoosh* curto a cada lanche + "plim" na etiqueta de preço |
+| 17–21 s | Mesmo groove, um pouco mais leve | Gelo caindo no copo + lata abrindo (*can open/fizz*) |
+| 21–26 s | Groove segue | *Pop* quando o QR e o WhatsApp aparecem |
+| 26–30 s | Final de frase musical, **fecho seco** no último beat | Impacto final + brilho na logo |
+
+### Onde achar (com licença para uso comercial)
+
+| Plataforma | Custo | O que pesquisar |
+|---|---|---|
+| **Artlist** / **Epidemic Sound** | Assinatura (melhor qualidade, licença comercial clara) | `funky food commercial`, `upbeat brass groove`, `fast food advertising` |
+| **Envato Elements** | Assinatura (trilha + SFX + templates) | `food promo`, `burger commercial`, `funky upbeat logo` |
+| **Uppbeat** | Grátis com crédito / plano pago | `funky`, `upbeat corporate`, `food` |
+| **Pixabay Music** | Grátis | `funk food`, `upbeat advertising`, `happy groove` |
+| **Biblioteca de Áudio do YouTube** | Grátis | Gênero *Funk* ou *Hip Hop*, clima *Feliz/Brilhante* |
+
+SFX (chapa, *whoosh*, impacto, gelo, lata abrindo): Pixabay *Sound Effects*, Envato ou Epidemic.
+
+> **Atenção (Instagram):** perfil comercial não pode usar músicas populares da biblioteca do Instagram em anúncio; só a **biblioteca de áudio comercial** ou trilha licenciada. Use uma das plataformas acima e guarde o comprovante/licença da faixa.
+
+### Opção: trilha exclusiva feita com IA (Suno / Udio)
+
+Gera uma música só de vocês, sem risco de outro anúncio usar a mesma. Use o modo **instrumental** (confira na plataforma se o plano permite uso comercial):
+
+```
+Instrumental, 30-second fast food TV commercial, funky disco-pop groove, 118 BPM, punchy slap bass,
+bright brass stabs, hand claps, tight drums, energetic and joyful, premium brand feel,
+short intro, big drop at 7 seconds, strong ending hit, no vocals
+```
+
+---
+
 ## Checklist para a montagem
 
 - [ ] Áudio da locução gravado (WAV, 3 takes)
 - [ ] Fotos reais dos lanches (do Instagram) para usar como referência
 - [ ] 7 clipes do Kling exportados em 1080 × 1920 (9:16)
-- [ ] Trilha + efeitos: chiado de chapa, whoosh, impacto (logo), gelo caindo
+- [ ] Trilha licenciada (ou gerada no Suno/Udio) + SFX: chapa, whoosh, impacto, gelo, lata abrindo
 - [ ] Montagem final sincronizada com a voz
