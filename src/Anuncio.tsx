@@ -1,9 +1,8 @@
-import "@fontsource/lilita-one/400.css";
-import "@fontsource/permanent-marker/400.css";
-import "@fontsource/oswald/600.css";
-import "@fontsource/oswald/700.css";
-import "@fontsource/montserrat/600.css";
-import "@fontsource/montserrat/700.css";
+import "@fontsource/anton/400.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
 import { Audio, Video } from "@remotion/media";
 import React from "react";
 import {
@@ -18,20 +17,24 @@ import {
   useVideoConfig,
 } from "remotion";
 
-/* ---------- Paleta do encarte ---------- */
+/* =====================================================================
+   Ronald's Lanches — anúncio vertical 1080×1920
+   Direção: editorial premium. Títulos em Anton (condensada pesada),
+   apoio em Poppins, palavra-chave em caixa dourada, grade de 90 px.
+   ===================================================================== */
+
 const C = {
   bg: "#0c0908",
   red: "#d6141b",
   redDk: "#7d0a0e",
   gold: "#ffc21a",
   goldLt: "#ffdf6b",
-  goldDk: "#d98a00",
-  ink: "#1a0a05",
+  cream: "#f3e9d8",
+  ink: "#140906",
 };
-const FOOD = "'Lilita One', sans-serif"; // títulos "food", grossos como a logo
-const PINCEL = "'Permanent Marker', cursive"; // pincel branco, como o "LANCHES" da logo
-const OSW = "'Oswald', sans-serif";
-const MON = "'Montserrat', sans-serif";
+const TIT = "'Anton', sans-serif";
+const TXT = "'Poppins', sans-serif";
+const M = 90; // margem lateral da grade
 
 /* ---------- Tempos (segundos) — ajuste aqui para casar com a locução ---------- */
 export const T = {
@@ -45,129 +48,105 @@ export const T = {
 } as const;
 export const DURACAO = 29.0;
 
-/* Clipes do Kling 4.0 em public/cenas/clipN.mp4 (os que não estiverem na lista usam a imagem imgN.jpg) */
-const CLIPES = new Set([0, 1, 2, 3]);
+/* Clipes do Kling 4.0 em public/cenas/clipN.mp4 (fora da lista usa a imagem imgN.jpg)
+   0 chapa · 1 X-Tudo · 2 X-Picanha · 3 Artesanal · 4 Ronald's · 5 bebidas */
+const CLIPES = new Set([0, 1, 2, 3, 4, 5]);
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
-const outExpo = Easing.bezier(0.16, 1, 0.3, 1);
+const suave = Easing.bezier(0.16, 1, 0.3, 1);
 
-/* ======================= TIPOGRAFIA FOOD ANIMADA ======================= */
-type Estilo = "ouro" | "branco" | "vermelho";
-const preenchimento: Record<Estilo, string> = {
-  ouro: `linear-gradient(180deg, #fff3b0 0%, ${C.goldLt} 22%, ${C.gold} 55%, ${C.goldDk} 100%)`,
-  branco: "linear-gradient(180deg, #ffffff 0%, #fff6e6 60%, #f1dcc0 100%)",
-  vermelho: `linear-gradient(180deg, #ff4a4f 0%, ${C.red} 55%, #9b0c11 100%)`,
-};
+/* ======================= TIPOGRAFIA ======================= */
 
-/** Frase de destaque: cada letra entra com pulo, giro e quique; preenchimento em degradê,
- *  contorno grosso e sombra em relevo (mesma linguagem da logo). */
-const TituloFood: React.FC<{
-  texto: string;
-  tam: number;
-  estilo?: Estilo;
-  atraso?: number;
-  intervalo?: number;
-  inclinacao?: number;
-  contorno?: string;
-}> = ({ texto, tam, estilo = "ouro", atraso = 0, intervalo = 1.6, inclinacao = -4, contorno }) => {
+/** Linha que sobe por trás de uma máscara. */
+const Linha: React.FC<{ atraso: number; children: React.ReactNode }> = ({ atraso, children }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const stroke = contorno ?? (estilo === "vermelho" ? C.ink : C.redDk);
-  let idx = 0;
   return (
-    <div
-      style={{
-        fontFamily: FOOD,
-        fontSize: tam,
-        lineHeight: 1,
-        textAlign: "center",
-        textTransform: "uppercase",
-        rotate: `${inclinacao}deg`,
-        filter: `drop-shadow(0 ${tam * 0.07}px 0 ${C.ink}) drop-shadow(0 ${tam * 0.12}px ${tam * 0.12}px rgba(0,0,0,.55))`,
-      }}
-    >
-      {texto.split("\n").map((linha, l) => (
-        <div key={l} style={{ whiteSpace: "nowrap" }}>
-          {linha.split("").map((ch, k) => {
-            const i = idx++;
-            const p = spring({ frame: frame - atraso - i * intervalo, fps, config: { damping: 9, stiffness: 180, mass: 0.6 } });
-            return (
-              <span
-                key={k}
-                style={{
-                  display: "inline-block",
-                  whiteSpace: "pre",
-                  backgroundImage: preenchimento[estilo],
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  WebkitTextStroke: `${Math.max(4, tam * 0.06)}px ${stroke}`,
-                  paintOrder: "stroke fill",
-                  scale: String(interpolate(p, [0, 1], [0, 1])),
-                  rotate: `${interpolate(p, [0, 1], [i % 2 ? 25 : -25, 0])}deg`,
-                  translate: interpolate(p, [0, 1], [`0px ${tam * 0.5}px`, "0px 0px"]),
-                  opacity: interpolate(p, [0, 0.2], [0, 1], clamp),
-                }}
-              >
-                {ch}
-              </span>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-/** Palavra em pincel branco com faixa vermelha atrás (como o "LANCHES" da logo). */
-const Pincel: React.FC<{ texto: string; tam: number; atraso?: number }> = ({ texto, tam, atraso = 0 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = spring({ frame: frame - atraso, fps, config: { damping: 14, stiffness: 160 } });
-  const revela = interpolate(frame, [atraso, atraso + 10], [0, 100], { ...clamp, easing: outExpo });
-  return (
-    <div style={{ position: "relative", display: "inline-block", rotate: "-5deg", scale: String(interpolate(p, [0, 1], [0.7, 1])) }}>
-      <div
-        style={{
-          position: "absolute",
-          inset: `${tam * 0.18}px -${tam * 0.35}px ${tam * 0.05}px`,
-          background: `linear-gradient(90deg, ${C.redDk}, ${C.red} 30%, ${C.red} 70%, ${C.redDk})`,
-          borderTop: `${tam * 0.05}px solid ${C.gold}`,
-          borderBottom: `${tam * 0.05}px solid ${C.gold}`,
-          clipPath: `inset(0 ${100 - revela}% 0 0)`,
-          transform: "skewX(-12deg)",
-        }}
-      />
-      <div
-        style={{
-          position: "relative",
-          fontFamily: PINCEL,
-          fontSize: tam,
-          color: "#fff",
-          lineHeight: 1.15,
-          padding: `0 ${tam * 0.2}px`,
-          clipPath: `inset(0 ${100 - revela}% 0 0)`,
-          textShadow: `0 ${tam * 0.05}px 0 ${C.ink}`,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {texto}
+    <div style={{ overflow: "hidden", paddingTop: "0.16em", marginTop: "-0.16em", paddingBottom: "0.04em" }}>
+      <div style={{ translate: interpolate(frame, [atraso, atraso + 16], ["0px 110%", "0px 0%"], { ...clamp, easing: suave }) }}>
+        {children}
       </div>
     </div>
   );
 };
 
-/* ======================= PEÇAS DE CENA ======================= */
+/** Palavra-chave dentro de uma caixa dourada que desliza da esquerda. */
+const Caixa: React.FC<{ atraso: number; children: React.ReactNode }> = ({ atraso, children }) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [atraso, atraso + 12], [0, 1], { ...clamp, easing: suave });
+  return (
+    <span style={{ position: "relative", display: "inline-block", padding: "0 0.14em", margin: "0 0.04em" }}>
+      <span style={{ position: "absolute", inset: "0.06em 0 0.02em", background: C.gold, scale: `${p} 1`, transformOrigin: "left center" }} />
+      <span style={{ position: "relative", color: p > 0.55 ? C.ink : "#fff" }}>{children}</span>
+    </span>
+  );
+};
+
+/** Título em Anton: cada linha entra mascarada, com pequeno atraso entre linhas. */
+const Titulo: React.FC<{ linhas: React.ReactNode[]; tam: number; atraso?: number; alinhar?: "left" | "center" }> = ({
+  linhas,
+  tam,
+  atraso = 0,
+  alinhar = "left",
+}) => (
+  <div style={{ fontFamily: TIT, fontSize: tam, lineHeight: 0.98, color: "#fff", textTransform: "uppercase", textAlign: alinhar, letterSpacing: "0.005em" }}>
+    {linhas.map((l, k) => (
+      <Linha key={k} atraso={atraso + k * 4}>
+        {l}
+      </Linha>
+    ))}
+  </div>
+);
+
+const Ponto: React.FC = () => <span style={{ color: C.gold }}>.</span>;
+
+/** Etiqueta pequena com filete dourado que se desenha. */
+const Etiqueta: React.FC<{ texto: string; atraso?: number; centro?: boolean }> = ({ texto, atraso = 0, centro }) => {
+  const frame = useCurrentFrame();
+  const w = interpolate(frame, [atraso, atraso + 14], [0, 64], { ...clamp, easing: suave });
+  const o = interpolate(frame, [atraso + 4, atraso + 14], [0, 1], clamp);
+  const fio = <span style={{ display: "inline-block", width: w, height: 3, background: C.gold }} />;
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: centro ? "center" : "flex-start", gap: 18 }}>
+      {fio}
+      <span style={{ fontFamily: TXT, fontWeight: 600, fontSize: 26, letterSpacing: "0.32em", color: C.gold, textTransform: "uppercase", opacity: o }}>{texto}</span>
+      {centro ? fio : null}
+    </div>
+  );
+};
+
+/** Texto de apoio em Poppins; use <B> para o destaque dourado. */
+const Apoio: React.FC<{ children: React.ReactNode; atraso?: number; largura?: number }> = ({ children, atraso = 0, largura = 820 }) => {
+  const frame = useCurrentFrame();
+  return (
+    <div
+      style={{
+        fontFamily: TXT,
+        fontWeight: 400,
+        fontSize: 36,
+        lineHeight: 1.35,
+        color: C.cream,
+        maxWidth: largura,
+        opacity: interpolate(frame, [atraso, atraso + 12], [0, 1], clamp),
+        translate: interpolate(frame, [atraso, atraso + 14], ["0px 24px", "0px 0px"], { ...clamp, easing: suave }),
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+const B: React.FC<{ children: React.ReactNode }> = ({ children }) => <b style={{ fontWeight: 700, color: C.gold }}>{children}</b>;
+
+/* ======================= BASE VISUAL ======================= */
 const Fundo: React.FC = () => (
   <AbsoluteFill
     style={{
-      background: `radial-gradient(ellipse 80% 45% at 50% 38%, rgba(255,150,20,.20), transparent 70%),
-        radial-gradient(ellipse 90% 40% at 50% 100%, rgba(214,20,27,.28), transparent 70%), ${C.bg}`,
+      background: `radial-gradient(ellipse 85% 45% at 50% 42%, rgba(255,150,20,.16), transparent 70%),
+        radial-gradient(ellipse 90% 35% at 50% 100%, rgba(214,20,27,.22), transparent 70%), ${C.bg}`,
     }}
   />
 );
 
-const Midia: React.FC<{ i: number; zoomDe?: number; zoomAte?: number }> = ({ i, zoomDe = 1.0, zoomAte = 1.12 }) => {
+const Midia: React.FC<{ i: number; zoomDe?: number; zoomAte?: number }> = ({ i, zoomDe = 1.0, zoomAte = 1.1 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const style: React.CSSProperties = {
@@ -178,56 +157,74 @@ const Midia: React.FC<{ i: number; zoomDe?: number; zoomAte?: number }> = ({ i, 
     objectFit: "cover",
     scale: String(interpolate(frame, [0, durationInFrames], [zoomDe, zoomAte], clamp)),
   };
-  return CLIPES.has(i) ? (
-    <Video src={staticFile(`cenas/clip${i}.mp4`)} muted style={style} />
-  ) : (
-    <Img src={staticFile(`cenas/img${i}.jpg`)} style={style} />
-  );
+  return CLIPES.has(i) ? <Video src={staticFile(`cenas/clip${i}.mp4`)} muted style={style} /> : <Img src={staticFile(`cenas/img${i}.jpg`)} style={style} />;
 };
 
-const Vinheta: React.FC = () => (
+/** Escurece topo e base para o texto ter leitura. */
+const Vinheta: React.FC<{ forte?: boolean; topo?: boolean }> = ({ forte, topo }) => (
   <AbsoluteFill
     style={{
-      background:
-        "linear-gradient(180deg, rgba(12,9,8,.80) 0%, rgba(12,9,8,0) 24%, rgba(12,9,8,0) 60%, rgba(12,9,8,.92) 100%)",
+      background: topo
+        ? "linear-gradient(180deg, rgba(12,9,8,.96) 0%, rgba(12,9,8,.85) 30%, rgba(12,9,8,0) 52%, rgba(12,9,8,0) 82%, rgba(12,9,8,.8) 100%)"
+        : `linear-gradient(180deg, rgba(12,9,8,.75) 0%, rgba(12,9,8,0) 22%, rgba(12,9,8,0) ${forte ? 45 : 52}%, rgba(12,9,8,.94) ${forte ? 78 : 84}%, rgba(12,9,8,.98) 100%)`,
     }}
   />
 );
 
-const Flash: React.FC<{ em: number }> = ({ em }) => {
-  const frame = useCurrentFrame();
-  return <AbsoluteFill style={{ background: "#fff", opacity: interpolate(frame, [em, em + 3, em + 9], [0, 0.85, 0], clamp) }} />;
-};
-
-const BrilhoVarre: React.FC<{ inicio: number; dur: number }> = ({ inicio, dur }) => {
+/** Cortina de entrada: faixa escura com filete dourado que sobe e revela a cena. */
+const Cortina: React.FC = () => {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill
-      style={{
-        background: "linear-gradient(105deg, transparent 40%, rgba(255,240,200,.55) 50%, transparent 60%)",
-        mixBlendMode: "overlay",
-        translate: interpolate(frame, [inicio, inicio + dur], ["-120% 0px", "120% 0px"], clamp),
-      }}
-    />
+    <AbsoluteFill style={{ background: C.bg, translate: interpolate(frame, [0, 10], ["0% 0%", "0% -100%"], { ...clamp, easing: suave }) }}>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 6, background: C.gold }} />
+    </AbsoluteFill>
   );
 };
 
-const Pincelada: React.FC<{ cor: string; top: number; atraso: number; rot: number; h: number }> = ({ cor, top, atraso, rot, h }) => {
+const BlocoBase: React.FC<{ children: React.ReactNode; base?: number }> = ({ children, base = 380 }) => (
+  <AbsoluteFill style={{ justifyContent: "flex-end", padding: `0 ${M}px ${base}px`, gap: 26 }}>{children}</AbsoluteFill>
+);
+const BlocoTopo: React.FC<{ children: React.ReactNode; topo?: number }> = ({ children, topo = 270 }) => (
+  <AbsoluteFill style={{ justifyContent: "flex-start", padding: `${topo}px ${M}px 0`, gap: 26 }}>{children}</AbsoluteFill>
+);
+
+/* ======================= LOGO EM CAMADAS =======================
+   logo-burger.png (atrás, flutuando de leve) + logo-nome.png (na frente).
+   A luz percorre SOMENTE o recorte do nome (máscara pelo próprio PNG). */
+const LogoAnimada: React.FC<{ largura: number; atraso?: number; luzEm?: number }> = ({ largura, atraso = 0, luzEm = 22 }) => {
   const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const p = spring({ frame: frame - atraso, fps, config: { damping: 200 }, durationInFrames: 26 });
+  const pb = spring({ frame: frame - atraso - 6, fps, config: { damping: 18, stiffness: 90 } });
+  const t = (frame - atraso) / fps;
+  const camada: React.CSSProperties = { position: "absolute", inset: 0, width: "100%", height: "100%" };
+  const mascara = `url(${staticFile("marca/logo-nome.png")})`;
   return (
-    <div
-      style={{
-        position: "absolute",
-        left: -200,
-        top,
-        width: 1500,
-        height: h,
-        background: cor,
-        rotate: `${rot}deg`,
-        borderRadius: h,
-        translate: interpolate(frame, [atraso, atraso + 12], ["-1600px 0px", "0px 0px"], { ...clamp, easing: outExpo }),
-      }}
-    />
+    <div style={{ position: "relative", width: largura, aspectRatio: "16 / 9", scale: String(interpolate(p, [0, 1], [0.92, 1])), opacity: p }}>
+      <Img
+        src={staticFile("marca/logo-burger.png")}
+        style={{
+          ...camada,
+          translate: `${interpolate(pb, [0, 1], [-40, 0]) + Math.sin(t * 1.6) * 6}px ${interpolate(pb, [0, 1], [70, 0]) + Math.sin(t * 2.1) * 8}px`,
+          rotate: `${Math.sin(t * 1.3) * 1.2}deg`,
+          scale: String(interpolate(pb, [0, 1], [0.94, 1])),
+        }}
+      />
+      <Img src={staticFile("marca/logo-nome.png")} style={camada} />
+      <div
+        style={{
+          ...camada,
+          WebkitMaskImage: mascara,
+          maskImage: mascara,
+          WebkitMaskSize: "100% 100%",
+          maskSize: "100% 100%",
+          background: "linear-gradient(110deg, transparent 42%, rgba(255,250,225,.75) 50%, transparent 58%)",
+          backgroundSize: "250% 100%",
+          backgroundPosition: `${interpolate(frame, [atraso + luzEm, atraso + luzEm + 26], [100, 0], { ...clamp, easing: Easing.inOut(Easing.quad) })}% 0`,
+          mixBlendMode: "screen",
+        }}
+      />
+    </div>
   );
 };
 
@@ -235,102 +232,87 @@ const Pincelada: React.FC<{ cor: string; top: number; atraso: number; rot: numbe
 const CenaAbertura: React.FC = () => {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ opacity: interpolate(frame, [0, 10], [0, 1], clamp) }}>
-      <Midia i={0} zoomDe={1.12} zoomAte={1.0} />
+    <AbsoluteFill style={{ opacity: interpolate(frame, [0, 12], [0, 1], clamp) }}>
+      <Midia i={0} zoomDe={1.1} zoomAte={1.0} />
       <Vinheta />
-      <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 420, gap: 10 }}>
-        <TituloFood texto="Aquele lanche" tam={120} estilo="branco" atraso={12} />
-        <Pincel texto="que você ama" tam={96} atraso={40} />
-      </AbsoluteFill>
+      <BlocoBase>
+        <Etiqueta texto="Ronald's Lanches" atraso={10} />
+        <Titulo tam={140} atraso={14} linhas={["Aquele", <Caixa key="c" atraso={30}>lanche</Caixa>, <>que você ama<Ponto /></>]} />
+      </BlocoBase>
     </AbsoluteFill>
   );
 };
 
-const Pagina: React.FC<{ src: string; atraso: number; rot: number; x: number }> = ({ src, atraso, rot, x }) => {
+const Pagina: React.FC<{ src: string; atraso: number; rot: number; x: number; y: number }> = ({ src, atraso, rot, x, y }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = spring({ frame: frame - atraso, fps, config: { damping: 15, stiffness: 110 } });
+  const p = spring({ frame: frame - atraso, fps, config: { damping: 200 }, durationInFrames: 22 });
   return (
     <Img
       src={staticFile(src)}
       style={{
         position: "absolute",
-        width: 560,
-        left: 540 - 280 + x,
-        top: 560,
-        borderRadius: 10,
-        border: `3px solid ${C.gold}`,
-        boxShadow: "0 30px 80px rgba(0,0,0,.6)",
-        rotate: `${interpolate(p, [0, 1], [rot * 3, rot])}deg`,
-        translate: interpolate(p, [0, 1], ["0px 1400px", "0px 0px"], clamp),
-        scale: String(interpolate(frame, [atraso, atraso + 3 * fps], [1, 1.06], clamp)),
+        width: 520,
+        left: x,
+        top: y,
+        borderRadius: 6,
+        boxShadow: "0 40px 90px rgba(0,0,0,.65)",
+        rotate: `${interpolate(p, [0, 1], [rot + 6, rot])}deg`,
+        translate: interpolate(p, [0, 1], ["0px 260px", "0px 0px"], clamp),
+        opacity: interpolate(p, [0, 0.4], [0, 1], clamp),
       }}
     />
   );
 };
 
-const CenaMudou: React.FC = () => {
-  const { fps } = useVideoConfig();
-  return (
-    <AbsoluteFill>
-      <Fundo />
-      <Pincelada cor={C.red} top={660} atraso={0} rot={-8} h={320} />
-      <Pincelada cor={`linear-gradient(90deg, ${C.goldDk}, ${C.gold}, ${C.goldLt})`} top={1040} atraso={4} rot={-8} h={180} />
-      <Pagina src="marca/cardapio-2.jpg" atraso={5} rot={9} x={150} />
-      <Pagina src="marca/cardapio-1.jpg" atraso={9} rot={-7} x={-130} />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 270 }}>
-        <TituloFood texto="Cara nova!" tam={150} atraso={4} />
-      </AbsoluteFill>
-      <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 400 }}>
-        <Pincel texto="nome novo" tam={120} atraso={Math.round(1.3 * fps)} />
-      </AbsoluteFill>
-      <Flash em={Math.round(2.6 * fps)} />
-    </AbsoluteFill>
-  );
-};
+const CenaMudou: React.FC = () => (
+  <AbsoluteFill>
+    <Fundo />
+    <Pagina src="marca/cardapio-2.jpg" atraso={8} rot={7} x={470} y={900} />
+    <Pagina src="marca/cardapio-1.jpg" atraso={12} rot={-5} x={150} y={940} />
+    <BlocoTopo>
+      <Etiqueta texto="Nova fase" atraso={2} />
+      <Titulo tam={150} atraso={6} linhas={["Cara nova,", <>nome <Caixa key="n" atraso={30}>novo</Caixa><Ponto /></>]} />
+      <Apoio atraso={34}>O mesmo capricho de sempre, agora com <B>visual novo</B>.</Apoio>
+    </BlocoTopo>
+    <Cortina />
+  </AbsoluteFill>
+);
 
 const CenaLogo: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = spring({ frame, fps, config: { damping: 11, stiffness: 120 } });
+  const fio = interpolate(frame, [24, 44], [0, 560], { ...clamp, easing: suave });
   return (
     <AbsoluteFill>
       <Fundo />
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(circle at 50% 46%, rgba(255,180,40,.45), rgba(214,20,27,.18) 35%, transparent 60%)`,
-          scale: String(interpolate(frame, [0, 2.4 * fps], [0.6, 1.3], clamp)),
-        }}
-      />
+      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 47%, rgba(255,180,40,.28), rgba(214,20,27,.10) 32%, transparent 58%)", opacity: interpolate(frame, [0, 30], [0, 1], clamp) }} />
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", gap: 30 }}>
-        <TituloFood texto="Agora é..." tam={90} estilo="branco" atraso={0} intervalo={1.2} />
-        <div style={{ position: "relative", width: 980, scale: String(interpolate(p, [0, 1], [0.55, 1])), opacity: interpolate(frame, [8, 14], [0, 1], clamp), overflow: "hidden" }}>
-          <Img src={staticFile("marca/logo-ronalds-fundo.png")} style={{ width: "100%", display: "block", mixBlendMode: "lighten" }} />
-          <BrilhoVarre inicio={18} dur={22} />
-        </div>
+        <Etiqueta texto="Agora é" atraso={0} centro />
+        <LogoAnimada largura={980} atraso={4} luzEm={24} />
+        <div style={{ width: fio, height: 2, background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)` }} />
       </AbsoluteFill>
-      <Flash em={0} />
+      <Cortina />
     </AbsoluteFill>
   );
 };
 
-const LANCHES = [
-  { i: 1, nome: "X-Tudo", frase: "o completão" },
-  { i: 2, nome: "X-Picanha", frase: "acebolada no capricho" },
-  { i: 3, nome: "Artesanal", frase: "feito na chapa" },
-  { i: 4, nome: "Ronald's", frase: "o campeão da casa", destaque: true },
+const LANCHES: { i: number; num: string; nome: string; apoio: React.ReactNode; etiqueta?: string }[] = [
+  { i: 1, num: "01", nome: "X-Tudo", apoio: <>Carne, frango, ovo, bacon e <B>tudo o que tem direito</B>.</> },
+  { i: 2, num: "02", nome: "X-Picanha", apoio: <>Picanha acebolada com <B>queijo coalho</B> na chapa.</> },
+  { i: 3, num: "03", nome: "Artesanal", apoio: <>Hambúrguer artesanal com <B>bacon e barbecue</B>.</> },
+  { i: 4, num: "04", nome: "Ronald's", apoio: <>Dois hambúrgueres e <B>tudo em dobro</B>.</>, etiqueta: "O campeão da casa" },
 ];
 
-/* Sem preços: a peça é permanente e os valores mudam. */
-const PlanoLanche: React.FC<{ i: number; nome: string; frase: string; destaque?: boolean }> = ({ i, nome, frase, destaque }) => (
+const PlanoLanche: React.FC<(typeof LANCHES)[number]> = ({ i, num, nome, apoio, etiqueta }) => (
   <AbsoluteFill>
-    <Midia i={i} zoomDe={1.08} zoomAte={1.0} />
-    <Vinheta />
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 410, gap: 26 }}>
-      <TituloFood texto={nome} tam={destaque ? 180 : 150} estilo={destaque ? "ouro" : "branco"} atraso={2} intervalo={1.4} />
-      <Pincel texto={frase} tam={destaque ? 76 : 70} atraso={10} />
-    </AbsoluteFill>
-    <Flash em={0} />
+    <Midia i={i} zoomDe={1.06} zoomAte={1.0} />
+    <Vinheta forte />
+    <BlocoBase>
+      <Etiqueta texto={etiqueta ?? `${num} / 04`} atraso={2} />
+      <Titulo tam={etiqueta ? 200 : 180} atraso={4} linhas={[etiqueta ? <Caixa key="c" atraso={14}>{nome}</Caixa> : <>{nome}<Ponto /></>]} />
+      <Apoio atraso={12}>{apoio}</Apoio>
+    </BlocoBase>
+    <Cortina />
   </AbsoluteFill>
 );
 
@@ -340,11 +322,6 @@ const CenaLanches: React.FC = () => {
   const cortes = [0, 0.22, 0.44, 0.64].map((f) => Math.round(f * total));
   return (
     <AbsoluteFill>
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 250, zIndex: 2 }}>
-        <Sequence durationInFrames={Math.round(1.6 * fps)} layout="none">
-          <TituloFood texto="Mesmo sabor!" tam={110} atraso={0} intervalo={1.2} />
-        </Sequence>
-      </AbsoluteFill>
       {LANCHES.map((l, k) => (
         <Sequence key={l.nome} from={cortes[k]} durationInFrames={(cortes[k + 1] ?? total) - cortes[k]} premountFor={fps}>
           <PlanoLanche {...l} />
@@ -354,98 +331,55 @@ const CenaLanches: React.FC = () => {
   );
 };
 
-const Gelo: React.FC<{ x: number; atraso: number; tam: number }> = ({ x, atraso, tam }) => {
-  const frame = useCurrentFrame();
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: x,
-        top: interpolate(frame, [atraso, atraso + 40], [-150, 1500], clamp),
-        width: tam,
-        height: tam,
-        borderRadius: tam * 0.18,
-        background: "linear-gradient(135deg, rgba(255,255,255,.85), rgba(200,230,255,.35))",
-        border: "2px solid rgba(255,255,255,.7)",
-        rotate: `${interpolate(frame, [atraso, atraso + 40], [0, 160])}deg`,
-        opacity: 0.85,
-      }}
-    />
-  );
-};
-
-const CenaBebidas: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const pLata = spring({ frame: frame - 4, fps, config: { damping: 14 } });
-  const pSuco = spring({ frame: frame - 10, fps, config: { damping: 14 } });
-  return (
-    <AbsoluteFill>
-      <Fundo />
-      <AbsoluteFill style={{ background: "radial-gradient(ellipse 60% 30% at 50% 62%, rgba(255,150,20,.35), transparent 70%)" }} />
-      {[[120, 0, 90], [820, 8, 70], [420, 16, 60], [700, 24, 85], [240, 30, 55]].map(([x, a, t]) => (
-        <Gelo key={`${x}-${a}`} x={x} atraso={a} tam={t} />
-      ))}
-      <Img src={staticFile("marca/suco-laranja.webp")} style={{ position: "absolute", width: 820, left: 210, top: 700, scale: String(interpolate(pSuco, [0, 1], [0.6, 1])), opacity: interpolate(pSuco, [0, 1], [0, 1], clamp) }} />
-      <Img src={staticFile("marca/coca-cola-lata.webp")} style={{ position: "absolute", height: 760, left: 90, top: 800, rotate: `${interpolate(pLata, [0, 1], [-14, -4])}deg`, translate: interpolate(pLata, [0, 1], ["-400px 0px", "0px 0px"], clamp) }} />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 280, gap: 18 }}>
-        <TituloFood texto="Refri geladinho" tam={112} estilo="branco" atraso={6} intervalo={1.2} />
-        <Pincel texto="+ suco natural" tam={88} atraso={34} />
-      </AbsoluteFill>
-    </AbsoluteFill>
-  );
-};
+/* Bebidas: cena gerada no Nano Banana (mesa, suco sendo derramado) animada no Kling */
+const CenaBebidas: React.FC = () => (
+  <AbsoluteFill>
+    <Midia i={5} zoomDe={1.04} zoomAte={1.0} />
+    <Vinheta topo />
+    <BlocoTopo>
+      <Etiqueta texto="Para acompanhar" atraso={2} />
+      <Titulo tam={150} atraso={6} linhas={[<>Refri <Caixa key="g" atraso={26}>gelado</Caixa></>, <>+ suco natural<Ponto /></>]} />
+      <Apoio atraso={30}>Laranja, graviola, cajá, uva, manga, morango, goiaba e <B>maracujá</B>.</Apoio>
+    </BlocoTopo>
+    <Cortina />
+  </AbsoluteFill>
+);
 
 /* ----- Celular com o Instagram de cara nova ----- */
 const TelaPerfil: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const rolagem = interpolate(frame, [1.6 * fps, 3.6 * fps], [0, -260], { ...clamp, easing: Easing.inOut(Easing.cubic) });
-  const toque = interpolate(frame, [3.9 * fps, 4.1 * fps, 4.3 * fps], [1, 0.9, 1], clamp);
-  const seguindo = frame > 4.1 * fps;
-  const Stat = ({ n, l }: { n: string; l: string }) => (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ fontFamily: MON, fontWeight: 700, fontSize: 30, color: "#fff" }}>{n}</div>
-      <div style={{ fontFamily: MON, fontWeight: 600, fontSize: 20, color: "#bbb" }}>{l}</div>
-    </div>
-  );
+  const rolagem = interpolate(frame, [1.6 * fps, 3.4 * fps], [0, -240], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const toque = interpolate(frame, [3.7 * fps, 3.85 * fps, 4.0 * fps], [1, 0.92, 1], clamp);
+  const seguindo = frame > 3.85 * fps;
   return (
-    <div style={{ position: "absolute", inset: 0, background: "#000", overflow: "hidden" }}>
+    <div style={{ position: "absolute", inset: 0, background: "#000", overflow: "hidden", fontFamily: TXT, color: "#fff" }}>
       <div style={{ translate: `0px ${rolagem}px` }}>
-        <div style={{ height: 90, marginTop: 64, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: MON, fontWeight: 700, fontSize: 30, color: "#fff" }}>
-          ronaldslanches10
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 30, padding: "10px 30px" }}>
-          <div style={{ width: 170, height: 170, borderRadius: "50%", padding: 6, background: `conic-gradient(${C.gold}, ${C.red}, ${C.goldDk}, ${C.gold})` }}>
+        <div style={{ height: 80, marginTop: 64, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: 28 }}>ronaldslanches10</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 28, padding: "10px 30px" }}>
+          <div style={{ width: 160, height: 160, borderRadius: "50%", padding: 5, background: `conic-gradient(${C.gold}, ${C.red}, ${C.gold})` }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: "4px solid #000" }}>
               <Img src={staticFile("marca/logo-ronalds-recorte.png")} style={{ width: "92%" }} />
             </div>
           </div>
-          <div style={{ display: "flex", flex: 1, justifyContent: "space-around" }}>
-            <Stat n="Novo" l="perfil" />
-            <Stat n="100%" l="sabor" />
-            <Stat n="Delivery" l="WhatsApp" />
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 700, fontSize: 30 }}>Ronald's Lanches</div>
+            <div style={{ fontWeight: 400, fontSize: 21, color: "#cfcfcf", lineHeight: 1.45, marginTop: 6 }}>
+              Novo nome, mesmo sabor.
+              <br />
+              Delivery pelo WhatsApp
+            </div>
           </div>
         </div>
-        <div style={{ padding: "8px 30px", fontFamily: MON, color: "#fff" }}>
-          <div style={{ fontWeight: 700, fontSize: 28 }}>Ronald's Lanches</div>
-          <div style={{ fontWeight: 600, fontSize: 22, color: "#ddd", lineHeight: 1.4 }}>
-            🍔 Novo nome, mesmo sabor!
-            <br />
-            📲 Peça: (84) 9 8869-8674
+        <div style={{ padding: "18px 30px", display: "flex", gap: 12 }}>
+          <div style={{ flex: 1, scale: String(toque), textAlign: "center", fontWeight: 600, fontSize: 23, padding: "13px 0", borderRadius: 10, color: seguindo ? "#fff" : C.ink, background: seguindo ? "#262626" : C.gold }}>
+            {seguindo ? "Seguindo" : "Seguir"}
           </div>
+          <div style={{ flex: 1, textAlign: "center", fontWeight: 600, fontSize: 23, padding: "13px 0", borderRadius: 10, background: "#262626" }}>Mensagem</div>
         </div>
-        <div style={{ padding: "14px 30px", display: "flex", gap: 14 }}>
-          <div style={{ flex: 1, scale: String(toque), textAlign: "center", fontFamily: MON, fontWeight: 700, fontSize: 24, padding: "14px 0", borderRadius: 12, color: seguindo ? "#fff" : C.ink, background: seguindo ? "#262626" : C.gold }}>
-            {seguindo ? "Seguindo ✓" : "Seguir"}
-          </div>
-          <div style={{ flex: 1, textAlign: "center", fontFamily: MON, fontWeight: 700, fontSize: 24, padding: "14px 0", borderRadius: 12, color: "#fff", background: "#262626" }}>
-            Mensagem
-          </div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3, marginTop: 10 }}>
-          {[1, 4, 2, 3, 0, 1, 4, 2, 3].map((n, k) => (
-            <div key={k} style={{ aspectRatio: "3 / 4", overflow: "hidden", opacity: interpolate(frame, [0.6 * fps + k * 3, 0.6 * fps + k * 3 + 8], [0, 1], clamp) }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3, marginTop: 6 }}>
+          {[1, 4, 2, 3, 0, 1, 4, 2, 3, 0, 1, 4].map((n, k) => (
+            <div key={k} style={{ aspectRatio: "3 / 4", overflow: "hidden", opacity: interpolate(frame, [0.5 * fps + k * 2, 0.5 * fps + k * 2 + 8], [0, 1], clamp) }}>
               <Img src={staticFile(`cenas/img${n}.jpg`)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           ))}
@@ -458,52 +392,66 @@ const TelaPerfil: React.FC = () => {
 const CenaInsta: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = spring({ frame, fps, config: { damping: 16, stiffness: 90 } });
+  const p = spring({ frame: frame - 6, fps, config: { damping: 200 }, durationInFrames: 30 });
   return (
     <AbsoluteFill>
       <Fundo />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 200 }}>
-        <TituloFood texto="Siga o novo insta!" tam={86} atraso={4} intervalo={1.1} />
-      </AbsoluteFill>
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", perspective: 1800 }}>
-        <div
-          style={{
-            width: 600,
-            height: 1220,
-            marginTop: 110,
-            borderRadius: 86,
-            padding: 18,
-            background: "linear-gradient(145deg, #3a3a3a, #111 40%, #2a2a2a)",
-            boxShadow: `0 0 0 3px #555, 0 40px 120px rgba(214,20,27,.35), 0 0 160px rgba(255,170,30,.18)`,
-            rotate: `${interpolate(p, [0, 1], [-14, -3])}deg`,
-            translate: interpolate(p, [0, 1], ["0px 900px", "0px 0px"], clamp),
-            transform: `rotateY(${interpolate(frame, [0, 5 * fps], [22, -8])}deg)`,
-          }}
-        >
-          <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 70, overflow: "hidden" }}>
-            <TelaPerfil />
-            <div style={{ position: "absolute", top: 14, left: "50%", translate: "-50% 0px", width: 180, height: 40, borderRadius: 30, background: "#000" }} />
-          </div>
+      <BlocoTopo>
+        <Etiqueta texto="@ronaldslanches10" atraso={2} />
+        <Titulo tam={140} atraso={6} linhas={[<>Siga o <Caixa key="n" atraso={24}>novo</Caixa></>, <>Instagram<Ponto /></>]} />
+      </BlocoTopo>
+      <div
+        style={{
+          position: "absolute",
+          left: 250,
+          top: 700,
+          width: 580,
+          height: 1180,
+          borderRadius: 82,
+          padding: 16,
+          background: "linear-gradient(145deg, #3c3c3c, #121212 40%, #2b2b2b)",
+          boxShadow: "0 0 0 2px #555, 0 50px 120px rgba(0,0,0,.7), 0 0 140px rgba(255,170,30,.14)",
+          rotate: `${interpolate(p, [0, 1], [-2, -6])}deg`,
+          translate: interpolate(p, [0, 1], ["0px 700px", "0px 0px"], clamp),
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 68, overflow: "hidden" }}>
+          <TelaPerfil />
+          <div style={{ position: "absolute", top: 14, left: "50%", translate: "-50% 0px", width: 170, height: 38, borderRadius: 30, background: "#000" }} />
         </div>
-      </AbsoluteFill>
-      <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 370 }}>
-        <Sequence from={Math.round(3.2 * fps)} layout="none">
-          <WhatsChip />
-        </Sequence>
-      </AbsoluteFill>
+      </div>
+      <Sequence from={Math.round(3.1 * fps)} layout="none">
+        <ChipWhats />
+      </Sequence>
+      <Cortina />
     </AbsoluteFill>
   );
 };
 
-const WhatsChip: React.FC = () => {
+const ChipWhats: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = spring({ frame, fps, config: { damping: 9, stiffness: 170 } });
-  const pulso = 1 + 0.06 * Math.max(0, Math.sin((frame / fps) * Math.PI * 4));
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 16, background: `linear-gradient(180deg, ${C.red}, ${C.redDk})`, border: `4px solid ${C.gold}`, borderRadius: 60, padding: "14px 36px", boxShadow: `0 10px 0 ${C.ink}`, scale: String(interpolate(p, [0, 1], [0, 1])), rotate: "-3deg" }}>
-      <svg width="58" height="58" viewBox="0 0 24 24" style={{ scale: String(pulso) }}><circle cx="12" cy="12" r="11" fill="#25d366" /><path fill="#fff" d="M17.2 14.3c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z" /></svg>
-      <span style={{ fontFamily: FOOD, fontSize: 62, color: "#fff" }}>(84) 9 8869-8674</span>
+    <div
+      style={{
+        position: "absolute",
+        left: M,
+        bottom: 360,
+        display: "flex",
+        alignItems: "center",
+        gap: 18,
+        padding: "18px 30px",
+        borderRadius: 16,
+        background: "rgba(12,9,8,.92)",
+        border: `2px solid ${C.gold}`,
+        opacity: interpolate(frame, [0, 10], [0, 1], clamp),
+        translate: interpolate(frame, [0, 14], ["-40px 0px", "0px 0px"], { ...clamp, easing: suave }),
+      }}
+    >
+      <svg width="52" height="52" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#25d366" /><path fill="#fff" d="M17.2 14.3c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.4-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z" /></svg>
+      <div style={{ fontFamily: TXT, lineHeight: 1.1 }}>
+        <div style={{ fontWeight: 500, fontSize: 20, letterSpacing: "0.2em", color: C.gold, textTransform: "uppercase" }}>Peça pelo WhatsApp</div>
+        <div style={{ fontFamily: TIT, fontSize: 52, color: "#fff", letterSpacing: "0.02em" }}>(84) 9 8869-8674</div>
+      </div>
     </div>
   );
 };
@@ -511,70 +459,23 @@ const WhatsChip: React.FC = () => {
 const CenaFinal: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = spring({ frame, fps, config: { damping: 12 } });
   return (
     <AbsoluteFill>
       <Fundo />
-      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 38%, rgba(255,180,40,.35), transparent 55%)" }} />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 360 }}>
-        <div style={{ position: "relative", width: 900, overflow: "hidden", scale: String(interpolate(p, [0, 1], [0.7, 1])), opacity: interpolate(frame, [0, 6], [0, 1], clamp) }}>
-          <Img src={staticFile("marca/logo-ronalds-fundo.png")} style={{ width: "100%", display: "block", mixBlendMode: "lighten" }} />
-          <BrilhoVarre inicio={20} dur={24} />
+      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 34%, rgba(255,180,40,.24), transparent 50%)" }} />
+      <AbsoluteFill style={{ alignItems: "center", paddingTop: 300 }}>
+        <LogoAnimada largura={900} atraso={2} luzEm={30} />
+        <div style={{ marginTop: 20 }}>
+          <Titulo tam={150} atraso={16} alinhar="center" linhas={["Novo nome,", <><Caixa key="m" atraso={34}>mesmo</Caixa> sabor<Ponto /></>]} />
         </div>
-        <div style={{ marginTop: 30, display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-          <TituloFood texto="Novo nome," tam={120} estilo="branco" atraso={12} intervalo={1.2} />
-          <TituloFood texto="mesmo sabor!" tam={130} atraso={26} intervalo={1.2} />
-        </div>
-        <div style={{ marginTop: 50, display: "flex", gap: 30, fontFamily: OSW, fontWeight: 600, fontSize: 44, color: "#fff", opacity: interpolate(frame, [2 * fps, 2.4 * fps], [0, 1], clamp) }}>
+        <div style={{ marginTop: 50, display: "flex", alignItems: "center", gap: 28, fontFamily: TXT, fontWeight: 500, fontSize: 34, color: C.cream, opacity: interpolate(frame, [1.6 * fps, 2 * fps], [0, 1], clamp) }}>
           <span>@ronaldslanches10</span>
-          <span style={{ color: C.gold }}>|</span>
+          <span style={{ width: 2, height: 34, background: C.gold }} />
           <span>(84) 9 8869-8674</span>
         </div>
       </AbsoluteFill>
-      <Flash em={0} />
+      <Cortina />
     </AbsoluteFill>
-  );
-};
-
-/* ======================= EFEITOS SONOROS ======================= */
-/* [arquivo em public/sfx, segundo em que toca, volume] */
-const SFX: [string, number, number][] = [
-  ["whoosh", 3.55, 0.55],
-  ["pop", 4.05, 0.45],
-  ["pop", 5.15, 0.45],
-  ["whoosh", 6.35, 0.5],
-  ["impacto", 6.6, 0.9],
-  ["brilho", 7.2, 0.5],
-  ["swoosh", 9.0, 0.55],
-  ["swoosh", 10.36, 0.55],
-  ["swoosh", 11.73, 0.55],
-  ["impacto", 12.97, 0.55],
-  ["brilho", 13.2, 0.4],
-  ["whoosh", 15.0, 0.5],
-  ["gelo", 15.3, 0.45],
-  ["lata", 15.55, 0.5],
-  ["whoosh", 19.2, 0.5],
-  ["pop", 22.6, 0.5],
-  ["pop", 23.5, 0.45],
-  ["whoosh", 24.4, 0.5],
-  ["impacto", 24.6, 0.85],
-  ["brilho", 25.2, 0.5],
-];
-
-const Efeitos: React.FC = () => {
-  const { fps } = useVideoConfig();
-  return (
-    <>
-      {/* chiado da chapa (áudio do clipe do Kling), some no fim da abertura */}
-      <Sequence name="SFX chapa" durationInFrames={Math.round(3.9 * fps)}>
-        <Audio src={staticFile("sfx/chapa.wav")} volume={(f) => interpolate(f, [0, 6, 3.2 * fps, 3.9 * fps], [0, 0.4, 0.4, 0], clamp)} />
-      </Sequence>
-      {SFX.map(([nome, seg, vol], k) => (
-        <Sequence key={k} name={`SFX ${nome}`} from={Math.round(seg * fps)} durationInFrames={Math.round(1.8 * fps)}>
-          <Audio src={staticFile(`sfx/${nome}.wav`)} volume={vol} />
-        </Sequence>
-      ))}
-    </>
   );
 };
 
@@ -596,7 +497,6 @@ export const Anuncio: React.FC = () => {
       <Sequence name="Instagram" {...seq("insta")}><CenaInsta /></Sequence>
       <Sequence name="Final" {...seq("final")}><CenaFinal /></Sequence>
       <Audio src={staticFile("locucao.mp3")} volume={0.85} />
-      <Efeitos />
     </AbsoluteFill>
   );
 };
