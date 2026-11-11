@@ -1,17 +1,23 @@
-# Ronald's Lanches — Vídeo "Novo nome, mesmo sabor" (30 s)
+# Ronald's Lanches — Vídeo "Novo nome, mesmo sabor" (30 s · 1080 × 1920 vertical)
 
 Pacote de cenas para gerar no **Nano Banana** (imagem) e animar no **Kling** (imagem → vídeo).
 Os prompts estão em inglês porque as duas ferramentas respondem melhor assim; a explicação está em português.
 
 ## Regras gerais (valem para todas as cenas)
 
-- **Formato:** 9:16 (Reels/Stories). Para YouTube/TV, gere também em 16:9.
+- **Formato único: 1080 × 1920 px (9:16, vertical).** Tudo nesse tamanho: imagens, clipes e vídeo final.
+  - **Nano Banana:** proporção **9:16**. Se sair em resolução menor, faça *upscale* para 1080 × 1920 antes de animar.
+  - **Kling:** proporção **9:16**, usando a imagem 1080 × 1920 como quadro inicial.
+  - **Edição:** projeto/sequência em 1080 × 1920, 30 fps.
+  - **Enquadramento vertical:** o lanche fica no centro, ocupando mais ou menos o terço do meio. Deixe espaço acima e abaixo para os textos da edição.
+  - **Área segura (Reels/Stories):** não coloque nada importante nos **250 px de cima** (nome do perfil) nem nos **350 px de baixo** (legenda e botões), nem colado nas laterais (deixe uns 60 px). Logo, preços, @ e WhatsApp sempre dentro da área segura.
 - **Estilo fixo** — cole este bloco no fim de todo prompt de imagem para manter a identidade visual igual à do cardápio:
 
 ```
 Style: premium fast-food commercial, dark moody background (#0c0908 near-black), warm rim lighting,
 accent colors deep red (#d6141b) and golden yellow (#ffc21a), shallow depth of field, ultra sharp,
 photorealistic, high-end food photography, cinematic color grade, no text, no logos, no watermark.
+Vertical 9:16 composition (1080x1920), subject centered, empty space above and below for text.
 ```
 
 - **Nunca peça para a IA escrever a logo ou textos.** Ela deforma letras. Logo, preços, @ e WhatsApp entram depois, na edição (motion graphics), com os arquivos reais:
@@ -138,6 +144,6 @@ surgindo letra a letra, corte final seco no último beat.
 
 - [ ] Áudio da locução gravado (WAV, 3 takes)
 - [ ] Fotos reais dos lanches (do Instagram) para usar como referência
-- [ ] 7 clipes do Kling exportados em 9:16
+- [ ] 7 clipes do Kling exportados em 1080 × 1920 (9:16)
 - [ ] Trilha + efeitos: chiado de chapa, whoosh, impacto (logo), gelo caindo
 - [ ] Montagem final sincronizada com a voz
