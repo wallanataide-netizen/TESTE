@@ -189,7 +189,7 @@ const BlocoTopo: React.FC<{ children: React.ReactNode; topo?: number }> = ({ chi
 );
 
 /* ======================= LOGO EM CAMADAS =======================
-   logo-burger.png (atrás, flutuando de leve) + logo-nome.png (na frente).
+   logo-arco.png (fundo) + logo-burger.png (na frente do arco, flutuando de leve) + logo-nome.png (na frente de tudo).
    A luz percorre SOMENTE o recorte do nome (máscara pelo próprio PNG). */
 const LogoAnimada: React.FC<{ largura: number; atraso?: number; luzEm?: number }> = ({ largura, atraso = 0, luzEm = 22 }) => {
   const frame = useCurrentFrame();
@@ -201,6 +201,7 @@ const LogoAnimada: React.FC<{ largura: number; atraso?: number; luzEm?: number }
   const mascara = `url(${staticFile("marca/logo-nome.png")})`;
   return (
     <div style={{ position: "relative", width: largura, aspectRatio: "16 / 9", scale: String(interpolate(p, [0, 1], [0.92, 1])), opacity: p }}>
+      <Img src={staticFile("marca/logo-arco.png")} style={camada} />
       <Img
         src={staticFile("marca/logo-burger.png")}
         style={{
