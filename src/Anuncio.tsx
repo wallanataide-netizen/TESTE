@@ -45,8 +45,8 @@ export const T = {
 } as const;
 export const DURACAO = 29.0;
 
-/* Clipes do Kling em public/cenas/clipN.mp4 — enquanto não existirem, usa a imagem img N */
-const USAR_CLIPES = false;
+/* Clipes do Kling 4.0 em public/cenas/clipN.mp4 (os que não estiverem na lista usam a imagem imgN.jpg) */
+const CLIPES = new Set([0, 1, 2, 3]);
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const outExpo = Easing.bezier(0.16, 1, 0.3, 1);
@@ -157,34 +157,6 @@ const Pincel: React.FC<{ texto: string; tam: number; atraso?: number }> = ({ tex
   );
 };
 
-/** Etiqueta de preço em "selo" que gira e quica. */
-const Preco: React.FC<{ valor: string; atraso?: number }> = ({ valor, atraso = 0 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = spring({ frame: frame - atraso, fps, config: { damping: 8, stiffness: 170 } });
-  return (
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "baseline",
-        gap: 6,
-        fontFamily: FOOD,
-        color: C.ink,
-        padding: "10px 34px 4px",
-        borderRadius: 18,
-        background: `linear-gradient(180deg, ${C.goldLt}, ${C.gold} 55%, ${C.goldDk})`,
-        border: `5px solid ${C.redDk}`,
-        boxShadow: `0 10px 0 ${C.ink}`,
-        scale: String(interpolate(p, [0, 1], [0, 1])),
-        rotate: `${interpolate(p, [0, 1], [-30, 4])}deg`,
-      }}
-    >
-      <span style={{ fontSize: 44 }}>R$</span>
-      <span style={{ fontSize: 96, lineHeight: 1 }}>{valor}</span>
-    </div>
-  );
-};
-
 /* ======================= PEÇAS DE CENA ======================= */
 const Fundo: React.FC = () => (
   <AbsoluteFill
@@ -206,7 +178,7 @@ const Midia: React.FC<{ i: number; zoomDe?: number; zoomAte?: number }> = ({ i, 
     objectFit: "cover",
     scale: String(interpolate(frame, [0, durationInFrames], [zoomDe, zoomAte], clamp)),
   };
-  return USAR_CLIPES ? (
+  return CLIPES.has(i) ? (
     <Video src={staticFile(`cenas/clip${i}.mp4`)} muted style={style} />
   ) : (
     <Img src={staticFile(`cenas/img${i}.jpg`)} style={style} />
@@ -343,22 +315,20 @@ const CenaLogo: React.FC = () => {
 };
 
 const LANCHES = [
-  { i: 1, nome: "X-Tudo", preco: "18,00" },
-  { i: 2, nome: "X-Picanha", preco: "16,00" },
-  { i: 3, nome: "Artesanal", preco: "18,00" },
-  { i: 4, nome: "Ronald's", preco: "22,00", destaque: true },
+  { i: 1, nome: "X-Tudo", frase: "o completão" },
+  { i: 2, nome: "X-Picanha", frase: "acebolada no capricho" },
+  { i: 3, nome: "Artesanal", frase: "feito na chapa" },
+  { i: 4, nome: "Ronald's", frase: "o campeão da casa", destaque: true },
 ];
 
-const PlanoLanche: React.FC<{ i: number; nome: string; preco: string; destaque?: boolean }> = ({ i, nome, preco, destaque }) => (
+/* Sem preços: a peça é permanente e os valores mudam. */
+const PlanoLanche: React.FC<{ i: number; nome: string; frase: string; destaque?: boolean }> = ({ i, nome, frase, destaque }) => (
   <AbsoluteFill>
     <Midia i={i} zoomDe={1.08} zoomAte={1.0} />
     <Vinheta />
-    <AbsoluteFill style={{ alignItems: "center", paddingTop: destaque ? 250 : 290 }}>
-      {destaque ? <Pincel texto="o campeão da casa" tam={64} atraso={0} /> : null}
-    </AbsoluteFill>
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 400, gap: 28 }}>
+    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 410, gap: 26 }}>
       <TituloFood texto={nome} tam={destaque ? 180 : 150} estilo={destaque ? "ouro" : "branco"} atraso={2} intervalo={1.4} />
-      <Preco valor={preco} atraso={9} />
+      <Pincel texto={frase} tam={destaque ? 76 : 70} atraso={10} />
     </AbsoluteFill>
     <Flash em={0} />
   </AbsoluteFill>
@@ -566,6 +536,48 @@ const CenaFinal: React.FC = () => {
   );
 };
 
+/* ======================= EFEITOS SONOROS ======================= */
+/* [arquivo em public/sfx, segundo em que toca, volume] */
+const SFX: [string, number, number][] = [
+  ["whoosh", 3.55, 0.55],
+  ["pop", 4.05, 0.45],
+  ["pop", 5.15, 0.45],
+  ["whoosh", 6.35, 0.5],
+  ["impacto", 6.6, 0.9],
+  ["brilho", 7.2, 0.5],
+  ["swoosh", 9.0, 0.55],
+  ["swoosh", 10.36, 0.55],
+  ["swoosh", 11.73, 0.55],
+  ["impacto", 12.97, 0.55],
+  ["brilho", 13.2, 0.4],
+  ["whoosh", 15.0, 0.5],
+  ["gelo", 15.3, 0.45],
+  ["lata", 15.55, 0.5],
+  ["whoosh", 19.2, 0.5],
+  ["pop", 22.6, 0.5],
+  ["pop", 23.5, 0.45],
+  ["whoosh", 24.4, 0.5],
+  ["impacto", 24.6, 0.85],
+  ["brilho", 25.2, 0.5],
+];
+
+const Efeitos: React.FC = () => {
+  const { fps } = useVideoConfig();
+  return (
+    <>
+      {/* chiado da chapa (áudio do clipe do Kling), some no fim da abertura */}
+      <Sequence name="SFX chapa" durationInFrames={Math.round(3.9 * fps)}>
+        <Audio src={staticFile("sfx/chapa.wav")} volume={(f) => interpolate(f, [0, 6, 3.2 * fps, 3.9 * fps], [0, 0.4, 0.4, 0], clamp)} />
+      </Sequence>
+      {SFX.map(([nome, seg, vol], k) => (
+        <Sequence key={k} name={`SFX ${nome}`} from={Math.round(seg * fps)} durationInFrames={Math.round(1.8 * fps)}>
+          <Audio src={staticFile(`sfx/${nome}.wav`)} volume={vol} />
+        </Sequence>
+      ))}
+    </>
+  );
+};
+
 /* ======================= COMPOSIÇÃO ======================= */
 export const Anuncio: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -583,7 +595,8 @@ export const Anuncio: React.FC = () => {
       <Sequence name="Bebidas" {...seq("bebidas")}><CenaBebidas /></Sequence>
       <Sequence name="Instagram" {...seq("insta")}><CenaInsta /></Sequence>
       <Sequence name="Final" {...seq("final")}><CenaFinal /></Sequence>
-      <Audio src={staticFile("locucao.mp3")} />
+      <Audio src={staticFile("locucao.mp3")} volume={0.85} />
+      <Efeitos />
     </AbsoluteFill>
   );
 };
