@@ -230,11 +230,20 @@ const LogoAnimada: React.FC<{ largura: number; atraso?: number; luzEm?: number }
 };
 
 /* ======================= CENAS ======================= */
+/* Abertura: 3 cortes rápidos da chapa (6 smash de cima · 7 nível da chapa · 8 queijo derretendo) */
 const CenaAbertura: React.FC = () => {
   const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const total = Math.round((T.abertura[1] - T.abertura[0]) * fps);
+  const corte = Math.round(total / 3);
   return (
-    <AbsoluteFill style={{ opacity: interpolate(frame, [0, 12], [0, 1], clamp) }}>
-      <Midia i={0} zoomDe={1.1} zoomAte={1.0} />
+    <AbsoluteFill style={{ opacity: interpolate(frame, [0, 8], [0, 1], clamp) }}>
+      {[6, 7, 8].map((i, k) => (
+        <Sequence key={i} from={k * corte} durationInFrames={k === 2 ? total - 2 * corte : corte} premountFor={fps}>
+          <Midia i={i} zoomDe={1.08} zoomAte={1.0} />
+          {k > 0 ? <Cortina /> : null}
+        </Sequence>
+      ))}
       <Vinheta />
       <BlocoBase>
         <Etiqueta texto="Ronald's Lanches" atraso={10} />
@@ -463,8 +472,8 @@ const CenaFinal: React.FC = () => {
   return (
     <AbsoluteFill>
       <Fundo />
-      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 34%, rgba(255,180,40,.24), transparent 50%)" }} />
-      <AbsoluteFill style={{ alignItems: "center", paddingTop: 300 }}>
+      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 42%, rgba(255,180,40,.24), transparent 50%)" }} />
+      <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", paddingBottom: 60 }}>
         <LogoAnimada largura={900} atraso={2} luzEm={30} />
         <div style={{ marginTop: 20 }}>
           <Titulo tam={150} atraso={16} alinhar="center" linhas={["Novo nome,", <><Caixa key="m" atraso={34}>mesmo</Caixa> sabor<Ponto /></>]} />
