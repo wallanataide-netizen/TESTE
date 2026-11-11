@@ -50,7 +50,7 @@ export const DURACAO = 29.0;
 
 /* Clipes do Kling 4.0 em public/cenas/clipN.mp4 (fora da lista usa a imagem imgN.jpg)
    0 chapa · 1 X-Tudo · 2 X-Picanha · 3 Artesanal · 4 Ronald's · 5 bebidas */
-const CLIPES = new Set([0, 1, 2, 3, 4, 5]);
+const CLIPES = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const suave = Easing.bezier(0.16, 1, 0.3, 1);
@@ -247,7 +247,7 @@ const CenaAbertura: React.FC = () => {
       <Vinheta />
       <BlocoBase>
         <Etiqueta texto="Ronald's Lanches" atraso={10} />
-        <Titulo tam={140} atraso={14} linhas={["Aquele", <Caixa key="c" atraso={30}>lanche</Caixa>, <>que você ama<Ponto /></>]} />
+        <Titulo tam={140} atraso={14} linhas={["Sabe aquele", <Caixa key="c" atraso={30}>lanche</Caixa>, <>que você ama<span style={{ color: C.gold }}>?</span></>]} />
       </BlocoBase>
     </AbsoluteFill>
   );
