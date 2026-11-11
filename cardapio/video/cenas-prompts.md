@@ -171,6 +171,27 @@ surgindo letra a letra, corte final seco no último beat.
 | **Pixabay Music** | Grátis | `funk food`, `upbeat advertising`, `happy groove` |
 | **Biblioteca de Áudio do YouTube** | Grátis | Gênero *Funk* ou *Hip Hop*, clima *Feliz/Brilhante* |
 
+### Faixas sugeridas no Envato Elements
+
+Encontradas no Envato em 11/11/2026. O BPM veio da busca, então ouça cada uma antes de escolher.
+
+**Trilha principal (110–125 BPM, sem vocal):**
+1. **Funky TV Show Food** — 122 BPM, sem vocal — https://elements.envato.com/funky-tv-show-food-3BLBUHV
+2. **Fast Food Promo** (ColorFilmMusic) — 120 BPM — busca "food funk"
+3. **Food Upbeat** (Positive_Sound) — 122 BPM — busca "upbeat food"
+4. **Funky Beat** (StepanBel) — 118 BPM — busca "food funk"
+5. **The Food Menu** — 125 BPM, sem vocal — https://elements.envato.com/the-food-menu-NURYN8U
+6. **Ad** (Awesome_Music) — 123 BPM — busca "food ad"
+7. **Fun Quirky Groove** — 120 BPM, com metais — https://elements.envato.com/fun-quirky-groove-9GJM3ND
+
+**Vinheta de logo (impacto aos 7 s e no final):**
+- **Funk Logo** — metais, órgão e guitarra, sem vocal — https://elements.envato.com/funk-logo-RN3LQTW
+- Também vale buscar **Funky Brass Logo** e **Funky Horns Logo** em "funky logo".
+
+**Mais calmas (só se quiserem um clima mais tranquilo):** *Burger* (Tatamusic, 97 BPM), *Happy Food* (Stereo_Color, 104 BPM).
+
+Ao baixar, registre o projeto com o nome do cliente para gerar a licença. Se o vídeo for para o YouTube, a licença do Envato libera reivindicações de Content ID.
+
 SFX (chapa, *whoosh*, impacto, gelo, lata abrindo): Pixabay *Sound Effects*, Envato ou Epidemic.
 
 > **Atenção (Instagram):** perfil comercial não pode usar músicas populares da biblioteca do Instagram em anúncio; só a **biblioteca de áudio comercial** ou trilha licenciada. Use uma das plataformas acima e guarde o comprovante/licença da faixa.
