@@ -88,7 +88,7 @@
   /* ---------- destaques ---------- */
   section{padding:34px 0}
   h2{font-size:clamp(34px,10vw,46px);margin-top:10px}
-  .rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 20px 6px;margin:0 -20px;scrollbar-width:none}
+  .rail{display:flex;gap:14px;overflow-x:auto;padding:18px 20px 6px;margin:0 -20px;scrollbar-width:none}
   .rail::-webkit-scrollbar{display:none}
   .card{flex:0 0 72%;scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
   .card img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%}
@@ -346,6 +346,28 @@ tabs.addEventListener("click", (e) => {
   cats.querySelectorAll(".cat").forEach((x, i) => x.classList.toggle("on", i === +b.dataset.i));
   b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
 });
+
+/* destaques rolando sozinhos, devagar e em loop */
+(() => {
+  const rail = document.getElementById("rail");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  rail.insertAdjacentHTML("beforeend", rail.innerHTML); // duplica para o loop não ter fim
+  const VEL = 0.45;            // px por quadro (≈27 px/s)
+  let pausa = 0, x = 0;
+  const parar = () => { pausa = performance.now() + 3500; x = rail.scrollLeft; };
+  ["pointerdown", "touchstart", "wheel"].forEach((ev) => rail.addEventListener(ev, parar, { passive: true }));
+  rail.addEventListener("scroll", () => { if (performance.now() < pausa) x = rail.scrollLeft; }, { passive: true });
+  const passo = (t) => {
+    if (t > pausa) {
+      const metade = rail.scrollWidth / 2;
+      x += VEL;
+      if (x >= metade) x -= metade;
+      rail.scrollLeft = x;
+    }
+    requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+})();
 
 /* entrada das seções ao rolar */
 const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("vis")), { threshold: 0.12 });
