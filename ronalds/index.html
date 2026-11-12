@@ -88,9 +88,9 @@
   /* ---------- destaques ---------- */
   section{padding:34px 0}
   h2{font-size:clamp(34px,10vw,46px);margin-top:10px}
-  .rail{display:flex;gap:14px;overflow-x:auto;padding:18px 20px 6px;margin:0 -20px;scrollbar-width:none}
-  .rail::-webkit-scrollbar{display:none}
-  .card{flex:0 0 72%;scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .rail{overflow:hidden;padding:18px 0 6px;margin:0 -20px;touch-action:pan-y;cursor:grab}
+  .trilho{display:flex;gap:14px;width:max-content;padding-left:20px;will-change:transform}
+  .card{flex:0 0 auto;width:min(72vw,380px);background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
   .card img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%}
   .card .in{padding:14px 16px 16px}
   .card .t{font-size:30px}
@@ -316,7 +316,7 @@ document.querySelectorAll("[data-wa]").forEach((a) => {
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-document.getElementById("rail").innerHTML = DESTAQUES.map((d) => `
+const htmlCards = DESTAQUES.map((d) => `
   <article class="card${d.top ? " top" : ""}">
     <img src="assets/${d.img}.webp" alt="${esc(d.nome)}" loading="lazy">
     <div class="in">
@@ -326,6 +326,7 @@ document.getElementById("rail").innerHTML = DESTAQUES.map((d) => `
       <a class="btn wa pedir" target="_blank" rel="noopener" href="${wa(`Olá! Quero pedir: ${d.nome} 🍔`)}">Pedir ${esc(d.nome)}</a>
     </div>
   </article>`).join("");
+document.getElementById("rail").innerHTML = `<div class="trilho" id="trilho">${htmlCards}${htmlCards}</div>`;
 
 const tabs = document.getElementById("tabs"), cats = document.getElementById("cats");
 tabs.innerHTML = CARDAPIO.map((c, i) => `<button class="${i ? "" : "on"}" data-i="${i}">${esc(c.cat)}</button>`).join("");
@@ -347,26 +348,28 @@ tabs.addEventListener("click", (e) => {
   b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
 });
 
-/* destaques rolando sozinhos, devagar e em loop */
+/* destaques deslizando sozinhos (sempre), com arrastar pelo dedo */
 (() => {
-  const rail = document.getElementById("rail");
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  rail.insertAdjacentHTML("beforeend", rail.innerHTML); // duplica para o loop não ter fim
-  const VEL = 0.45;            // px por quadro (≈27 px/s)
-  let pausa = 0, x = 0;
-  const parar = () => { pausa = performance.now() + 3500; x = rail.scrollLeft; };
-  ["pointerdown", "touchstart", "wheel"].forEach((ev) => rail.addEventListener(ev, parar, { passive: true }));
-  rail.addEventListener("scroll", () => { if (performance.now() < pausa) x = rail.scrollLeft; }, { passive: true });
-  const passo = (t) => {
-    if (t > pausa) {
-      const metade = rail.scrollWidth / 2;
-      x += VEL;
-      if (x >= metade) x -= metade;
-      rail.scrollLeft = x;
-    }
-    requestAnimationFrame(passo);
+  const rail = document.getElementById("rail"), trilho = document.getElementById("trilho");
+  const VEL = 28;                 // pixels por segundo
+  let x = 0, ultimo = 0, pausaAte = 0, arrastando = false, x0 = 0, p0 = 0, moveu = false;
+  const metade = () => trilho.scrollWidth / 2;
+  const aplica = () => { const m = metade(); x = ((x % m) + m) % m; trilho.style.transform = `translate3d(${-x}px,0,0)`; };
+  const quadro = (t) => {
+    const dt = ultimo ? Math.min((t - ultimo) / 1000, 0.1) : 0; ultimo = t;
+    if (!arrastando && t > pausaAte) { x += VEL * dt; aplica(); }
+    requestAnimationFrame(quadro);
   };
-  requestAnimationFrame(passo);
+  requestAnimationFrame(quadro);
+  rail.addEventListener("pointerdown", (e) => { arrastando = true; moveu = false; x0 = x; p0 = e.clientX; });
+  addEventListener("pointermove", (e) => {
+    if (!arrastando) return;
+    const d = e.clientX - p0; if (Math.abs(d) > 6) moveu = true;
+    x = x0 - d; aplica();
+  });
+  const solta = () => { if (arrastando) { arrastando = false; pausaAte = performance.now() + 2500; } };
+  addEventListener("pointerup", solta); addEventListener("pointercancel", solta);
+  rail.addEventListener("click", (e) => { if (moveu) { e.preventDefault(); e.stopPropagation(); } }, true);
 })();
 
 /* entrada das seções ao rolar */
