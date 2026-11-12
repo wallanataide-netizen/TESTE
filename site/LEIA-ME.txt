@@ -1,0 +1,30 @@
+MINI-SITE RONALD'S LANCHES — LINK DA BIO
+========================================
+
+COMO COLOCAR NO AR (grátis, ~2 minutos)
+Opção 1 — Netlify Drop (mais fácil)
+  1. Acesse app.netlify.com/drop e crie uma conta grátis.
+  2. Arraste a PASTA "site" inteira para a página.
+  3. Em "Site configuration > Change site name", troque para: ronaldslanches
+     -> o link fica https://ronaldslanches.netlify.app
+  4. Cole esse link no Instagram: Editar perfil > Links > Adicionar link externo.
+
+Opção 2 — domínio próprio (ex.: ronaldslanches.com.br, ~R$40/ano no registro.br)
+  Depois de publicar no Netlify: Domain management > Add a domain.
+
+COMO EDITAR PREÇOS, HORÁRIO E TELEFONE
+  Abra index.html em qualquer editor de texto e procure o bloco
+  "EDITE AQUI" (perto do final). Lá ficam:
+   - WHATS    : número do WhatsApp (55 + DDD + número, sem espaços)
+   - HORARIO  : texto do horário de funcionamento
+   - DESTAQUES: os 4 lanches em destaque
+   - CARDAPIO : todas as categorias, itens, preços e descrições
+  Salve e arraste a pasta de novo no Netlify (Deploys > arraste aqui).
+
+O QUE O SITE TEM
+  - Abertura animada com a logo montando (arco, hambúrguer e nome)
+  - Cabeçalho fixo com logo e botão do telefone/WhatsApp
+  - Botões: pedir no WhatsApp, ver cardápio, Instagram
+  - Destaques com foto e botão "Pedir" (abre o WhatsApp já com o nome do lanche)
+  - Cardápio completo em abas, com botão + em cada item
+  - Passo a passo de como pedir e botão flutuante do WhatsApp

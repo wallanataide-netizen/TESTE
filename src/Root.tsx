@@ -3,6 +3,7 @@ import { Anuncio, DURACAO } from "./Anuncio";
 import { MyComposition } from "./Composition";
 import { PostsFixados } from "./Fixados";
 import { PerfilStill } from "./Perfil";
+import { CapasDestaques } from "./Destaques";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const RemotionRoot: React.FC = () => {
       />
       <PostsFixados />
       <PerfilStill />
+      <CapasDestaques />
       <MyComposition />
     </>
   );
