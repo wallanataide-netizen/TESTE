@@ -97,6 +97,9 @@
   .card p{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.45}
   .card .pedir{margin-top:12px}
   .card.top{border-color:var(--gold)}
+  .combo{flex:0 0 auto;width:min(78vw,400px);background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .combo img{width:100%;aspect-ratio:1/1;object-fit:cover}
+  .combo .in{padding:12px 14px 14px}
   .selo{display:inline-block;background:var(--gold);color:var(--ink);font-weight:700;font-size:10px;letter-spacing:.2em;padding:4px 8px;border-radius:4px;margin-bottom:8px}
 
   /* ---------- cardápio ---------- */
@@ -185,6 +188,7 @@
           Fazer pedido no WhatsApp
         </a>
         <a class="btn gold" href="#cardapio">Ver cardápio completo</a>
+        <a class="btn ghost" href="#combos">Ver combos do dia</a>
         <a class="btn ghost" href="https://www.instagram.com/ronaldslanches10/" target="_blank" rel="noopener">Instagram @ronaldslanches10</a>
       </div>
       <div class="fone"><small>PEDIDOS</small>(84) 9 8869-8674</div>
@@ -197,6 +201,15 @@
       <div class="tag">Os mais pedidos</div>
       <h2 class="t">Destaques<span class="dot">.</span></h2>
       <div class="rail" id="rail"></div>
+    </div>
+  </section>
+
+  <!-- COMBOS -->
+  <section id="combos" class="rv">
+    <div class="wrap">
+      <div class="tag">Economize</div>
+      <h2 class="t">Combos do <span class="box">dia</span><span class="dot">.</span></h2>
+      <div class="rail" id="railCombos"></div>
     </div>
   </section>
 
@@ -328,6 +341,25 @@ const htmlCards = DESTAQUES.map((d) => `
   </article>`).join("");
 document.getElementById("rail").innerHTML = `<div class="trilho" id="trilho">${htmlCards}${htmlCards}</div>`;
 
+/* COMBOS — edite junto com as artes (nome usado na mensagem do WhatsApp) */
+const COMBOS = [
+  "2 Bauru Especial + 2 Refri caçulinha",
+  "2 Carioca + 2 Refri caçulinha",
+  "1 X-Tudo + 1 Refri PET",
+  "2 Carioca c/ Frango + 2 Refri caçulinha",
+  "3 Carioca + 1 Refri 1 litro",
+  "2 Bauru Especial c/ Frango + 2 Refri caçulinha",
+  "3 Carioca c/ Frango + 1 Refri 1 litro",
+  "3 Bauru Especial c/ Frango + 1 Refri 1 litro",
+  "3 Bauru Especial + 1 Refri 1 litro",
+];
+const htmlCombos = COMBOS.map((c, i) => `
+  <article class="combo">
+    <img src="assets/combo-${i + 1}.webp" alt="Combo: ${esc(c)}" loading="lazy" draggable="false">
+    <div class="in"><a class="btn wa" target="_blank" rel="noopener" href="${wa(`Olá! Quero o combo: ${c} 🍔`)}">Pedir este combo</a></div>
+  </article>`).join("");
+document.getElementById("railCombos").innerHTML = `<div class="trilho">${htmlCombos}${htmlCombos}</div>`;
+
 const tabs = document.getElementById("tabs"), cats = document.getElementById("cats");
 tabs.innerHTML = CARDAPIO.map((c, i) => `<button class="${i ? "" : "on"}" data-i="${i}">${esc(c.cat)}</button>`).join("");
 cats.innerHTML = CARDAPIO.map((c, i) => `
@@ -348,13 +380,11 @@ tabs.addEventListener("click", (e) => {
   b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
 });
 
-/* destaques deslizando sozinhos (sempre), com arrastar pelo dedo */
-(() => {
-  const rail = document.getElementById("rail"), trilho = document.getElementById("trilho");
-  const VEL = 28;                 // pixels por segundo
+/* carrosséis deslizando sozinhos (sempre), com arrastar pelo dedo */
+const carrossel = (rail, VEL) => {
+  const trilho = rail.querySelector(".trilho");
   let x = 0, ultimo = 0, pausaAte = 0, arrastando = false, x0 = 0, p0 = 0, moveu = false;
-  const metade = () => trilho.scrollWidth / 2;
-  const aplica = () => { const m = metade(); x = ((x % m) + m) % m; trilho.style.transform = `translate3d(${-x}px,0,0)`; };
+  const aplica = () => { const m = trilho.scrollWidth / 2 || 1; x = ((x % m) + m) % m; trilho.style.transform = `translate3d(${-x}px,0,0)`; };
   const quadro = (t) => {
     const dt = ultimo ? Math.min((t - ultimo) / 1000, 0.1) : 0; ultimo = t;
     if (!arrastando && t > pausaAte) { x += VEL * dt; aplica(); }
@@ -370,7 +400,9 @@ tabs.addEventListener("click", (e) => {
   const solta = () => { if (arrastando) { arrastando = false; pausaAte = performance.now() + 2500; } };
   addEventListener("pointerup", solta); addEventListener("pointercancel", solta);
   rail.addEventListener("click", (e) => { if (moveu) { e.preventDefault(); e.stopPropagation(); } }, true);
-})();
+};
+carrossel(document.getElementById("rail"), 28);
+carrossel(document.getElementById("railCombos"), 32);
 
 /* entrada das seções ao rolar */
 const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("vis")), { threshold: 0.12 });
