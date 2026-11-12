@@ -59,31 +59,6 @@ const Apoio: React.FC<{ children: React.ReactNode; largura?: number; centro?: bo
 );
 
 /* ---------- Base ---------- */
-const Foto: React.FC<{ src: string; pos?: string; escala?: number }> = ({ src, pos = "50% 50%", escala = 1 }) => (
-  <Img
-    src={staticFile(src)}
-    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos, scale: String(escala) }}
-  />
-);
-
-const Degrade: React.FC<{ topo?: number; base?: number }> = ({ topo = 0.85, base = 0.96 }) => (
-  <AbsoluteFill
-    style={{
-      background: `linear-gradient(180deg, rgba(12,9,8,${topo}) 0%, rgba(12,9,8,0) 30%, rgba(12,9,8,0) 50%, rgba(12,9,8,${base}) 78%, rgba(12,9,8,1) 100%)`,
-    }}
-  />
-);
-
-/** Numeração da série + @ no topo, presente nas três artes. */
-const Cabecalho: React.FC<{ n: number }> = ({ n }) => (
-  <div style={{ position: "absolute", top: 56, left: M, right: M, display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: TXT }}>
-    <span style={{ fontWeight: 600, fontSize: 22, letterSpacing: "0.2em", color: "#fff", opacity: 0.85 }}>@RONALDSLANCHES10</span>
-    <span style={{ fontWeight: 600, fontSize: 22, letterSpacing: "0.2em", color: C.gold }}>
-      0{n} <span style={{ color: "#fff", opacity: 0.5 }}>/ 03</span>
-    </span>
-  </div>
-);
-
 /** Logo em camadas (arco · hambúrguer · nome), sem efeitos. */
 const Logo: React.FC<{ largura: number }> = ({ largura }) => {
   const c: React.CSSProperties = { position: "absolute", inset: 0, width: "100%", height: "100%" };
@@ -103,35 +78,9 @@ const IconeWhats: React.FC<{ tam: number }> = ({ tam }) => (
   </svg>
 );
 
-/* ======================= 01 — NOVO NOME ======================= */
-export const Fixado1: React.FC = () => (
-  <AbsoluteFill style={{ background: C.bg }}>
-    <Foto src="cenas/img8.jpg" pos="50% 40%" />
-    <AbsoluteFill style={{ background: "rgba(12,9,8,.55)" }} />
-    <AbsoluteFill style={{ background: "radial-gradient(ellipse 70% 40% at 50% 40%, rgba(255,170,30,.30), transparent 70%)" }} />
-    <Degrade topo={0.7} base={0.97} />
-    <Cabecalho n={1} />
-    <AbsoluteFill style={{ alignItems: "center", paddingTop: 170 }}>
-      <Logo largura={840} />
-    </AbsoluteFill>
-    <AbsoluteFill style={{ justifyContent: "flex-end", padding: `0 ${M}px 110px`, gap: 26 }}>
-      <Etiqueta texto="Nova fase" />
-      <Titulo tam={150}>
-        Novo nome,
-        <br />
-        <Caixa>mesmo</Caixa> sabor<Ponto />
-      </Titulo>
-      <Apoio>
-        O lanche que você já conhece e ama agora se chama <B>Ronald's Lanches</B>. Mesma chapa, mesmo capricho.
-      </Apoio>
-    </AbsoluteFill>
-  </AbsoluteFill>
-);
-
-/* ======================= 02 — CARDÁPIO / DESTAQUES ======================= */
 const Miniatura: React.FC<{ src: string; nome: string; desc: string }> = ({ src, nome, desc }) => (
   <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
-    <div style={{ position: "relative", height: 300, borderRadius: 14, overflow: "hidden", border: `2px solid rgba(255,194,26,.55)` }}>
+    <div style={{ position: "relative", height: 250, borderRadius: 14, overflow: "hidden", border: `2px solid rgba(255,194,26,.55)` }}>
       <Img src={staticFile(src)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 42%", scale: "1.35" }} />
     </div>
     <div style={{ fontFamily: TIT, fontSize: 44, color: "#fff", textTransform: "uppercase", lineHeight: 1 }}>
@@ -142,32 +91,6 @@ const Miniatura: React.FC<{ src: string; nome: string; desc: string }> = ({ src,
   </div>
 );
 
-export const Fixado2: React.FC = () => (
-  <AbsoluteFill style={{ background: C.bg }}>
-    <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 900, overflow: "hidden" }}>
-      <Foto src="cenas/img4.jpg" pos="50% 46%" escala={1.05} />
-      <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(12,9,8,.8) 0%, rgba(12,9,8,0) 22%, rgba(12,9,8,0) 42%, rgba(12,9,8,.9) 66%, rgba(12,9,8,1) 100%)" }} />
-    </div>
-    <Cabecalho n={2} />
-    <div style={{ position: "absolute", left: M, right: M, top: 560, display: "flex", flexDirection: "column", gap: 20 }}>
-      <Etiqueta texto="O campeão da casa" />
-      <Titulo tam={140}>
-        <Caixa>Ronald's</Caixa>
-        <Ponto />
-      </Titulo>
-      <Apoio largura={900}>
-        Dois hambúrgueres, frango, ovos, queijos, presuntos, calabresa, bacon e <B>tudo em dobro</B>.
-      </Apoio>
-    </div>
-    <div style={{ position: "absolute", left: M, right: M, bottom: 90, display: "flex", gap: 30 }}>
-      <Miniatura src="cenas/img1.jpg" nome="X-Tudo" desc="Carne, frango, ovo, bacon e tudo o que tem direito." />
-      <Miniatura src="cenas/img2.jpg" nome="X-Picanha" desc="Picanha acebolada com queijo coalho." />
-      <Miniatura src="cenas/img3.jpg" nome="Artesanal" desc="Hambúrguer artesanal, bacon e barbecue." />
-    </div>
-  </AbsoluteFill>
-);
-
-/* ======================= 03 — PEÇA PELO WHATSAPP ======================= */
 const Item: React.FC<{ n: string; titulo: string; texto: string }> = ({ n, titulo, texto }) => (
   <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
     <div style={{ fontFamily: TIT, fontSize: 56, color: C.gold, lineHeight: 0.95, width: 70 }}>{n}</div>
@@ -178,54 +101,171 @@ const Item: React.FC<{ n: string; titulo: string; texto: string }> = ({ n, titul
   </div>
 );
 
-export const Fixado3: React.FC = () => (
-  <AbsoluteFill style={{ background: C.bg }}>
-    <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 820, overflow: "hidden" }}>
-      <Foto src="cenas/img6.jpg" pos="50% 40%" />
-      <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(12,9,8,.85) 0%, rgba(12,9,8,.1) 22%, rgba(12,9,8,.25) 42%, rgba(12,9,8,.9) 68%, rgba(12,9,8,1) 100%)" }} />
+
+/* ======================= PAINEL ÚNICO 3240×1440 =======================
+   Uma arte só, cortada em 3 posts. Fundo, fotos, faixa e fio dourado
+   atravessam os cortes; os textos ficam sempre dentro de cada post. */
+const PW = W * 3;
+
+/** Foto que se funde nas laterais (máscara horizontal) para não ter emenda. */
+const FotoFundida: React.FC<{ src: string; x: number; w: number; pos?: string; esq?: boolean; dir?: boolean; escala?: number }> = ({
+  src, x, w, pos = "50% 50%", esq = true, dir = true, escala = 1,
+}) => {
+  const m = `linear-gradient(90deg, ${esq ? "transparent 0%, #000 28%" : "#000 0%"}, ${dir ? "#000 72%, transparent 100%" : "#000 100%"})`;
+  return (
+    <div style={{ position: "absolute", left: x, top: 0, width: w, height: H, overflow: "hidden", WebkitMaskImage: m, maskImage: m }}>
+      <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: pos, scale: String(escala) }} />
     </div>
-    <Cabecalho n={3} />
-    <div style={{ position: "absolute", left: M, right: M, top: 470, display: "flex", flexDirection: "column", gap: 24 }}>
+  );
+};
+
+/** Setas que "puxam" o olhar para o post seguinte. */
+const Seta: React.FC<{ x: number }> = ({ x }) => (
+  <div style={{ position: "absolute", left: x, bottom: 22, fontFamily: TIT, fontSize: 40, color: C.gold, letterSpacing: "-0.12em", lineHeight: 1 }}>›››</div>
+);
+
+const Faixa: React.FC = () => (
+  <div style={{ position: "absolute", left: 0, width: PW, bottom: 0, height: 88, background: `linear-gradient(90deg, ${C.redDk}, ${C.red} 30%, ${C.red} 70%, ${C.redDk})`, borderTop: `4px solid ${C.gold}` }}>
+    {[
+      ["Novo nome, mesmo sabor", 0],
+      ["O melhor da chapa", 1],
+      ["@ronaldslanches10", 2],
+    ].map(([t, k]) => (
+      <div key={k as number} style={{ position: "absolute", left: (k as number) * W + M, top: 0, height: 84, display: "flex", alignItems: "center", fontFamily: TXT, fontWeight: 700, fontSize: 26, letterSpacing: "0.24em", color: "#fff", textTransform: "uppercase" }}>
+        {t as string}
+      </div>
+    ))}
+    <Seta x={W - M - 40} />
+    <Seta x={2 * W - M - 40} />
+  </div>
+);
+
+/** Fio dourado contínuo, em onda, passando pelos três posts. */
+const FioDourado: React.FC = () => (
+  <svg width={PW} height={H} style={{ position: "absolute", left: 0, top: 0 }}>
+    <defs>
+      <linearGradient id="ouro" x1="0" x2="1">
+        <stop offset="0" stopColor={C.gold} stopOpacity="0" />
+        <stop offset="0.08" stopColor={C.gold} />
+        <stop offset="0.92" stopColor={C.gold} />
+        <stop offset="1" stopColor={C.gold} stopOpacity="0" />
+      </linearGradient>
+    </defs>
+    <path d={`M 0 128 C 700 128, 900 112, 1620 112 S 2600 128, ${PW} 128`} fill="none" stroke="url(#ouro)" strokeWidth="3" />
+  </svg>
+);
+
+/** Brasas douradas espalhadas por toda a largura. */
+const Brasas: React.FC = () => {
+  const pts = Array.from({ length: 70 }, (_, i) => {
+    const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
+    return { x: r(1) * PW, y: 150 + r(2) * 360, s: 2 + r(3) * 5, o: 0.25 + r(4) * 0.6 };
+  });
+  return (
+    <>
+      {pts.map((p, i) => (
+        <div key={i} style={{ position: "absolute", left: p.x, top: p.y, width: p.s, height: p.s, borderRadius: "50%", background: C.gold, opacity: p.o, boxShadow: `0 0 ${p.s * 3}px ${C.gold}` }} />
+      ))}
+    </>
+  );
+};
+
+const CabecalhoP: React.FC<{ k: number }> = ({ k }) => (
+  <div style={{ position: "absolute", top: 54, left: k * W + M, width: W - 2 * M, display: "flex", justifyContent: "space-between", fontFamily: TXT, fontWeight: 600, fontSize: 22, letterSpacing: "0.2em" }}>
+    <span style={{ color: "#fff", opacity: 0.85 }}>RONALD'S LANCHES</span>
+    <span style={{ color: C.gold }}>
+      0{k + 1} <span style={{ color: "#fff", opacity: 0.5 }}>/ 03</span>
+    </span>
+  </div>
+);
+
+export const Panorama: React.FC = () => (
+  <AbsoluteFill style={{ width: PW, height: H, background: C.bg }}>
+    {/* fotos contínuas */}
+    <FotoFundida src="cenas/img8.jpg" x={-120} w={1480} pos="50% 42%" esq={false} />
+    <FotoFundida src="cenas/img4.jpg" x={W - 260} w={W + 520} pos="50% 40%" />
+    <FotoFundida src="cenas/img6.jpg" x={2 * W - 300} w={W + 300} pos="60% 38%" dir={false} />
+    {/* escurecimento contínuo para leitura */}
+    <AbsoluteFill style={{ width: PW, background: "linear-gradient(180deg, rgba(12,9,8,.82) 0%, rgba(12,9,8,.15) 16%, rgba(12,9,8,.1) 28%, rgba(12,9,8,.82) 44%, rgba(12,9,8,.9) 58%, rgba(12,9,8,.98) 74%, rgba(12,9,8,1) 100%)" }} />
+    <AbsoluteFill style={{ width: PW, background: `radial-gradient(ellipse 22% 30% at 16.6% 26%, rgba(255,170,30,.28), transparent 70%)` }} />
+    <Brasas />
+    <FioDourado />
+    {[0, 1, 2].map((k) => <CabecalhoP key={k} k={k} />)}
+
+    {/* 01 — Novo nome */}
+    <div style={{ position: "absolute", left: 120, top: 170 }}>
+      <Logo largura={840} />
+    </div>
+    <div style={{ position: "absolute", left: M, width: W - 2 * M, top: 820, display: "flex", flexDirection: "column", gap: 24 }}>
+      <Etiqueta texto="Nova fase" />
+      <Titulo tam={136}>
+        Novo nome,
+        <br />
+        <Caixa>mesmo</Caixa> sabor<Ponto />
+      </Titulo>
+      <Apoio largura={900}>
+        O lanche que você já conhece e ama agora se chama <B>Ronald's Lanches</B>.
+      </Apoio>
+    </div>
+
+    {/* 02 — Campeão + destaques */}
+    <div style={{ position: "absolute", left: W + M, width: W - 2 * M, top: 560, display: "flex", flexDirection: "column", gap: 18 }}>
+      <Etiqueta texto="O campeão da casa" />
+      <Titulo tam={130}>
+        <Caixa>Ronald's</Caixa>
+        <Ponto />
+      </Titulo>
+      <Apoio largura={900}>
+        Dois hambúrgueres, frango, ovos, bacon e <B>tudo em dobro</B>.
+      </Apoio>
+    </div>
+    <div style={{ position: "absolute", left: W + M, width: W - 2 * M, top: 900, display: "flex", gap: 28 }}>
+      <Miniatura src="cenas/img1.jpg" nome="X-Tudo" desc="Carne, frango, ovo, bacon e muito mais." />
+      <Miniatura src="cenas/img2.jpg" nome="X-Picanha" desc="Picanha acebolada com queijo coalho." />
+      <Miniatura src="cenas/img3.jpg" nome="Artesanal" desc="Artesanal com bacon e barbecue." />
+    </div>
+
+    {/* 03 — WhatsApp */}
+    <div style={{ position: "absolute", left: 2 * W + M, width: W - 2 * M, top: 560, display: "flex", flexDirection: "column", gap: 22 }}>
       <Etiqueta texto="Delivery" />
-      <Titulo tam={140}>
+      <Titulo tam={128}>
         Peça pelo
         <br />
         <Caixa>WhatsApp</Caixa>
         <Ponto />
       </Titulo>
     </div>
-    <div style={{ position: "absolute", left: M, right: M, top: 870, display: "flex", flexDirection: "column", gap: 30 }}>
+    <div style={{ position: "absolute", left: 2 * W + M, width: W - 2 * M, top: 900, display: "flex", flexDirection: "column", gap: 22 }}>
       <Item n="01" titulo="Escolha o seu lanche" texto="Confira o cardápio completo aqui no perfil." />
       <Item n="02" titulo="Chama no WhatsApp" texto="Mande o pedido e o endereço de entrega." />
-      <Item n="03" titulo="É só aguardar" texto="Seu lanche sai da chapa direto pra você." />
     </div>
-    <div
-      style={{
-        position: "absolute",
-        left: M,
-        right: M,
-        bottom: 80,
-        display: "flex",
-        alignItems: "center",
-        gap: 24,
-        padding: "26px 34px",
-        borderRadius: 18,
-        background: `linear-gradient(90deg, ${C.redDk}, ${C.red})`,
-        border: `2px solid ${C.gold}`,
-      }}
-    >
-      <IconeWhats tam={84} />
+    <div style={{ position: "absolute", left: 2 * W + M, width: W - 2 * M, top: 1130, display: "flex", alignItems: "center", gap: 22, padding: "20px 30px", borderRadius: 18, background: "rgba(12,9,8,.9)", border: `2px solid ${C.gold}`, boxSizing: "border-box" }}>
+      <IconeWhats tam={74} />
       <div style={{ lineHeight: 1.05 }}>
-        <div style={{ fontFamily: TXT, fontWeight: 600, fontSize: 22, letterSpacing: "0.24em", color: C.gold, textTransform: "uppercase" }}>Pedidos</div>
-        <div style={{ fontFamily: TIT, fontSize: 78, color: "#fff", letterSpacing: "0.01em" }}>(84) 9 8869-8674</div>
+        <div style={{ fontFamily: TXT, fontWeight: 600, fontSize: 20, letterSpacing: "0.24em", color: C.gold, textTransform: "uppercase" }}>Pedidos</div>
+        <div style={{ fontFamily: TIT, fontSize: 70, color: "#fff" }}>(84) 9 8869-8674</div>
       </div>
+    </div>
+
+    <Faixa />
+  </AbsoluteFill>
+);
+
+const Recorte: React.FC<{ k: number }> = ({ k }) => (
+  <AbsoluteFill style={{ overflow: "hidden", background: C.bg }}>
+    <div style={{ position: "absolute", left: -k * W, top: 0, width: PW, height: H }}>
+      <Panorama />
     </div>
   </AbsoluteFill>
 );
+export const Fixado1: React.FC = () => <Recorte k={0} />;
+export const Fixado2: React.FC = () => <Recorte k={1} />;
+export const Fixado3: React.FC = () => <Recorte k={2} />;
 
 /* ---------- Registro ---------- */
 export const PostsFixados: React.FC = () => (
   <>
+    <Still id="FixadosPanorama" component={Panorama} width={PW} height={H} />
     <Still id="Fixado1" component={Fixado1} width={W} height={H} />
     <Still id="Fixado2" component={Fixado2} width={W} height={H} />
     <Still id="Fixado3" component={Fixado3} width={W} height={H} />
