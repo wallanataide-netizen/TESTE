@@ -2,6 +2,7 @@ import { Composition } from "remotion";
 import { Anuncio, DURACAO } from "./Anuncio";
 import { MyComposition } from "./Composition";
 import { PostsFixados } from "./Fixados";
+import { PerfilStill } from "./Perfil";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
       />
       <PostsFixados />
+      <PerfilStill />
       <MyComposition />
     </>
   );
