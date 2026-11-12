@@ -4,6 +4,7 @@ import { MyComposition } from "./Composition";
 import { PostsFixados } from "./Fixados";
 import { PerfilStill } from "./Perfil";
 import { CapasDestaques } from "./Destaques";
+import { CombosStills } from "./Combos";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ export const RemotionRoot: React.FC = () => {
       <PostsFixados />
       <PerfilStill />
       <CapasDestaques />
+      <CombosStills />
       <MyComposition />
     </>
   );
