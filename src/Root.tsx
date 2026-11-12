@@ -1,6 +1,7 @@
 import { Composition } from "remotion";
 import { Anuncio, DURACAO } from "./Anuncio";
 import { MyComposition } from "./Composition";
+import { PostsFixados } from "./Fixados";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      <PostsFixados />
       <MyComposition />
     </>
   );
