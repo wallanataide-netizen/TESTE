@@ -130,6 +130,46 @@
   footer .links a{color:var(--gold)}
   footer small{display:block;color:#7d7266;margin-top:14px;font-size:11px}
 
+  /* ---------- carrinho ---------- */
+  .mais{cursor:pointer;font-family:Poppins}
+  .bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:70;display:none;align-items:center;gap:12px;
+    background:linear-gradient(90deg,var(--red-dk),var(--red));border:2px solid var(--gold);border-radius:16px;padding:10px 12px 10px 16px;box-shadow:0 14px 40px rgba(0,0,0,.6);max-width:536px;margin:0 auto}
+  .bar.on{display:flex;animation:fadeUp .3s ease-out}
+  .bar .qt{font-weight:700;font-size:13px;color:var(--gold-lt)}
+  .bar .tt{font-family:Anton,sans-serif;font-size:24px;color:#fff;line-height:1}
+  .bar button{margin-left:auto;background:var(--gold);color:var(--ink);font:700 15px Poppins;border:0;border-radius:12px;padding:12px 16px}
+  body.tem-pedido .fab{display:none}
+  body.tem-pedido footer{padding-bottom:140px}
+  .velo{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.6);display:none}
+  .velo.on{display:block}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:95;max-height:92vh;overflow-y:auto;background:var(--panel);border-top:2px solid var(--gold);border-radius:22px 22px 0 0;
+    padding:18px 20px calc(24px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .35s cubic-bezier(.16,1,.3,1);max-width:600px;margin:0 auto}
+  .sheet.on{transform:none}
+  .sheet .topo{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .sheet .fechar{background:none;border:1.5px solid var(--line);color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px}
+  .linha{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .linha .nm2{flex:1;min-width:0;font-weight:600;font-size:14px;color:#fff}
+  .linha .nm2 small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+  .qtd{display:flex;align-items:center;gap:8px}
+  .qtd button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--gold);background:transparent;color:var(--gold);font:700 18px Poppins;line-height:1}
+  .qtd b{min-width:18px;text-align:center;color:#fff}
+  .linha .sub{font-family:Anton,sans-serif;font-size:18px;color:var(--gold);min-width:72px;text-align:right}
+  .total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 4px}
+  .total span{font-weight:600;color:var(--muted)}
+  .total b{font-family:Anton,sans-serif;font-size:34px;color:#fff;font-weight:400}
+  .gratis{font-size:12px;color:var(--wa);font-weight:600}
+  .form{display:grid;gap:12px;margin-top:16px}
+  .form label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+  .form input,.form textarea,.form select{width:100%;margin-top:6px;background:#0c0908;border:1.5px solid var(--line);border-radius:12px;color:#fff;font:400 15px Poppins;padding:12px 14px}
+  .form textarea{min-height:70px;resize:vertical}
+  .opcoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .opcoes button{font:600 13px Poppins;color:var(--cream);background:transparent;border:1.5px solid var(--line);padding:9px 14px;border-radius:999px}
+  .opcoes button.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .erro{color:#ff6b6b;font-size:13px;font-weight:600;min-height:18px}
+  .vazio{color:var(--muted);text-align:center;padding:24px 0}
+  .toast{position:fixed;left:50%;bottom:110px;z-index:99;transform:translate(-50%,20px);opacity:0;background:#fff;color:var(--ink);font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;transition:all .25s;pointer-events:none;white-space:nowrap}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
   /* botão flutuante */
   .fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:60;width:62px;height:62px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:pulse 2.2s infinite 3s}
   .fab svg{width:34px;height:34px}
@@ -180,9 +220,9 @@
       <p>O lanche que você já conhece e ama agora se chama <b style="color:var(--gold)">Ronald's Lanches</b>. Mesma chapa, mesmo capricho.</p>
       <div class="chips"><span>🛵 Entrega grátis</span><span id="horario"></span><span>🍔 Lanchonete</span></div>
       <div class="ctas">
-        <a class="btn wa" data-wa href="#">
+        <a class="btn wa" href="#cardapio">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.3 17.1L2 22l5-1.3a11 11 0 0 0 13.5-17.2ZM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20Zm4.9-6.7c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg>
-          Fazer pedido no WhatsApp
+          Montar meu pedido
         </a>
         <a class="btn gold" href="#cardapio">Ver cardápio completo</a>
         <a class="btn ghost" href="https://www.instagram.com/ronaldslanches10/" target="_blank" rel="noopener">Instagram @ronaldslanches10</a>
@@ -207,7 +247,7 @@
       <h2 class="t">Escolha o <span class="box">seu</span><span class="dot">.</span></h2>
       <div class="tabs" id="tabs"></div>
       <div id="cats"></div>
-      <p class="nota">Toque no <b style="color:var(--wa)">+</b> para pedir direto pelo WhatsApp. Preços sujeitos a alteração.</p>
+      <p class="nota">Toque no <b style="color:var(--wa)">+</b> para adicionar ao seu pedido. No fim, é só enviar pelo WhatsApp. Preços sujeitos a alteração.</p>
     </div>
   </section>
 
@@ -217,11 +257,11 @@
       <div class="tag">Delivery</div>
       <h2 class="t">Como <span class="box">pedir</span><span class="dot">.</span></h2>
       <div class="passos">
-        <div class="passo"><b>01</b><div><strong>Escolha o seu lanche</strong><span>Confira o cardápio aqui em cima.</span></div></div>
-        <div class="passo"><b>02</b><div><strong>Chama no WhatsApp</strong><span>Mande o pedido e o endereço de entrega.</span></div></div>
-        <div class="passo"><b>03</b><div><strong>É só aguardar</strong><span>Seu lanche sai da chapa direto pra você.</span></div></div>
+        <div class="passo"><b>01</b><div><strong>Monte seu pedido</strong><span>Toque no + dos lanches e bebidas que quiser.</span></div></div>
+        <div class="passo"><b>02</b><div><strong>Confira e preencha</strong><span>Nome, endereço e forma de pagamento.</span></div></div>
+        <div class="passo"><b>03</b><div><strong>Envie pelo WhatsApp</strong><span>O pedido chega pronto. É só aguardar!</span></div></div>
       </div>
-      <div class="ctas"><a class="btn wa" data-wa href="#">Pedir agora: (84) 9 8869-8674</a></div>
+      <div class="ctas"><a class="btn gold" href="#cardapio">Montar meu pedido</a></div>
     </div>
   </section>
 </main>
@@ -242,11 +282,51 @@
   <svg viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3.5A11 11 0 0 0 3.3 17.1L2 22l5-1.3a11 11 0 0 0 13.5-17.2ZM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20Zm4.9-6.7c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.6-3.2c-.3-.5.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg>
 </a>
 
+<div class="bar" id="bar">
+  <div><div class="qt" id="barQt">1 item</div><div class="tt" id="barTt">R$ 0,00</div></div>
+  <button id="abrir">Ver pedido →</button>
+</div>
+<div class="velo" id="velo"></div>
+<div class="sheet" id="sheet" role="dialog" aria-label="Seu pedido">
+  <div class="topo"><h2 class="t" style="font-size:34px;margin:0">Seu <span class="box">pedido</span><span class="dot">.</span></h2><button class="fechar" id="fechar" aria-label="Fechar">✕</button></div>
+  <div id="linhas"></div>
+  <div class="total"><span>Total</span><b id="total">R$ 0,00</b></div>
+  <div class="gratis">🛵 Entrega grátis</div>
+  <div class="form">
+    <div><label>Seu nome *</label><input id="fNome" autocomplete="name" placeholder="Como podemos te chamar?"></div>
+    <div><label>Como vai receber? *</label><div class="opcoes" id="fTipo"><button data-v="Entrega" class="on">🛵 Entrega</button><button data-v="Retirada">🏪 Retirar no local</button></div></div>
+    <div id="boxEnd"><label>Endereço de entrega *</label><input id="fEnd" autocomplete="street-address" placeholder="Rua, número e bairro"><input id="fRef" placeholder="Ponto de referência (opcional)" style="margin-top:8px"></div>
+    <div><label>Pagamento *</label><div class="opcoes" id="fPag"><button data-v="Pix">Pix</button><button data-v="Cartão">Cartão</button><button data-v="Dinheiro">Dinheiro</button></div></div>
+    <div id="boxTroco" style="display:none"><label>Troco para quanto?</label><input id="fTroco" inputmode="decimal" placeholder="Ex.: 50 (deixe vazio se não precisar)"></div>
+    <div><label>Observações</label><textarea id="fObs" placeholder="Ex.: sem salada, sabor do refri, ponto da carne..."></textarea></div>
+    <div class="erro" id="erro"></div>
+    <button class="btn wa" id="enviar" style="border:0;width:100%">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.3 17.1L2 22l5-1.3a11 11 0 0 0 13.5-17.2ZM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A9 9 0 1 1 12 20Z"/></svg>
+      Enviar pedido no WhatsApp
+    </button>
+    <button class="btn ghost" id="limpar" style="background:none;width:100%;font-family:Poppins">Limpar pedido</button>
+  </div>
+</div>
+<div class="sheet" id="escolha" role="dialog" aria-label="Escolha uma opção">
+  <div class="topo"><h2 class="t" style="font-size:30px;margin:0" id="escTitulo">Escolha</h2><button class="fechar" id="escFechar" aria-label="Fechar">✕</button></div>
+  <p style="color:var(--muted);font-size:14px;margin-top:4px">Escolha uma opção:</p>
+  <div class="opcoes" id="escOpcoes" style="margin-top:14px"></div>
+</div>
+<div class="toast" id="toast"></div>
+
 <script>
 /* =========================================================
    EDITE AQUI: telefone, preços e itens do cardápio
    ========================================================= */
 const WHATS = "5584988698674";
+/* opções que o cliente escolhe ao adicionar (ex.: sabor do suco) */
+const OPCOES = {
+  "Sucos / Vitaminas": ["Laranja", "Graviola", "Cajá", "Uva", "Manga", "Morango", "Goiaba", "Maracujá"],
+  "Caçulinha": ["Coca-Cola", "Guaraná", "Pepsi", "Outro sabor"],
+  "Refri. lata": ["Coca-Cola", "Guaraná", "Pepsi", "Outro sabor"],
+  "Refri. 600ml": ["Coca-Cola", "Guaraná", "Pepsi", "Outro sabor"],
+  "Refri. 1 litro": ["Coca-Cola", "Guaraná", "Pepsi", "Outro sabor"],
+};
 const HORARIO = "🕕 Seg. a sáb. · a partir das 18h";
 
 const DESTAQUES = [
@@ -323,7 +403,7 @@ const htmlCards = DESTAQUES.map((d) => `
       ${d.selo ? `<span class="selo">★ ${esc(d.selo)}</span>` : ""}
       <div class="t">${esc(d.nome)}<span class="dot">.</span></div>
       <p>${esc(d.desc)}</p>
-      <a class="btn wa pedir" target="_blank" rel="noopener" href="${wa(`Olá! Quero pedir: ${d.nome} 🍔`)}">Pedir ${esc(d.nome)}</a>
+      <button class="btn gold pedir" style="border:0;width:100%;font-family:Poppins" data-add="${esc(d.nome)}">+ Adicionar ao pedido</button>
     </div>
   </article>`).join("");
 document.getElementById("rail").innerHTML = `<div class="trilho" id="trilho">${htmlCards}${htmlCards}</div>`;
@@ -338,7 +418,7 @@ cats.innerHTML = CARDAPIO.map((c, i) => `
           <div class="row"><span class="nm">${esc(n)}</span><span class="ld"></span><span class="pr"><small>R$</small>${p}</span></div>
           ${d ? `<div class="ds">${esc(d)}</div>` : ""}
         </div>
-        <a class="mais" aria-label="Pedir ${esc(n)}" target="_blank" rel="noopener" href="${wa(`Olá! Quero pedir: ${n}`)}">+</a>
+        <button class="mais" aria-label="Adicionar ${esc(n)}" data-add="${esc(n)}">+</button>
       </div>`).join("")}
   </div>`).join("");
 tabs.addEventListener("click", (e) => {
@@ -370,6 +450,99 @@ const carrossel = (rail, VEL) => {
   rail.addEventListener("click", (e) => { if (moveu) { e.preventDefault(); e.stopPropagation(); } }, true);
 };
 carrossel(document.getElementById("rail"), 28);
+
+/* =================== PEDIDO (carrinho) =================== */
+const PRECO = {};
+CARDAPIO.forEach((c) => c.itens.forEach(([n, p]) => { if (!(n in PRECO)) PRECO[n] = parseFloat(p.replace(",", ".")); }));
+const brl = (v) => "R$ " + v.toFixed(2).replace(".", ",");
+const $ = (id) => document.getElementById(id);
+let pedido = [];
+try { pedido = JSON.parse(localStorage.getItem("ronalds-pedido") || "[]"); } catch (e) { pedido = []; }
+const salva = () => { try { localStorage.setItem("ronalds-pedido", JSON.stringify(pedido)); } catch (e) {} };
+const toast = (t) => { const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove("on"), 1600); };
+
+const adiciona = (nome, opc) => {
+  const chave = nome + (opc ? " | " + opc : "");
+  const it = pedido.find((x) => x.chave === chave);
+  if (it) it.qtd++; else pedido.push({ chave, nome, opc: opc || "", preco: PRECO[nome] || 0, qtd: 1 });
+  salva(); desenha(); toast(`✓ ${nome}${opc ? " (" + opc + ")" : ""} adicionado`);
+};
+
+const abre = (id, on) => { $(id).classList.toggle("on", on); $("velo").classList.toggle("on", $("sheet").classList.contains("on") || $("escolha").classList.contains("on")); };
+
+/* escolha de sabor */
+let escolhendo = "";
+const pedeOpcao = (nome) => {
+  escolhendo = nome;
+  $("escTitulo").innerHTML = esc(nome) + '<span class="dot">.</span>';
+  $("escOpcoes").innerHTML = OPCOES[nome].map((o) => `<button data-o="${esc(o)}">${esc(o)}</button>`).join("");
+  abre("escolha", true);
+};
+$("escOpcoes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; adiciona(escolhendo, b.dataset.o); abre("escolha", false); });
+$("escFechar").onclick = () => abre("escolha", false);
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-add]"); if (!b) return;
+  e.preventDefault();
+  const nome = b.dataset.add;
+  OPCOES[nome] ? pedeOpcao(nome) : adiciona(nome);
+});
+
+const desenha = () => {
+  const n = pedido.reduce((a, x) => a + x.qtd, 0), tot = pedido.reduce((a, x) => a + x.qtd * x.preco, 0);
+  $("bar").classList.toggle("on", n > 0);
+  document.body.classList.toggle("tem-pedido", n > 0);
+  $("barQt").textContent = `${n} ${n === 1 ? "item" : "itens"} no pedido`;
+  $("barTt").textContent = brl(tot);
+  $("total").textContent = brl(tot);
+  $("linhas").innerHTML = n ? pedido.map((x, i) => `
+    <div class="linha">
+      <div class="nm2">${esc(x.nome)}${x.opc ? `<small>${esc(x.opc)}</small>` : ""}<small>${brl(x.preco)} cada</small></div>
+      <div class="qtd"><button data-m="${i}" aria-label="Diminuir">−</button><b>${x.qtd}</b><button data-p="${i}" aria-label="Aumentar">+</button></div>
+      <div class="sub">${brl(x.qtd * x.preco)}</div>
+    </div>`).join("") : '<div class="vazio">Seu pedido está vazio. Toque no + do cardápio. 🍔</div>';
+};
+$("linhas").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  const i = +(b.dataset.m ?? b.dataset.p);
+  if (b.dataset.p !== undefined) pedido[i].qtd++; else if (--pedido[i].qtd <= 0) pedido.splice(i, 1);
+  salva(); desenha(); if (!pedido.length) abre("sheet", false);
+});
+$("abrir").onclick = () => abre("sheet", true);
+$("fechar").onclick = () => abre("sheet", false);
+$("velo").onclick = () => { abre("sheet", false); abre("escolha", false); };
+$("limpar").onclick = () => { if (confirm("Limpar todos os itens do pedido?")) { pedido = []; salva(); desenha(); abre("sheet", false); } };
+
+const grupo = (id) => {
+  const g = $(id);
+  g.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; e.preventDefault(); g.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b)); g.dispatchEvent(new Event("change")); });
+  return () => g.querySelector("button.on")?.dataset.v || "";
+};
+const tipo = grupo("fTipo"), pag = grupo("fPag");
+$("fTipo").addEventListener("change", () => { $("boxEnd").style.display = tipo() === "Entrega" ? "" : "none"; });
+$("fPag").addEventListener("change", () => { $("boxTroco").style.display = pag() === "Dinheiro" ? "" : "none"; });
+try { $("fNome").value = localStorage.getItem("ronalds-nome") || ""; $("fEnd").value = localStorage.getItem("ronalds-end") || ""; } catch (e) {}
+
+$("enviar").onclick = () => {
+  const nome = $("fNome").value.trim(), end = $("fEnd").value.trim(), ref = $("fRef").value.trim();
+  const erro = !pedido.length ? "Adicione pelo menos um item." : !nome ? "Informe seu nome." : tipo() === "Entrega" && !end ? "Informe o endereço de entrega." : !pag() ? "Escolha a forma de pagamento." : "";
+  $("erro").textContent = erro; if (erro) return;
+  try { localStorage.setItem("ronalds-nome", nome); localStorage.setItem("ronalds-end", end); } catch (e) {}
+  const tot = pedido.reduce((a, x) => a + x.qtd * x.preco, 0);
+  const troco = $("fTroco").value.trim(), obs = $("fObs").value.trim();
+  const msg = [
+    "🍔 *NOVO PEDIDO — Ronald's Lanches*", "",
+    "*Itens:*",
+    ...pedido.map((x) => `• ${x.qtd}x ${x.nome}${x.opc ? " (" + x.opc + ")" : ""} — ${brl(x.qtd * x.preco)}`),
+    "", `*Total: ${brl(tot)}*`, "",
+    `*Cliente:* ${nome}`,
+    tipo() === "Entrega" ? `*Entrega:* ${end}${ref ? " (Ref.: " + ref + ")" : ""} 🛵` : "*Retirada no local* 🏪",
+    `*Pagamento:* ${pag()}${pag() === "Dinheiro" && troco ? " — troco para R$ " + troco : ""}`,
+    obs ? `*Obs.:* ${obs}` : "",
+  ].filter((l, i, a) => !(l === "" && a[i - 1] === "")).join("\n").trim();
+  window.open(wa(msg), "_blank");
+};
+desenha();
 
 /* entrada das seções ao rolar */
 const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("vis")), { threshold: 0.12 });
