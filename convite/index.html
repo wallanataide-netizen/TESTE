@@ -89,6 +89,24 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 .gone{opacity:0;pointer-events:none}
 .invite{opacity:0;transition:opacity 1.2s ease}
 .invite.play{opacity:1}
+
+.sheet{position:fixed;inset:0;z-index:20;pointer-events:none}
+.sheet-bg{position:absolute;inset:0;background:rgba(90,30,50,.28);opacity:0;transition:opacity .35s;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sheet-card{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));max-width:440px;margin:0 auto;padding:22px 18px 14px;border-radius:24px;
+  background:rgba(255,250,252,.96);box-shadow:0 20px 60px rgba(150,60,90,.3);transform:translateY(120%);transition:transform .45s cubic-bezier(.2,.8,.2,1);text-align:center}
+.sheet.on{pointer-events:auto}.sheet.on .sheet-bg{opacity:1}.sheet.on .sheet-card{transform:none}
+.sheet-t{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--deep)}
+.sheet-s{font-size:10.5px;letter-spacing:.3em;color:var(--soft);margin:4px 0 14px;text-transform:uppercase}
+.opt{display:flex;align-items:center;gap:14px;padding:13px 16px;margin-top:8px;border-radius:14px;background:#fff;border:1px solid rgba(226,115,141,.22);
+  text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;letter-spacing:.04em}
+.ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px}
+.ic.g{background:linear-gradient(135deg,#4285f4,#34a853)}.ic.w{background:#33ccff}.ic.a{background:linear-gradient(135deg,#5ac8fa,#34c759)}.ic.a::before{content:"\25B2";font-size:11px}.ic.u{background:#111}
+.cancel{margin-top:12px;width:100%;padding:12px;border:0;background:none;font:500 12px Montserrat,sans-serif;letter-spacing:.24em;color:var(--soft)}
+.snd{position:fixed;z-index:15;top:calc(14px + env(safe-area-inset-top));right:14px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(185,77,104,.25);
+  background:rgba(255,250,252,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;place-items:center}
+.snd.show{display:grid}
+.snd svg{width:18px;height:18px;fill:none;stroke:var(--deep);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.snd .x{display:none}.snd.off .x{display:block}.snd.off .w1,.snd.off .w2{display:none}
 @media (max-height:700px){.logo{width:clamp(120px,34vw,160px)}.msg{margin-top:14px}.line{margin:12px auto 10px}.place{margin-top:10px}.btn{margin-top:12px}}
 </style>
 </head>
@@ -122,9 +140,26 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
   <p class="date r" style="animation-delay:5.3s">26 . 12 . 2026</p>
   <p class="hour r" style="animation-delay:5.7s">ÀS 21H30</p>
   <p class="place r" style="animation-delay:6.3s">Yolla Gourmet</p>
-  <a class="btn r" style="animation-delay:7s" id="map" href="https://www.google.com/maps/search/?api=1&query=Yolla%20Gourmet" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>COMO CHEGAR</a>
+  <button class="btn r" style="animation-delay:7s" id="map" type="button">
+    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>COMO CHEGAR</button>
 </main>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-card">
+    <p class="sheet-t">Como você prefere chegar?</p>
+    <p class="sheet-s">Yolla Gourmet</p>
+    <a class="opt" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Yolla%20Gourmet"><span class="ic g">G</span>Google Maps</a>
+    <a class="opt" target="_blank" rel="noopener" href="https://waze.com/ul?q=Yolla%20Gourmet&navigate=yes"><span class="ic w">W</span>Waze</a>
+    <a class="opt" target="_blank" rel="noopener" href="https://maps.apple.com/?q=Yolla%20Gourmet"><span class="ic a"></span>Apple Mapas</a>
+    <a class="opt" target="_blank" rel="noopener" href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Bnickname%5D=Yolla%20Gourmet&dropoff%5Bformatted_address%5D=Yolla%20Gourmet"><span class="ic u">U</span>Uber</a>
+    <button class="cancel" data-close type="button">Cancelar</button>
+  </div>
+</div>
+<button class="snd" id="snd" type="button" aria-label="Som"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w1" d="M16 9a4 4 0 0 1 0 6"/><path class="w2" d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="M16 9l5 6M21 9l-5 6"/></svg></button>
+<audio id="aTap" src="tap.mp3" preload="auto"></audio>
+<audio id="aBloom" src="bloom.mp3" preload="auto"></audio>
+<audio id="aMusic" src="musica.mp3" preload="auto" loop></audio>
 <script>
 (function(){
  const cv=document.getElementById('bg');const gl=cv.getContext('webgl',{antialias:false});
@@ -166,11 +201,22 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 const cover=document.getElementById('cover'),vid=document.getElementById('bloom'),bud=document.getElementById('bud'),inv=document.getElementById('invite');
 let opened=false;
 function showInvite(){cover.classList.add('bloomed');setTimeout(()=>{cover.classList.add('gone');inv.classList.add('play')},900);setTimeout(()=>cover.remove(),3200)}
-function open(){if(opened)return;opened=true;cover.classList.add('opening');
+function open(){if(opened)return;opened=true;startSound();cover.classList.add('opening');
   const p=vid.play();const start=()=>{bud.style.opacity=0};
   if(p&&p.then)p.then(start).catch(()=>{showInvite()});else start();
   vid.addEventListener('timeupdate',function f(){if(vid.duration&&vid.currentTime>vid.duration-1.1){vid.removeEventListener('timeupdate',f);vid.pause();showInvite()}});
   setTimeout(()=>{if(!cover.classList.contains('bloomed'))showInvite()},9000)}
+
+const aTap=document.getElementById('aTap'),aBloom=document.getElementById('aBloom'),aMusic=document.getElementById('aMusic'),snd=document.getElementById('snd');
+let muted=false;
+function fadeTo(a,v,ms){const s=a.volume,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/ms);a.volume=s+(v-s)*k;if(k<1)requestAnimationFrame(f)})(t0)}
+function startSound(){try{aTap.volume=.7;aTap.play().catch(()=>{});setTimeout(()=>{aBloom.volume=.75;aBloom.play().catch(()=>{})},250);
+  aMusic.volume=0;aMusic.play().then(()=>{fadeTo(aMusic,.32,4000)}).catch(()=>{});snd.classList.add('show')}catch(e){}}
+snd.onclick=()=>{muted=!muted;snd.classList.toggle('off',muted);[aTap,aBloom,aMusic].forEach(a=>a.muted=muted)};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)aMusic.pause();else if(opened&&!muted)aMusic.play().catch(()=>{})});
+const sheet=document.getElementById('sheet');
+document.getElementById('map').onclick=()=>{sheet.classList.add('on');sheet.setAttribute('aria-hidden','false')};
+sheet.querySelectorAll('[data-close]').forEach(e=>e.onclick=()=>{sheet.classList.remove('on');sheet.setAttribute('aria-hidden','true')});
 cover.addEventListener('click',open);
 
 </script>
