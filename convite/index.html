@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9dfe5">
+<title>Isabelle Dantas · XV · Convite</title>
+<meta property="og:title" content="Isabelle Dantas · XV">
+<meta property="og:description" content="Toque no botão de rosa para abrir o seu convite.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://convite-isabelle-dantas.pages.dev/">
+<meta property="og:image" content="https://convite-isabelle-dantas.pages.dev/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="1200">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#e2738d;--deep:#b94d68;--ink:#8f3a52;--soft:rgba(143,58,82,.72)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#fcecf0;overflow:hidden}
+body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
+#bg{position:fixed;inset:0;width:100%;height:100%;display:block}
+.fallback{position:fixed;inset:0;background:linear-gradient(rgba(255,249,251,.5),rgba(255,249,251,.5)),url(fundo.jpg) center/cover;animation:kb 26s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12) translate(-2%,-2%)}}
+.veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(110% 62% at 50% 52%,rgba(255,251,252,.55),rgba(255,240,245,0) 72%)}
+.invite{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:calc(26px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom))}
+.r{opacity:0;transform:translateY(12px);filter:blur(6px)}
+.play .r{animation:up 1.4s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes up{to{opacity:1;transform:none;filter:blur(0)}}
+.once{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,5.2vw,24px);color:var(--deep);margin-bottom:14px}
+.logo{position:relative;width:clamp(150px,44vw,210px);aspect-ratio:586/736}
+.logo img{position:absolute;inset:0;width:100%;height:100%}
+.logo .base{filter:drop-shadow(0 6px 14px rgba(185,77,104,.22))}
+.ring,.shine{position:absolute;inset:0;pointer-events:none}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.ring{-webkit-mask:url(mono_edge.png) center/100% 100% no-repeat;mask:url(mono_edge.png) center/100% 100% no-repeat;
+  background:conic-gradient(from var(--a),transparent 0deg,transparent 290deg,rgba(255,200,215,.95) 325deg,#fff 350deg,transparent 360deg);
+  filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px rgba(255,105,150,.95)) drop-shadow(0 0 14px rgba(255,140,175,.8));opacity:0;animation:spin 3.8s linear infinite,fade 1.5s ease 3s forwards}
+.ring2{animation-delay:-2.25s,3s}
+.ring2.on{opacity:.55}
+@keyframes spin{to{--a:360deg}}
+@keyframes fade{to{opacity:1}}
+.shine{-webkit-mask:url(mono.png) center/100% 100% no-repeat;mask:url(mono.png) center/100% 100% no-repeat;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.85) 50%,transparent 60%) no-repeat;background-size:300% 100%;
+  background-position:150% 0;animation:sweep 5s ease-in-out 2s infinite}
+@keyframes sweep{0%,55%{background-position:150% 0}85%,100%{background-position:-50% 0}}
+.logo .reveal{position:absolute;inset:0;clip-path:inset(0 0 100% 0)}
+.play .logo .reveal{animation:rv 2.2s cubic-bezier(.6,.05,.25,1) .9s forwards}
+@keyframes rv{to{clip-path:inset(-10% -10% -10% -10%)}}
+.name{margin-top:18px;font-weight:400;font-size:clamp(15px,4.4vw,19px);letter-spacing:.42em;margin-right:-.42em;color:var(--rose);white-space:nowrap}
+.xv{font-weight:400;font-size:clamp(14px,4vw,17px);letter-spacing:.4em;margin-right:-.4em;color:var(--rose);margin-top:6px}
+.msg{margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(16px,4.5vw,20px);line-height:1.35;color:var(--ink);max-width:330px}
+.line{width:0;height:1px;margin:20px auto 16px;background:linear-gradient(90deg,transparent,var(--rose),transparent)}
+.play .line{animation:ln 1.6s ease 4.4s forwards}
+@keyframes ln{to{width:min(60%,240px)}}
+.day{font-size:clamp(10.5px,2.9vw,12px);letter-spacing:.34em;margin-right:-.34em;color:var(--soft);font-weight:500}
+.date{font-weight:300;font-size:clamp(28px,8.4vw,38px);letter-spacing:.12em;margin:4px -.12em 2px 0;color:var(--deep)}
+.hour{font-size:clamp(12px,3.3vw,14px);letter-spacing:.3em;margin-right:-.3em;color:var(--rose);font-weight:500}
+.place{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.2vw,28px);color:var(--ink);font-style:italic}
+.btn{margin-top:18px;display:inline-flex;align-items:center;gap:9px;padding:12px 24px;border-radius:999px;text-decoration:none;
+  font-size:11px;font-weight:500;letter-spacing:.24em;color:#fff;
+  background:linear-gradient(135deg,#ec8aa1,#d4637f);box-shadow:0 8px 22px rgba(185,77,104,.28),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:1.8}
+
+/* capa */
+.cover{position:fixed;inset:0;mix-blend-mode:multiply;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;cursor:pointer;
+  transition:opacity 1.2s ease}
+.cover .top{position:absolute;top:calc(34px + env(safe-area-inset-top));left:0;right:0;text-align:center}
+.cover .top .n{font-size:clamp(12px,3.4vw,14px);letter-spacing:.42em;margin-right:-.42em;color:var(--rose);font-weight:400}
+.cover .top .x{font-size:clamp(11px,3vw,13px);letter-spacing:.4em;margin-right:-.4em;color:var(--rose);margin-top:6px}
+.flower{position:relative;height:min(74vh,128vw);aspect-ratio:2/3;transition:transform 2.6s cubic-bezier(.5,0,.2,1),filter 2.6s ease,opacity 2.6s ease}
+.flower video,.flower img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.flower img{transition:opacity .3s}
+.halo{position:absolute;left:50%;top:24%;width:34%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+  border:1.6px solid rgba(185,77,104,.75);box-shadow:0 0 18px rgba(226,115,141,.35);animation:halo 2.4s ease-out infinite}
+.halo.h2{animation-delay:1.2s}
+@keyframes halo{0%{transform:translate(-50%,-50%) scale(.55);opacity:.9}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
+.cta{position:absolute;bottom:calc(40px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(18px,5vw,22px);color:var(--deep);animation:breath 2.4s ease-in-out infinite}
+.tap{display:block;width:26px;height:26px;margin:0 auto 6px;fill:none;stroke:var(--deep);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;animation:tapm 1.6s ease-in-out infinite}
+@keyframes tapm{50%{transform:translateY(-5px)}}
+.cta small{display:block;font-family:Montserrat,sans-serif;font-style:normal;font-size:10px;letter-spacing:.34em;margin-right:-.34em;color:var(--soft);margin-top:8px}
+@keyframes breath{50%{opacity:.55}}
+.opening .halo,.opening .cta,.opening .top{opacity:0;transition:opacity .6s}
+.opening .cta{animation:none}
+.bloomed .flower{transform:scale(2.4) translateY(14%);filter:blur(10px);opacity:0}
+.gone{opacity:0;pointer-events:none}
+.invite{opacity:0;transition:opacity 1.2s ease}
+.invite.play{opacity:1}
+@media (max-height:700px){.logo{width:clamp(120px,34vw,160px)}.msg{margin-top:14px}.line{margin:12px auto 10px}.place{margin-top:10px}.btn{margin-top:12px}}
+</style>
+</head>
+<body>
+<div class="fallback" id="fb"></div>
+<canvas id="bg"></canvas>
+<div class="veil"></div>
+<section class="cover" id="cover" aria-label="Toque no botão de rosa para abrir o convite">
+  <div class="top"><p class="n">ISABELLE DANTAS</p><p class="x">XV</p></div>
+  <div class="flower">
+    <video id="bloom" src="bloom.mp4" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture></video>
+    <img id="bud" src="botao.png" alt="">
+    <span class="halo"></span><span class="halo h2"></span>
+  </div>
+  <p class="cta"><svg class="tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 15a1.5 1.5 0 0 1 2.4-1.8L9 16"/></svg>toque no botão de rosa<small>PARA ABRIR O SEU CONVITE</small></p>
+</section>
+<main class="invite" id="invite">
+  <p class="once r" style="animation-delay:.3s">Era uma vez… um botão de rosa</p>
+  <div class="logo r" style="animation-delay:.8s;animation-duration:.5s">
+    <div class="reveal">
+      <img class="base" src="mono.png" alt="Monograma Isabelle Dantas">
+      <div class="shine"></div>
+    </div>
+    <div class="ring"></div>
+  </div>
+  <p class="name r" style="animation-delay:2.6s">ISABELLE DANTAS</p>
+  <p class="xv r" style="animation-delay:3s">XV</p>
+  <p class="msg r" style="animation-delay:3.6s">Com a bênção de Deus e o carinho da minha família, convido você para celebrar comigo os meus 15 anos.</p>
+  <div class="line"></div>
+  <p class="day r" style="animation-delay:5s">SÁBADO</p>
+  <p class="date r" style="animation-delay:5.3s">26 . 12 . 2026</p>
+  <p class="hour r" style="animation-delay:5.7s">ÀS 21H30</p>
+  <p class="place r" style="animation-delay:6.3s">Yolla Gourmet</p>
+  <a class="btn r" style="animation-delay:7s" id="map" href="https://www.google.com/maps/search/?api=1&query=Yolla%20Gourmet" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>COMO CHEGAR</a>
+</main>
+<script>
+(function(){
+ const cv=document.getElementById('bg');const gl=cv.getContext('webgl',{antialias:false});
+ if(!gl)return;
+ const vs='attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0,1);}';
+ const fs=`precision highp float;varying vec2 v;uniform sampler2D t;uniform float T;uniform vec2 R,I;
+ float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+ float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+ float fb(vec2 p){float s=0.,a=.5;for(int k=0;k<4;k++){s+=a*n(p);p*=2.03;a*=.5;}return s;}
+ void main(){
+  vec2 uv=vec2(v.x,1.-v.y);
+  float ar=R.x/R.y,ir=I.x/I.y;vec2 sc=ar<ir?vec2(ar/ir,1.):vec2(1.,ir/ar);
+  uv=(uv-.5)*sc*.9+.5;
+  float t=T*.045;
+  vec2 q=vec2(fb(uv*2.2+vec2(t,-t*.7)),fb(uv*2.2+vec2(-t*.8,t)+5.2));
+  vec2 w=uv+(q-.5)*.055+vec2(sin(uv.y*6.+T*.25),cos(uv.x*5.+T*.2))*.006;
+  vec3 c=texture2D(t,w).rgb;c=mix(c,vec3(1.,.976,.982),.5);
+  float band=sin((uv.x*1.3+uv.y*1.8)*3.2-T*.55+q.x*4.);
+  c+=vec3(1.,.97,.98)*smoothstep(.82,1.,band)*.16;
+  gl_FragColor=vec4(c,1.);}`;
+ function sh(ty,s){const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o}
+ const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);
+ if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+ const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+ const l=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+ const im=new Image();im.onload=()=>{
+  const tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im);
+  const uT=gl.getUniformLocation(pr,'T'),uR=gl.getUniformLocation(pr,'R'),uI=gl.getUniformLocation(pr,'I');
+  gl.uniform2f(uI,im.width,im.height);
+  function rs(){const d=Math.min(devicePixelRatio||1,2);cv.width=innerWidth*d;cv.height=innerHeight*d;gl.viewport(0,0,cv.width,cv.height);gl.uniform2f(uR,cv.width,cv.height)}
+  rs();addEventListener('resize',rs);document.getElementById('fb').style.display='none';
+  const t0=performance.now();(function f(){gl.uniform1f(uT,(performance.now()-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(f)})();
+ };im.src='fundo.jpg';
+})();
+
+const cover=document.getElementById('cover'),vid=document.getElementById('bloom'),bud=document.getElementById('bud'),inv=document.getElementById('invite');
+let opened=false;
+function showInvite(){cover.classList.add('bloomed');setTimeout(()=>{cover.classList.add('gone');inv.classList.add('play')},900);setTimeout(()=>cover.remove(),3200)}
+function open(){if(opened)return;opened=true;cover.classList.add('opening');
+  const p=vid.play();const start=()=>{bud.style.opacity=0};
+  if(p&&p.then)p.then(start).catch(()=>{showInvite()});else start();
+  vid.addEventListener('timeupdate',function f(){if(vid.duration&&vid.currentTime>vid.duration-1.1){vid.removeEventListener('timeupdate',f);vid.pause();showInvite()}});
+  setTimeout(()=>{if(!cover.classList.contains('bloomed'))showInvite()},9000)}
+cover.addEventListener('click',open);
+
+</script>
+</body>
+</html>
