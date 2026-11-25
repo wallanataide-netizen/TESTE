@@ -206,8 +206,7 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
   </div>
 </div>
 <button class="snd" id="snd" type="button" aria-label="Som"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w1" d="M16 9a4 4 0 0 1 0 6"/><path class="w2" d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="M16 9l5 6M21 9l-5 6"/></svg></button>
-<audio id="aTap" src="tap.mp3" preload="auto"></audio>
-<audio id="aBloom" src="bloom.mp3" preload="auto"></audio>
+<audio id="aTap"></audio><audio id="aBloom"></audio>
 <audio id="aMusic" src="musica.mp3" preload="auto" loop></audio>
 <script>
 (function(){
@@ -262,8 +261,7 @@ function open(){if(opened)return;opened=true;startSound();cover.classList.add('o
 const aTap=document.getElementById('aTap'),aBloom=document.getElementById('aBloom'),aMusic=document.getElementById('aMusic'),snd=document.getElementById('snd');
 let muted=false;
 function fadeTo(a,v,ms){const s=a.volume,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/ms);a.volume=s+(v-s)*k;if(k<1)requestAnimationFrame(f)})(t0)}
-function startSound(){try{aTap.volume=.7;aTap.play().catch(()=>{});setTimeout(()=>{aBloom.volume=.75;aBloom.play().catch(()=>{})},250);
-  aMusic.volume=0;aMusic.play().then(()=>{fadeTo(aMusic,.32,4000)}).catch(()=>{});snd.classList.add('show')}catch(e){}}
+function startSound(){try{aMusic.currentTime=0;aMusic.volume=.6;aMusic.play().catch(()=>{});snd.classList.add('show')}catch(e){}}
 snd.onclick=()=>{muted=!muted;snd.classList.toggle('off',muted);[aTap,aBloom,aMusic].forEach(a=>a.muted=muted)};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)aMusic.pause();else if(opened&&!muted)aMusic.play().catch(()=>{})});
 const sheet=document.getElementById('sheet');
