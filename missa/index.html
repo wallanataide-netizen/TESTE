@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f9dfe5">
 <title>Missa em Ação de Graças · Isabelle Dantas XV</title>
 <meta property="og:title" content="Missa em Ação de Graças · Isabelle Dantas XV">
-<meta property="og:description" content="Toque no botão de rosa para abrir o seu convite.">
+<meta property="og:description" content="Toque no terço para abrir o seu convite.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://missa-isabelle-dantas.pages.dev/">
 <meta property="og:image" content="https://missa-isabelle-dantas.pages.dev/og.jpg">
@@ -69,11 +69,12 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
   transition:opacity 1.2s ease}
 .cover .top{position:absolute;top:calc(34px + env(safe-area-inset-top));left:0;right:0;text-align:center}
 .cover .top .n{font-size:clamp(12px,3.4vw,14px);letter-spacing:.42em;margin-right:-.42em;color:var(--rose);font-weight:400}
+.cover .top .m{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.6vw,21px);color:var(--deep);margin-top:8px}
 .cover .top .x{font-size:clamp(11px,3vw,13px);letter-spacing:.4em;margin-right:-.4em;color:var(--rose);margin-top:6px}
 .flower{position:relative;height:min(74vh,128vw);aspect-ratio:2/3;transition:transform 2.6s cubic-bezier(.5,0,.2,1),filter 2.6s ease,opacity 2.6s ease}
 .flower video,.flower img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .flower img{transition:opacity .3s}
-.halo{position:absolute;left:50%;top:24%;width:34%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+.halo{position:absolute;left:50%;top:52%;width:30%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   border:1.6px solid rgba(185,77,104,.75);box-shadow:0 0 18px rgba(226,115,141,.35);animation:halo 2.4s ease-out infinite}
 .halo.h2{animation-delay:1.2s}
 @keyframes halo{0%{transform:translate(-50%,-50%) scale(.55);opacity:.9}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
@@ -157,14 +158,14 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 <div class="fallback" id="fb"></div>
 <canvas id="bg"></canvas>
 <div class="veil"></div>
-<section class="cover" id="cover" aria-label="Toque no botão de rosa para abrir o convite">
-  <div class="top"><p class="n">ISABELLE DANTAS</p><p class="x">XV</p></div>
+<section class="cover" id="cover" aria-label="Toque no terço para abrir o convite">
+  <div class="top"><p class="n">ISABELLE DANTAS</p><p class="x">XV</p><p class="m">Missa em Ação de Graças</p></div>
   <div class="flower">
-    <video id="bloom" src="bloom.mp4" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture></video>
-    <img id="bud" src="botao.png" alt="">
+    <video id="bloom" src="terco.mp4" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture></video>
+    <img id="bud" src="terco.png" alt="">
     <span class="halo"></span><span class="halo h2"></span>
   </div>
-  <p class="cta"><svg class="tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 15a1.5 1.5 0 0 1 2.4-1.8L9 16"/></svg>toque no botão de rosa<small>PARA ABRIR O SEU CONVITE</small></p>
+  <p class="cta"><svg class="tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 15a1.5 1.5 0 0 1 2.4-1.8L9 16"/></svg>toque no terço<small>PARA ABRIR O SEU CONVITE</small></p>
 </section>
 <div class="scene2" id="scene2">
   <div class="hero">
