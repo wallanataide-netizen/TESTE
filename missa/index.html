@@ -109,24 +109,25 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 .snd .x{display:none}.snd.off .x{display:block}.snd.off .w1,.snd.off .w2{display:none}
 
 :root{--gold:#b88a4a}
-.scene2{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+.scene2{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease;mix-blend-mode:multiply}
 .scene2.on{opacity:1}
 .frame{position:absolute;inset:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));border:1px solid rgba(184,138,74,.55);
   clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px)}
 .frame i{position:absolute;width:26px;height:26px;border-color:rgba(184,138,74,.55);border-style:solid;border-width:0}
-.flor{position:absolute;mix-blend-mode:multiply;width:46vw;max-width:260px;opacity:.95}
+.flor{position:absolute;width:44vw;max-width:250px;opacity:.95}
 .flor.tl{left:-8vw;top:-6vw;transform-origin:10% 10%;animation:sway 7s ease-in-out infinite}
 .flor.br{right:-8vw;bottom:-5vw;transform:rotate(180deg);transform-origin:90% 90%;animation:sway2 8s ease-in-out infinite}
 .flor.mr{right:-14vw;top:44%;width:32vw;transform:rotate(200deg);transform-origin:90% 50%;animation:sway3 9s ease-in-out infinite;opacity:.8}
 @keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(2.4deg) scale(1.02)}}
 @keyframes sway2{0%,100%{transform:rotate(180deg)}50%{transform:rotate(177.6deg) scale(1.02)}}
 @keyframes sway3{0%,100%{transform:rotate(200deg)}50%{transform:rotate(203deg)}}
-.invite.missa{justify-content:flex-start;padding-top:0}
-.hero{position:relative;width:min(100vw,55vh);aspect-ratio:9/10;margin:0 auto -22%;
-  -webkit-mask:linear-gradient(#000 62%,transparent 98%);mask:linear-gradient(#000 62%,transparent 98%)}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;mix-blend-mode:multiply}
+.invite.missa>*{flex:none}
+.invite.missa{justify-content:flex-start;padding-top:calc(35svh + env(safe-area-inset-top));overflow-y:auto;-webkit-overflow-scrolling:touch}
+.hero{position:absolute;left:0;right:0;top:0;height:50svh;
+  -webkit-mask:radial-gradient(120% 95% at 50% 30%,#000 55%,transparent 82%);mask:radial-gradient(120% 95% at 50% 30%,#000 55%,transparent 82%)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 14%;transition:opacity .5s}
 .hero #v2{opacity:0}
-.missa .logo{width:clamp(92px,26vw,128px);z-index:2}
+.missa .logo{width:clamp(88px,25vw,122px);z-index:2;flex:none}
 .missa .name{margin-top:10px;font-size:clamp(13px,3.8vw,16px);color:var(--deep)}
 .xvl{display:flex;align-items:center;gap:12px;width:min(78%,330px);margin-top:4px}
 .xvl span,.cross span,.cel span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -147,7 +148,7 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 .padre{font:500 clamp(19px,5.4vw,24px) 'Cormorant Garamond',serif;color:var(--ink)}
 .missa .btn{margin-top:12px;padding:10px 22px}
 .invite.missa{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
-@media (max-height:740px){.hero{width:min(92vw,52vh)}.titulo{margin-top:6px}.cel{margin-top:8px}}
+@media (max-height:760px){.missa .logo{width:clamp(80px,22vw,110px)}.titulo{margin-top:4px}.cel{margin-top:6px}.script{font-size:clamp(24px,7.4vw,32px)}}
 @media (max-height:700px){.logo{width:clamp(120px,34vw,160px)}.msg{margin-top:14px}.line{margin:12px auto 10px}.place{margin-top:10px}.btn{margin-top:12px}}
 </style>
 </head>
@@ -165,14 +166,15 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
   <p class="cta"><svg class="tap" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 15a1.5 1.5 0 0 1 2.4-1.8L9 16"/></svg>toque no botão de rosa<small>PARA ABRIR O SEU CONVITE</small></p>
 </section>
 <div class="scene2" id="scene2">
+  <div class="hero">
+    <video id="v1" src="encontro.mp4" muted playsinline webkit-playsinline preload="auto"></video>
+    <video id="v2" src="loop.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
+  </div>
   <div class="frame"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
   <img class="flor tl" src="flor.png" alt=""><img class="flor br" src="flor.png" alt=""><img class="flor mr" src="flor.png" alt="">
 </div>
 <main class="invite missa" id="invite">
-  <div class="hero r" style="animation-delay:.1s">
-    <video id="v1" src="encontro.mp4" muted playsinline webkit-playsinline preload="auto"></video>
-    <video id="v2" src="loop.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
-  </div>
+
   <div class="logo r" style="animation-delay:3.2s;animation-duration:.5s">
     <div class="reveal"><img class="base" src="mono.png" alt="Monograma Isabelle Dantas"><div class="shine"></div></div>
     <div class="ring"></div>
