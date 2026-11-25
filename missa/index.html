@@ -123,8 +123,9 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 @keyframes sway3{0%,100%{transform:rotate(200deg)}50%{transform:rotate(203deg)}}
 .invite.missa>*{flex:none}
 .invite.missa{justify-content:flex-start;padding-top:calc(35svh + env(safe-area-inset-top));overflow-y:auto;-webkit-overflow-scrolling:touch}
-.hero{position:absolute;left:0;right:0;top:0;height:50svh;
-  -webkit-mask:radial-gradient(120% 95% at 50% 30%,#000 55%,transparent 82%);mask:radial-gradient(120% 95% at 50% 30%,#000 55%,transparent 82%)}
+.hero{position:absolute;left:50%;transform:translateX(-50%);top:0;height:50svh;width:min(100vw,62svh);
+  -webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 98%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 58%,transparent 98%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 14%;transition:opacity .5s}
 .hero #v2{opacity:0}
 .missa .logo{width:clamp(88px,25vw,122px);z-index:2;flex:none}
