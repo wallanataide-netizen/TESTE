@@ -127,7 +127,8 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 .hero{position:absolute;left:50%;transform:translateX(-50%);top:0;height:50svh;width:min(100vw,62svh);
   -webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 98%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);
   -webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 58%,transparent 98%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 14%;transition:opacity .5s}
+.hero video,.hero #still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 14%;transition:opacity .5s}
+.hero #v1{opacity:0}
 .hero #v2{opacity:0}
 .missa .logo{width:clamp(88px,25vw,122px);z-index:2;flex:none}
 .missa .name{margin-top:10px;font-size:clamp(13px,3.8vw,16px);color:var(--deep)}
@@ -169,8 +170,9 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 </section>
 <div class="scene2" id="scene2">
   <div class="hero">
-    <video id="v1" src="encontro.mp4" muted playsinline webkit-playsinline preload="auto"></video>
-    <video id="v2" src="loop.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
+    <img id="still" src="final.jpg" alt="Jesus e Maria">
+    <video id="v1" src="encontro.mp4" poster="inicio.jpg" muted playsinline webkit-playsinline preload="auto"></video>
+    <video id="v2" src="loop.mp4" poster="final.jpg" muted playsinline webkit-playsinline preload="auto" loop></video>
   </div>
   <div class="frame"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
   <img class="flor tl" src="flor.png" alt=""><img class="flor br" src="flor.png" alt=""><img class="flor mr" src="flor.png" alt="">
@@ -252,11 +254,13 @@ body{font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
 const cover=document.getElementById('cover'),vid=document.getElementById('bloom'),bud=document.getElementById('bud'),inv=document.getElementById('invite');
 
 const v1=document.getElementById('v1'),v2=document.getElementById('v2');
-function startHero(){v1.currentTime=0;v1.play().catch(()=>{});v2.load()}
+function startHero(){v1.currentTime=0;const p=v1.play();if(p&&p.then)p.then(()=>{v1.style.opacity=1}).catch(()=>{});else v1.style.opacity=1;
+  setTimeout(()=>{if(v1.paused&&v1.currentTime<0.1){v2.play().then(()=>{v2.style.opacity=1}).catch(()=>{})}},2500)}
+function unlockVideos(){[v1,v2].forEach(v=>{try{const p=v.play();if(p&&p.then)p.then(()=>{v.pause();v.currentTime=0}).catch(()=>{})}catch(e){}})}
 v1.addEventListener('ended',()=>{v2.currentTime=0;v2.play().then(()=>{v2.style.transition='opacity .4s';v2.style.opacity=1;}).catch(()=>{})});
 let opened=false;
 function showInvite(){cover.classList.add('bloomed');setTimeout(()=>{cover.classList.add('gone');inv.classList.add('play');document.getElementById('scene2').classList.add('on');startHero()},900);setTimeout(()=>cover.remove(),3200)}
-function open(){if(opened)return;opened=true;startSound();cover.classList.add('opening');
+function open(){if(opened)return;opened=true;startSound();unlockVideos();cover.classList.add('opening');
   const p=vid.play();const start=()=>{bud.style.opacity=0};
   if(p&&p.then)p.then(start).catch(()=>{showInvite()});else start();
   vid.addEventListener('timeupdate',function f(){if(vid.duration&&vid.currentTime>vid.duration-1.1){vid.removeEventListener('timeupdate',f);vid.pause();showInvite()}});
